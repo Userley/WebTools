@@ -83,10 +83,14 @@
                         <a href="#"><i class="fa fa-forward" aria-hidden="true"></i><span
                                 class="nav-label">Videos</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="typography.html"><i class="fa fa-youtube-play" aria-hidden="true"></i> Youtube</a></li>
-                            <li><a href="icons.html"><i class="fa fa-instagram" aria-hidden="true"></i> Instagram</a></li>
-                            <li><a href="draggable_panels.html"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a></li>
-                            <li><a href="resizeable_panels.html"><i class="fa fa-music" aria-hidden="true"></i> Tik Tok</a></li>
+                            <li><a href="typography.html"><i class="fa fa-youtube-play" aria-hidden="true"></i>
+                                    Youtube</a></li>
+                            <li><a href="icons.html"><i class="fa fa-instagram" aria-hidden="true"></i> Instagram</a>
+                            </li>
+                            <li><a href="draggable_panels.html"><i class="fa fa-twitter" aria-hidden="true"></i>
+                                    Twitter</a></li>
+                            <li><a href="resizeable_panels.html"><i class="fa fa-music" aria-hidden="true"></i> Tik
+                                    Tok</a></li>
                             <li><a href="buttons.html"><i class="fa fa-film" aria-hidden="true"></i> Otros</a></li>
                         </ul>
                     </li>
@@ -95,21 +99,15 @@
                                 class="fa arrow"></span></a>
 
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="table_basic.html">Static Tables</a></li>
-                            <li><a href="table_data_tables.html">Data Tables</a></li>
-                            <li><a href="table_foo_table.html">Foo Tables</a></li>
-                            <li><a href="jq_grid.html">jqGrid</a></li>
+                            <li><a href="table_basic.html">Inspiradoras</a></li>
+                            <li><a href="table_data_tables.html">Científicas</a></li>
+                            <li><a href="table_foo_table.html">Desarrollo</a></li>
+                            <li><a href="jq_grid.html">Personales</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-font" aria-hidden="true"></i><span
-                                class="nav-label">Textos</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="basic_gallery.html">Lightbox Gallery</a></li>
-                            <li><a href="slick_carousel.html">Slick Carousel</a></li>
-                            <li><a href="carousel.html">Bootstrap Carousel</a></li>
-
-                        </ul>
+                                class="nav-label">Textos</span></a>
                     </li>
                     <li>
                         <a href="metrics.html"><i class="fa fa-pie-chart"></i> <span
@@ -117,9 +115,9 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="basic_gallery.html">Lightbox Gallery</a></li>
-                            <li><a href="slick_carousel.html">Slick Carousel</a></li>
-                            <li><a href="carousel.html">Bootstrap Carousel</a></li>
+                            <li><a href="slick_carousel.html">Frecuencia Dispositivos</a></li>
+                            <li><a href="basic_gallery.html">Consumo servicios</a></li>
+                            <li><a href="carousel.html">Frecuencia Web</a></li>
 
                         </ul>
                     </li>
@@ -135,6 +133,10 @@
                             <li><a href="carousel.html">Imágenes</a></li>
 
                         </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-money" aria-hidden="true"></i><span
+                                class="nav-label">Gastos</span></a>
                     </li>
                 </ul>
 

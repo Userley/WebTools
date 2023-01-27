@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 
-@section('title', 'Home')
+@section('title', 'Crear')
 
 @section('header')
     <div class="col-lg-10">
@@ -12,10 +12,13 @@
             <li class="breadcrumb-item">
                 <a href="index.html">Dispositivos</a>
             </li>
+            <li class="breadcrumb-item">
+                <a href="index.html">Nuevo</a>
+            </li>
         </ol>
     </div>
 @endsection
 
 @section('content')
-    <h1>Mi página prinicpal</h1>
+<h1>Crear nuevo dispositivo</h1>
 @endsection
