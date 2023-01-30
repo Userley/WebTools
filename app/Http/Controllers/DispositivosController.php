@@ -10,7 +10,7 @@ class DispositivosController extends Controller
         return view('dispositivos.listar');
     }
 
-    public function create(){
+    public function crear(){
         return view('dispositivos.crear');
     }
 

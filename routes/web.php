@@ -19,6 +19,6 @@ Route::get('/', HomeController::class);
 
 Route::controller(DispositivosController::class)->group(function () {
     Route::get('dispositivos', 'index');
-    Route::get('dispositivos/create', 'create');
+    Route::get('dispositivos/crear', 'crear');
     Route::get('dispositivos/{id}', 'show');
 });

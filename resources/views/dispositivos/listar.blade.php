@@ -19,5 +19,5 @@
 @section('content')
     <h1>Mi página prinicpal</h1>
 
-    <a href="{{ url('/dispositivos/create') }}"> <button class="btn btn-primary">Nuevo Dispositivo</button></a>
+    <a href="{{ url('/dispositivos/crear/') }}"> <button class="btn btn-primary">Nuevo Dispositivo</button></a>
 @endsection

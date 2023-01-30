@@ -9,7 +9,7 @@
 
     <title>WebTools Site</title>
 
-    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href=" ../resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="../resources/font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!-- Toastr style -->
@@ -19,7 +19,19 @@
     <link href="../resources/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
 
     <link href="../resources/css/animate.css" rel="stylesheet">
-    <link href="../resources/css/style.css" rel="stylesheet">
+    <link href="../resources/css/style.css" rel="stylesheet"> --}}
+
+    <link href="{!! asset('../resources/css/bootstrap.min.css') !!}" rel="stylesheet">
+    <link href="{!! asset('../resources/font-awesome/css/font-awesome.css') !!}" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="{!! asset('../resources/css/plugins/toastr/toastr.min.css') !!}" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="{!! asset('../resources/js/plugins/gritter/jquery.gritter.css') !!}" rel="stylesheet">
+
+    <link href="{!! asset('../resources/css/animate.css') !!}" rel="stylesheet">
+    <link href="{!! asset('../resources/css/style.css') !!}" rel="stylesheet">
 
 </head>
 
@@ -30,7 +42,7 @@
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                            <img alt="image" class="rounded-circle" src="../resources/img/profile_small.jpg" />
+                            <img alt="image" class="rounded-circle" src="{!! asset('../resources/img/profile_small.jpg') !!}" />
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="block m-t-xs font-bold">Erick Leyva</span>
                                 <span class="text-muted text-xs block">Analista Programador<b class="caret"></b></span>
@@ -276,44 +288,44 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="../resources/js/jquery-3.1.1.min.js"></script>
-    <script src="../resources/js/popper.min.js"></script>
-    <script src="../resources/js/bootstrap.js"></script>
-    <script src="../resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="../resources/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="{!! asset('../resources/js/jquery-3.1.1.min.js') !!}"></script>
+    <script src="{!! asset('../resources/js/popper.min.js') !!}"></script>
+    <script src="{!! asset('../resources/js/bootstrap.js') !!}"></script>
+    <script src="{!! asset('../resources/js/plugins/metisMenu/jquery.metisMenu.js') !!}"></script>
+    <script src="{!! asset('../resources/js/plugins/slimscroll/jquery.slimscroll.min.js') !!}"></script>
 
     <!-- Flot -->
-    <script src="../resources/js/plugins/flot/jquery.flot.js"></script>
-    <script src="../resources/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="../resources/js/plugins/flot/jquery.flot.spline.js"></script>
-    <script src="../resources/js/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="../resources/js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="{!! asset('../resources/js/plugins/flot/jquery.flot.js') !!}"></script>
+    <script src="{!! asset('../resources/js/plugins/flot/jquery.flot.tooltip.min.js') !!}"></script>
+    <script src="{!! asset('../resources/js/plugins/flot/jquery.flot.spline.js') !!}"></script>
+    <script src="{!! asset('../resources/js/plugins/flot/jquery.flot.resize.js') !!}"></script>
+    <script src="{!! asset('../resources/js/plugins/flot/jquery.flot.pie.js') !!}"></script>
 
     <!-- Peity -->
-    <script src="../resources/js/plugins/peity/jquery.peity.min.js"></script>
-    <script src="../resources/js/demo/peity-demo.js"></script>
+    <script src="{!! asset('../resources/js/plugins/peity/jquery.peity.min.js') !!}"></script>
+    <script src="{!! asset('../resources/js/demo/peity-demo.js') !!}"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="../resources/js/inspinia.js"></script>
-    <script src="../resources/js/plugins/pace/pace.min.js"></script>
+    <script src="{!! asset('../resources/js/inspinia.js') !!}"></script>
+    <script src="{!! asset('../resources/js/plugins/pace/pace.min.js') !!}"></script>
 
     <!-- jQuery UI -->
-    <script src="../resources/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="{!! asset('../resources/js/plugins/jquery-ui/jquery-ui.min.js') !!}"></script>
 
     <!-- GITTER -->
-    <script src="../resources/js/plugins/gritter/jquery.gritter.min.js"></script>
+    <script src="{!! asset('../resources/js/plugins/gritter/jquery.gritter.min.js') !!}"></script>
 
     <!-- Sparkline -->
-    <script src="../resources/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="{!! asset('../resources/js/plugins/sparkline/jquery.sparkline.min.js') !!}"></script>
 
     <!-- Sparkline demo data  -->
-    <script src="../resources/js/demo/sparkline-demo.js"></script>
+    <script src="{!! asset('../resources/js/demo/sparkline-demo.js') !!}"></script>
 
     <!-- ChartJS-->
-    <script src="../resources/js/plugins/chartJs/Chart.min.js"></script>
+    <script src="{!! asset('../resources/js/plugins/chartJs/Chart.min.js') !!}"></script>
 
     <!-- Toastr -->
-    <script src="../resources/js/plugins/toastr/toastr.min.js"></script>
+    <script src="{!! asset('../resources/js/plugins/toastr/toastr.min.js') !!}"></script>
 
 
     <script>
