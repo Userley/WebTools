@@ -33,6 +33,13 @@
     <link href="{!! asset('../resources/css/animate.css') !!}" rel="stylesheet">
     <link href="{!! asset('../resources/css/style.css') !!}" rel="stylesheet">
 
+
+
+    <link href="{!! asset('../resources/css/plugins/iCheck/custom.css') !!}" rel="stylesheet">
+    <link href="{!! asset('../resources/css/plugins/steps/jquery.steps.css') !!}" rel="stylesheet">
+
+
+
 </head>
 
 <body>
@@ -49,7 +56,7 @@
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a class="dropdown-item" href="profile.html">Perfil</a></li>
-                                <li><a class="dropdown-item" href="contacts.html">Contactos</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/contactos/') }}">Contactos</a></li>
                                 <li class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="mailbox.html">Credenciales</a></li>
                                 <li class="dropdown-divider"></li>
@@ -291,6 +298,7 @@
     <script src="{!! asset('../resources/js/jquery-3.1.1.min.js') !!}"></script>
     <script src="{!! asset('../resources/js/popper.min.js') !!}"></script>
     <script src="{!! asset('../resources/js/bootstrap.js') !!}"></script>
+    <script src="{!! asset('../resources/js/bootstrap.min.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/metisMenu/jquery.metisMenu.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/slimscroll/jquery.slimscroll.min.js') !!}"></script>
 
@@ -309,6 +317,12 @@
     <script src="{!! asset('../resources/js/inspinia.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/pace/pace.min.js') !!}"></script>
 
+    <!-- Steps -->
+    <script src="{!! asset('../resources/js/plugins/steps/jquery.steps.min.js') !!}"></script>
+
+    <!-- Jquery Validate -->
+    <script src="{!! asset('../resources/js/plugins/validate/jquery.validate.min.js') !!}"></script>
+
     <!-- jQuery UI -->
     <script src="{!! asset('../resources/js/plugins/jquery-ui/jquery-ui.min.js') !!}"></script>
 
@@ -326,6 +340,9 @@
 
     <!-- Toastr -->
     <script src="{!! asset('../resources/js/plugins/toastr/toastr.min.js') !!}"></script>
+
+
+
 
 
     <script>
@@ -463,6 +480,81 @@
                 options: doughnutOptions
             });
 
+        });
+    </script>
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            $("#wizard").steps();
+            $("#form").steps({
+                bodyTag: "fieldset",
+                onStepChanging: function(event, currentIndex, newIndex) {
+                    // Always allow going backward even if the current step contains invalid fields!
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+
+                    // Forbid suppressing "Warning" step if the user is to young
+                    if (newIndex === 3 && Number($("#age").val()) < 18) {
+                        return false;
+                    }
+
+                    var form = $(this);
+
+                    // Clean up if user went backward before
+                    if (currentIndex < newIndex) {
+                        // To remove error styles
+                        $(".body:eq(" + newIndex + ") label.error", form).remove();
+                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                    }
+
+                    // Disable validation on fields that are disabled or hidden.
+                    form.validate().settings.ignore = ":disabled,:hidden";
+
+                    // Start validation; Prevent going forward if false
+                    return form.valid();
+                },
+                onStepChanged: function(event, currentIndex, priorIndex) {
+                    // Suppress (skip) "Warning" step if the user is old enough.
+                    if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                        $(this).steps("next");
+                    }
+
+                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                    if (currentIndex === 2 && priorIndex === 3) {
+                        $(this).steps("previous");
+                    }
+                },
+                onFinishing: function(event, currentIndex) {
+                    var form = $(this);
+
+                    // Disable validation on fields that are disabled.
+                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                    form.validate().settings.ignore = ":disabled";
+
+                    // Start validation; Prevent form submission if false
+                    return form.valid();
+                },
+                onFinished: function(event, currentIndex) {
+                    var form = $(this);
+
+                    // Submit form input
+                    form.submit();
+                }
+            }).validate({
+                errorPlacement: function(error, element) {
+                    element.before(error);
+                },
+                rules: {
+                    confirm: {
+                        equalTo: "#password"
+                    }
+                }
+            });
         });
     </script>
 </body>
