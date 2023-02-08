@@ -25,6 +25,12 @@
 
 
     <hr>
+    <td colspan="5" class="footable-visible">
+        {{-- <ul class="pagination pull-right"> --}}
+        {{-- {{$contactos->links()}} --}}
+        {!! $contactos->links('pagination::bootstrap-5') !!}
+        {{-- </ul> --}}
+    </td>
     <div class="row">
         @foreach ($contactos as $contacto)
             <div class="col-lg-3">
@@ -42,7 +48,8 @@
                             <strong>{{ $contacto->organizacion }}</strong><br>
                             {{ $contacto->direccion }}<br>
                             {{ $contacto->ciudad }}<br>
-                            <abbr title="Phone">P:</abbr> (051) {{ $contacto->telefono }} - <abbr title="Phone">P:</abbr> {{ $contacto->celular }}
+                            <abbr title="Phone">P:</abbr> (051) {{ $contacto->telefono }} - <abbr title="Phone">P:</abbr>
+                            {{ $contacto->celular }}
                         </address>
 
                     </a>
@@ -57,6 +64,7 @@
                 </div>
             </div>
         @endforeach
+
     </div>
 
 
