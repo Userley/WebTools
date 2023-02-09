@@ -61,10 +61,8 @@
                 <input type="submit" value="Registrar" class="btn btn-success">
         </div>
         </form>
-
-
     </div>
-    </div>
+
 
     <script>
         // Obtener referencia al input y a la imagen
