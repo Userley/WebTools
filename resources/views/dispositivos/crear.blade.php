@@ -20,17 +20,17 @@
 @endsection
 
 @section('content')
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <h5>Nuevo Dispositivo</h5>
-            <div class="ibox-tools">
-                <a class="collapse-link">
-                    <i class="fa fa-chevron-up"></i>
-                </a>
+    <form action="" method="post">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Nuevo Dispositivo</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="ibox-content">
-            <form action="" method="post">
+            <div class="ibox-content">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
@@ -42,26 +42,30 @@
                         <div class="form-group">
                             <label for="txtDescripcion" class="col-sm-2 control-label">Descripción</label>
                             <div class="col-md-12">
-                                <textarea class="form-control" id="txtDescripcion" rows="3" required></textarea>
+                                <textarea class="form-control" id="txtDescripcion" rows="4" required></textarea>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="formFile" class="col-sm-2 control-label">Imágen</label>
                             <div class="col-md-12">
                                 <input class="form-control" type="file" id="formFile">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
                         <div class="col-md-12 text-center item">
-                            <img id="imagenPrevisualizacion" width="250" style="border-radius:1%">
+                            <img id="imagenPrevisualizacion" width="150" style="border-radius:50%">
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="Registrar" class="btn btn-success">
+            </div>
         </div>
-        </form>
-    </div>
+        <div class="btn-group">
+            <input type="submit" value="Registrar" class="btn btn-success">
+            <button type="reset" class="btn btn-danger">Limpiar</button>
+            <a href="{{ url('/contactos/') }}"> <input type="button" value="Regresar" class="btn btn-secondary"></a>
+        </div>
+    </form>
 
 
     <script>

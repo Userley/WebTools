@@ -20,85 +20,97 @@
 @endsection
 
 @section('content')
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <h5>Nuevo Contacto</h5>
-            <div class="ibox-tools">
-                <a class="collapse-link">
-                    <i class="fa fa-chevron-up"></i>
-                </a>
+    <form action="" method="post">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5><i class="fa fa-user" aria-hidden="true"></i> Datos Personales</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="ibox-content">
-            <form action="" method="post">
+            <div class="ibox-content">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-9">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="txtNombres">Nombres:</label>
+                                    <input type="text" class="form-control" id="txtNombres" required>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="txtApellidos">Apellidos:</label>
+                                    <input type="text" class="form-control" id="txtApellidos" required>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group ">
+                                    <label class="control-label" for="txtDireccion">Dirección:</label>
+                                    <input type="text" class="form-control" id="txtDireccion" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="txtCiudad">Ciudad:</label>
+                                    <input type="text" class="form-control" id="txtCiudad" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="txtCorreo">Correo:</label>
+                                    <input type="text" class="form-control" id="txtCorreo" required>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="txtTelefono">Teléfono:</label>
+                                    <input type="text" class="form-control" id="txtTelefono" required>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="txtCelular">Celular:</label>
+                                    <input type="text" class="form-control" id="txtCelular" required>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label for="formFile" for="formFile" class="control-label">Avatar</label>
+                            <label for="formFile" for="formFile" class="control-label">Avatar:</label>
                             <input class="form-control" type="file" id="formFile">
                         </div>
-                    </div>
-                    <div class="col-md-2">
                         <div class="form-group">
                             <div class="text-center item">
-                                <img id="imagenPrevisualizacion" width="100" style="border-radius:30%">
+                                <img id="imagenPrevisualizacion" width="130" style="border-radius:50%">
                             </div>
                         </div>
                     </div>
                 </div>
-                <br>
+            </div>
+        </div>
+
+        <div class="col-md-12 hr-line-dashed"></div>
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5><i class="fa fa-globe" aria-hidden="true"></i> Redes Sociales</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label" for="txtNombres">Nombres:</label>
-                            <input type="text" class="form-control" id="txtNombres" required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label" for="txtApellidos">Apellidos:</label>
-                            <input type="text" class="form-control" id="txtApellidos" required>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <div class="form-group ">
-                            <label class="control-label" for="txtDireccion">Dirección:</label>
-                            <input type="text" class="form-control" id="txtDireccion" required>
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label" for="txtCiudad">Ciudad:</label>
-                            <input type="text" class="form-control" id="txtCiudad" required>
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label" for="txtCorreo">Correo:</label>
-                            <input type="text" class="form-control" id="txtCorreo" required>
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label" for="txtTelefono">Teléfono:</label>
-                            <input type="text" class="form-control" id="txtTelefono" required>
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label" for="txtCelular">Celular:</label>
-                            <input type="text" class="form-control" id="txtCelular" required>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 hr-line-dashed"></div>
-
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label" for="txtFacebook">Facebook:</label>
@@ -137,9 +149,23 @@
                             <input type="text" class="form-control" id="txtOtros">
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-md-12 hr-line-dashed"></div>
 
-                    <div class="col-md-12 hr-line-dashed"></div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5><i class="fa fa-industry" aria-hidden="true"></i> Datos Laborales</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="txtCargo">Cargo:</label>
@@ -153,25 +179,31 @@
                         </div>
                     </div>
                 </div>
-
-                <input type="submit" value="Registrar" class="btn btn-success">
-            </form>
+            </div>
         </div>
-        <script>
-            const $seleccionArchivos = document.querySelector("#formFile"),
-                $imagenPrevisualizacion = document.querySelector("#imagenPrevisualizacion");
+        <div class="btn-group">
+            <input type="submit" value="Registrar" class="btn btn-success">
+            <button type="reset" class="btn btn-danger">Limpiar</button>
+            <a href="{{ url('/contactos/') }}"> <input type="button" value="Regresar" class="btn btn-secondary"></a>
+        </div>
+    </form>
+    <br>
+    <br>
+    <script>
+        const $seleccionArchivos = document.querySelector("#formFile"),
+            $imagenPrevisualizacion = document.querySelector("#imagenPrevisualizacion");
 
-            $seleccionArchivos.addEventListener("change", () => {
-                const archivos = $seleccionArchivos.files;
+        $seleccionArchivos.addEventListener("change", () => {
+            const archivos = $seleccionArchivos.files;
 
-                if (!archivos || !archivos.length) {
-                    $imagenPrevisualizacion.src = "";
-                    return;
-                }
+            if (!archivos || !archivos.length) {
+                $imagenPrevisualizacion.src = "";
+                return;
+            }
 
-                const primerArchivo = archivos[0];
-                const objectURL = URL.createObjectURL(primerArchivo);
-                $imagenPrevisualizacion.src = objectURL;
-            });
-        </script>
-    @endsection
+            const primerArchivo = archivos[0];
+            const objectURL = URL.createObjectURL(primerArchivo);
+            $imagenPrevisualizacion.src = objectURL;
+        });
+    </script>
+@endsection

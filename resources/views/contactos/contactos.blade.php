@@ -48,7 +48,7 @@
                             <strong>{{ $contacto->organizacion }}</strong><br>
                             {{ $contacto->direccion }}<br>
                             {{ $contacto->ciudad }}<br>
-                            <abbr title="Phone">P:</abbr> (051) {{ $contacto->telefono }} - <abbr title="Phone">P:</abbr>
+                            <abbr title="Phone"></abbr> (051) {{ $contacto->telefono }} - <abbr title="Phone"></abbr>
                             {{ $contacto->celular }}
                         </address>
 
