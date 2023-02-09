@@ -20,14 +20,16 @@ Route::get('/', HomeController::class);
 
 Route::controller(DispositivosController::class)->group(function () {
     Route::get('dispositivos', 'index');
-    Route::get('dispositivos/detalle', 'detalle');
+    // Route::get('dispositivos/detalle', 'detalle');
     Route::get('dispositivos/crear', 'crear');
     Route::get('dispositivos/{id}', 'show');
 });
 
 Route::controller(ContactosController::class)->group(function () {
     Route::get('contactos', 'index');
-    Route::get('contactos/detalle', 'detalle');
+    // Route::get('contactos/detalle', 'detalle');
     Route::get('contactos/crear', 'crear');
     Route::get('contactos/{id}', 'show');
+    Route::post('contactos', 'save')->name('contactos.save');
 });
+
