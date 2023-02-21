@@ -4,6 +4,8 @@ use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\DispositivosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ServiciosController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,3 +35,14 @@ Route::controller(ContactosController::class)->group(function () {
     Route::post('contactos', 'save')->name('contactos.save');
 });
 
+
+Route::controller(ServiciosController::class)->group(function () {
+    Route::get('servicios/luz', 'luz');
+    Route::get('servicios/luz/crear', 'newluz');
+    Route::get('servicios/agua', 'agua');
+    Route::get('servicios/agua/crear', 'newagua');
+    Route::get('servicios/internet', 'internet');
+    Route::get('servicios/internet/crear', 'newinternet');
+
+    // Route::post('contactos', 'save')->name('contactos.save');
+});

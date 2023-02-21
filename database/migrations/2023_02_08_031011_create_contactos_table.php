@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contactos', function (Blueprint $table) {
-            $table->id();
+            $table->id('idcontacto');
             $table->string('nombres');
             $table->string('apellidos')->nullable();
             $table->longText('avatar')->nullable();

@@ -31,7 +31,7 @@
         {!! $contactos->links('pagination::bootstrap-5') !!}
         {{-- </ul> --}}
     </td>
-    <div class="row">
+    <div class="row animated fadeInRight">
         @foreach ($contactos as $contacto)
             <div class="col-lg-3">
                 <div class="contact-box center-version">

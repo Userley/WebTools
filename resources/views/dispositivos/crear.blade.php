@@ -21,7 +21,7 @@
 
 @section('content')
     <form action="" method="post">
-        <div class="ibox float-e-margins">
+        <div class="ibox float-e-margins animated fadeInRight">
             <div class="ibox-title">
                 <h5>Nuevo Dispositivo</h5>
                 <div class="ibox-tools">
@@ -63,7 +63,7 @@
         <div class="btn-group">
             <input type="submit" value="Registrar" class="btn btn-success">
             <button type="reset" class="btn btn-danger">Limpiar</button>
-            <a href="{{ url('/contactos/') }}"> <input type="button" value="Regresar" class="btn btn-secondary"></a>
+            <a href="{{ url('/dispositivos/') }}"> <input type="button" value="Regresar" class="btn btn-secondary"></a>
         </div>
     </form>
 

@@ -25,7 +25,7 @@
 
 
     <hr>
-    <div class="row">
+    <div class="row animated fadeInRight">
         <div class="col-lg-4">
             <div class="contact-box">
                 <a href="profile.html">

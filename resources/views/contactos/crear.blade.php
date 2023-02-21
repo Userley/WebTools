@@ -33,7 +33,7 @@
 
     <form action="{{ route('contactos.save') }}" method="post">
         @csrf
-        <div class="ibox float-e-margins">
+        <div class="ibox float-e-margins animated fadeInRight">
             <div class="ibox-title">
                 <h5><i class="fa fa-user" aria-hidden="true"></i> Datos Personales</h5>
                 <div class="ibox-tools">
@@ -112,7 +112,7 @@
 
         <div class="col-md-12 hr-line-dashed"></div>
 
-        <div class="ibox float-e-margins">
+        <div class="ibox float-e-margins animated fadeInRight">
             <div class="ibox-title">
                 <h5><i class="fa fa-globe" aria-hidden="true"></i> Redes Sociales</h5>
                 <div class="ibox-tools">
@@ -167,7 +167,7 @@
 
         <div class="col-md-12 hr-line-dashed"></div>
 
-        <div class="ibox float-e-margins">
+        <div class="ibox float-e-margins animated fadeInRight">
             <div class="ibox-title">
                 <h5><i class="fa fa-industry" aria-hidden="true"></i> Datos Laborales</h5>
                 <div class="ibox-tools">

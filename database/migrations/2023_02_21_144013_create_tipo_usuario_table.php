@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dispositivos', function (Blueprint $table) {
-            $table->id('iddispositivo')->autoIncrement();
+        Schema::create('tipo_usuario', function (Blueprint $table) {
+            $table->string('idtipousuario')->primary();
+            $table->string('nombre');
             $table->string('descripcion');
-            $table->text('imagen');
-            $table->integer('estado');
-            $table->integer('disponibilidad');
-            $table->integer('usuariocreacion');
-            $table->timestamps();
         });
     }
 
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dispositivos');
+        Schema::dropIfExists('tipo_usuario');
     }
 };
