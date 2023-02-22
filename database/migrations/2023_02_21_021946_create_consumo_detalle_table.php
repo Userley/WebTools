@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('consumo_detalle', function (Blueprint $table) {
-            $table->integer('idusuario')->nullable(false);
+            $table->integer('idpiso')->nullable(false);
             $table->integer('idmes')->nullable(false);
             $table->integer('idanio')->nullable(false);
             $table->decimal('medidakw',8,4)->nullable();
