@@ -27,17 +27,17 @@
     <link href="{!! asset('../resources/css/plugins/blueimp/css/blueimp-gallery.min.css') !!}" rel="stylesheet">
     <!-- Toastr style -->
     <link href="{!! asset('../resources/css/plugins/toastr/toastr.min.css') !!}" rel="stylesheet">
-    
+
     <!-- Gritter -->
     <link href="{!! asset('../resources/js/plugins/gritter/jquery.gritter.css') !!}" rel="stylesheet">
-    
+
     <link href="{!! asset('../resources/css/animate.css') !!}" rel="stylesheet">
     <link href="{!! asset('../resources/css/style.css') !!}" rel="stylesheet">
-    
+
     <link href="{!! asset('../resources/css/plugins/iCheck/custom.css') !!}" rel="stylesheet">
     <link href="{!! asset('../resources/css/plugins/steps/jquery.steps.css') !!}" rel="stylesheet">
-    
 
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.min.css" rel="stylesheet">
 
 
 </head>
@@ -302,56 +302,56 @@
     <script src="{!! asset('../resources/js/bootstrap.min.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/metisMenu/jquery.metisMenu.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/slimscroll/jquery.slimscroll.min.js') !!}"></script>
-    
+
     <!-- blueimp gallery -->
     <script src="{!! asset('../resources/js/plugins/blueimp/jquery.blueimp-gallery.min.js') !!}"></script>
-    
+
     <!-- Flot -->
     <script src="{!! asset('../resources/js/plugins/flot/jquery.flot.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/flot/jquery.flot.tooltip.min.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/flot/jquery.flot.spline.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/flot/jquery.flot.resize.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/flot/jquery.flot.pie.js') !!}"></script>
-    
+
     <!-- Peity -->
     <script src="{!! asset('../resources/js/plugins/peity/jquery.peity.min.js') !!}"></script>
     <script src="{!! asset('../resources/js/demo/peity-demo.js') !!}"></script>
-    
+
     <!-- Custom and plugin javascript -->
     <script src="{!! asset('../resources/js/inspinia.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/pace/pace.min.js') !!}"></script>
-    
+
     <!-- Steps -->
     <script src="{!! asset('../resources/js/plugins/steps/jquery.steps.min.js') !!}"></script>
-    
+
     <!-- Jquery Validate -->
     <script src="{!! asset('../resources/js/plugins/validate/jquery.validate.min.js') !!}"></script>
-    
+
     <!-- jQuery UI -->
     <script src="{!! asset('../resources/js/plugins/jquery-ui/jquery-ui.min.js') !!}"></script>
-    
+
     <!-- GITTER -->
     <script src="{!! asset('../resources/js/plugins/gritter/jquery.gritter.min.js') !!}"></script>
-    
+
     <!-- Sparkline -->
     <script src="{!! asset('../resources/js/plugins/sparkline/jquery.sparkline.min.js') !!}"></script>
-    
+
     <!-- Sparkline demo data  -->
     <script src="{!! asset('../resources/js/demo/sparkline-demo.js') !!}"></script>
-    
+
     <!-- ChartJS-->
     <script src="{!! asset('../resources/js/plugins/chartJs/Chart.min.js') !!}"></script>
-    
+
     <!-- Toastr -->
     <script src="{!! asset('../resources/js/plugins/toastr/toastr.min.js') !!}"></script>
-    
-    
-    
-    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.all.min.js"></script>
+
     <script>
         $(document).ready(function() {
             // setTimeout(function() {
-                //     toastr.options = {
+            //     toastr.options = {
             //         closeButton: true,
             //         progressBar: true,
             //         showMethod: 'slideDown',

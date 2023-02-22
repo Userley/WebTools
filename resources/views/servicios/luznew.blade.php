@@ -35,40 +35,40 @@
         </div>
         <div class="ibox-content animated fadeInRight">
 
-            <div class="row">
+            <div class="row" id="datosRecibo">
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="control-label" for="txtCargo">Consumo Recibo Kwh:</label>
+                        <label class="control-label" for="txtConsumoRecibo">Consumo Recibo Kwh:</label>
                         <input type="number" class="form-control" step="0.05" name="txtConsumoRecibo">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="control-label" for="txtOrganizacion">S/ Costo Kwh:</label>
+                        <label class="control-label" for="txtCosto">S/ Costo Kwh:</label>
                         <input type="number" class="form-control" step="0.05" name="txtCosto">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="control-label" for="txtOrganizacion">S/ Cargos fijos, etc:</label>
+                        <label class="control-label" for="txtCargosFijos">S/ Cargos fijos, etc:</label>
                         <input type="number" class="form-control" step="0.05" name="txtCargosFijos">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="control-label" for="txtOrganizacion">Fraccionamiento:</label>
+                        <label class="control-label" for="txtFraccionamiento">Fraccionamiento:</label>
                         <input type="number" class="form-control" step="0.05" name="txtFraccionamiento">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="control-label" for="txtOrganizacion">IGV:</label>
+                        <label class="control-label" for="txtIGV">IGV:</label>
                         <input type="number" class="form-control" step="0.05" name="txtIGV">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="control-label" for="txtOrganizacion">Monto recibo mes:</label>
+                        <label class="control-label" for="txtMontoMes">Monto recibo mes:</label>
                         <input type="number" class="form-control" step="0.05" name="txtMontoMes">
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="cbousuario">Piso:</label>
-                                <select class="form-select form-control" id="cbousuario" name="cboanio">
+                                <select class="form-select form-control" id="cbopiso" name="cboanio">
                                     <option selected>Seleccione piso</option>
                                     <option value="1">1er Piso</option>
                                     <option value="1">2do Piso</option>
@@ -125,8 +125,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label" for="txtOrganizacion">Última medida:</label>
-                                <input type="number" class="form-control" step="0.05" name="txtFraccionamiento">
+                                <label class="control-label" for="txtUltimaMedida">Última medida:</label>
+                                <input type="number" class="form-control" step="0.05" name="txtUltimaMedida">
                             </div>
                         </div>
                         <div class="col-md-12 align-self-center">
@@ -167,7 +167,7 @@
         <br>
         <br>
         <div class="btn-group">
-            <input type="submit" value="Registrar" class="btn btn-success">
+            <input type="submit" value="Registrar" class="btn btn-success" onclick="validarControles();">
             <button type="reset" class="btn btn-danger">Limpiar</button>
             <a href="{{ url('/servicios/luz/') }}"> <input type="button" value="Regresar"
                     class="btn btn-secondary"></a>
@@ -177,10 +177,43 @@
 
 
     <script>
+        const validarControles = () => {
+
+            // let ConsumoRecibo = document.getElementById('txtConsumoRecibo').value;
+            // let Costo = document.getElementById('txtCosto').value;
+            // let CargosFijos = document.getElementById('txtCargosFijos').value;
+            // let Fraccionamiento = document.getElementById('txtFraccionamiento').value;
+            // let IGV = document.getElementById('txtIGV').value;
+            // let MontoMes = document.getElementById('txtMontoMes').value;
+
+            let inputs = document.getElementById('datosRecibo').querySelectorAll('input');
+
+            inputs.forEach((x) => {
+                let c = 0;
+                if (x.value == '') {
+                    console.log(x.name);
+                    document.getElementsByName(x.name).required = true;
+                    c++;
+                };
+
+                if (c > 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Debe llenar todos los campos!',
+                    })
+                    return;
+                }
+            })
+
+        }
+
+
         const agregarFila = () => {
             let cont = document.getElementById('tbldetalle').rows.length
             document.getElementById('tbldetalle').insertRow(-1).innerHTML =
-                '<td><button class="btn btn-sm btn-danger" onclick="eliminarFila(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td><td>' + cont +
+                '<td><button class="btn btn-sm btn-danger" onclick="eliminarFila(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td><td>' +
+                cont +
                 '</td><td>Cochera</td><td>Marzo</td><td>2023</td><td>2654.75</td><td>0.00</td><td>0.00</td>';
         }
 

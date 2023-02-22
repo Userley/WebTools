@@ -37,6 +37,10 @@ Route::controller(ContactosController::class)->group(function () {
 
 
 Route::controller(ServiciosController::class)->group(function () {
+
+    Route::get('servicios/filtrar/{anio}/{mes}', 'filtrarluz');
+
+
     Route::get('servicios/luz', 'luz');
     Route::get('servicios/luz/crear', 'newluz');
     Route::get('servicios/agua', 'agua');
