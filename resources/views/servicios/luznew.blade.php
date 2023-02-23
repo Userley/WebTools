@@ -23,7 +23,7 @@
 @endsection
 
 @section('content')
-    <div class="ibox float-e-margins">
+    <div class="ibox float-e-margins animated fadeInRight">
         <div class="ibox-title">
             <h5><i class="fa fa-lightbulb-o" aria-hidden="true"></i>
                 Datos Recibo</h5>
@@ -33,7 +33,7 @@
                 </a>
             </div>
         </div>
-        <div class="ibox-content animated fadeInRight">
+        <div class="ibox-content">
 
             <div class="row" id="datosRecibo">
                 <div class="col-md-2">
@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    <div class="ibox float-e-margins">
+    <div class="ibox float-e-margins animated fadeInRight">
         <div class="ibox-title">
             <h5><i class="fa fa-th" aria-hidden="true"></i>
                 Detalle x Usuario</h5>
@@ -86,7 +86,7 @@
                 </a>
             </div>
         </div>
-        <div class="ibox-content animated fadeInRight">
+        <div class="ibox-content">
             <div class="row">
                 <div class="col-md-4">
                     <div class="row">

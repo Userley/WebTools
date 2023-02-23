@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label for="Descripcion" class="col-sm-2 control-label">Descripción</label>
                             <div class="col-md-12">
-                                <textarea class="form-control" name="Descripcion" rows="4" required></textarea>
+                                <textarea class="form-control" name="Descripcion" rows="4"></textarea>
                                 @error('Descripcion')
                                     <small class="text-danger">*{{ $message }}</small>
                                     <br>

@@ -18,11 +18,10 @@ class ServiciosController extends Controller
     }
 
 
-    public function filtrarluz($mes, $anio)
+    public function filtrarluz(Request $request)
     {
-        $Consumo = Consumo::query()->where('idanio', $anio)->where('idmes', $mes)->get();
-        return var_dump($Consumo);
-        //return  view('servicios.luz', compact('Consumo'));
+        $Consumo = Consumo::query()->where('idanio', $request->idanio)->where('idmes', $request->idmes)->get();
+        return response(json_decode($Consumo), 200)->header('Content-type', 'text/plain');
     }
 
 

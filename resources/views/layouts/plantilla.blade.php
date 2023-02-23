@@ -144,13 +144,17 @@
 
                         </ul>
                     </li>
-                    <li>
+                    <li
+                        class="{{ request()->routeIs('servicios.*') ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Servicios</span><span
                                 class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="{{ url('/servicios/luz/') }}">Luz</a></li>
-                            <li><a href="{{ url('/servicios/agua/') }}">Agua</a></li>
-                            <li><a href="{{ url('/servicios/internet/') }}">Internet</a></li>
+                            <li class="{{ request()->routeIs('servicios.luz') ? 'active' : '' }}"><a
+                                    href="{{ route('servicios.luz') }}">Luz</a></li>
+                            <li class="{{ request()->routeIs('servicios.agua') ? 'active' : '' }}"><a
+                                    href="{{ route('servicios.agua') }}">Agua</a></li>
+                            <li class="{{ request()->routeIs('servicios.internet') ? 'active' : '' }}"><a
+                                    href="{{ route('servicios.internet') }}">Internet</a></li>
                             <li><a href="form_file_upload.html">Otros</a></li>
                         </ul>
                     </li>

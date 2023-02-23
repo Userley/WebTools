@@ -31,28 +31,29 @@
     <hr>
     <div class="row">
         <div class="col-md-4">
-            <div class="ibox float-e-margins">
+            <div class="ibox float-e-margins animated fadeInRight">
                 <div class="ibox-title">
                     <h5><i class="fa fa-filter" aria-hidden="true"></i>
                         Filtros</h5>
                 </div>
-                <div class="ibox-content animated fadeInRight">
+
+                <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <div class="form-group">
-                                <label for="cbomes">Mes:</label>
-                                <select class="form-select form-control" id="cbomes" name="cbomes">
+                                <label for="idmes">Mes:</label>
+                                <select class="form-select form-control" id="cbomes" name="idmes">
                                     @foreach ($Meses as $Mes)
-                                    <option value="{{ $Mes->idmes }}">{{ $Mes->descripcion }}</option>
-                                @endforeach
+                                        <option value="{{ $Mes->idmes }}">{{ $Mes->descripcion }}</option>
+                                    @endforeach
                                 </select>
 
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <div class="form-group">
-                                <label for="cboanio">Año:</label>
-                                <select class="form-select form-control" id="cboanio" name="cboanio">
+                                <label for="idanio">Año:</label>
+                                <select class="form-select form-control" id="cboanio" name="idanio">
                                     @foreach ($Anios as $Anio)
                                         <option value="{{ $Anio->idanio }}">{{ $Anio->descripcion }}</option>
                                     @endforeach
@@ -62,21 +63,16 @@
                             </div>
                         </div>
                         <div class="col-md-12  col-sm-12 align-self-center">
-                           <a href="{{url('servicios/filtrarluz/4/2')}}"> <button class="btn btn-primary btn-lg w-100 mt-3"><i class="fa fa-terminal"
-                                    aria-hidden="true"></i>
-                                Buscar</button></a>
+                            <button class="btn btn-primary btn-lg w-100 mt-3" onclick="filtrar()">
+                                <i class="fa fa-terminal" aria-hidden="true"></i> Buscar</button>
                         </div>
-                        {{-- <div class="col-md-6  col-sm-6 align-self-center">
-                            <a href="{{ url('/servicios/luz/crear/') }}"> <button
-                                    class="btn btn-success btn-lg w-100 mt-3"><i class="fa fa-file-o"
-                                        aria-hidden="true"></i> Nuevo</button></a>
-                        </div> --}}
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="col-md-8">
-            <div class="ibox float-e-margins">
+            <div class="ibox float-e-margins animated fadeInRight">
                 <div class="ibox-title">
                     <h5><i class="fa fa-lightbulb-o" aria-hidden="true"></i>
                         Datos Generales</h5>
@@ -86,45 +82,49 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content animated fadeInRight">
+                <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-4 col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="txtCargo">Total Consumo Kw:</label>
-                                        <input type="email" class="form-control" name="txtTotalConsumo" value="" disabled>
+                                        <label class="control-label" for="txtTotalConsumo">Total Consumo Kw:</label>
+                                        <input type="email" class="form-control" id="txtTotalConsumo" value=""
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="txtOrganizacion">Precio x Kw:</label>
-                                        <input type="text" class="form-control" name="txtPrecioxKW" value="" disabled>
+                                        <label class="control-label" for="txtPrecioxKW">Precio x Kw:</label>
+                                        <input type="text" class="form-control" id="txtPrecioxKW" value=""
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="txtOrganizacion">Cargos fijos, etc:</label>
-                                        <input type="text" class="form-control" name="txtCargosFijos" disabled>
+                                        <label class="control-label" for="txtCargosFijos">Cargos fijos, etc:</label>
+                                        <input type="text" class="form-control" id="txtCargosFijos" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="txtOrganizacion">Cargos Fraccionamiento:</label>
-                                        <input type="text" class="form-control" name="txtCargosFraccionamiento" disabled>
+                                        <label class="control-label" for="txtCargosFraccionamiento">Cargos
+                                            Fraccionamiento:</label>
+                                        <input type="text" class="form-control" id="txtCargosFraccionamiento" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="txtOrganizacion">IGV:</label>
-                                        <input type="text" class="form-control" name="txtIGV" disabled>
+                                        <label class="control-label" for="txtIGV">IGV:</label>
+                                        <input type="text" class="form-control" id="txtIGV" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="txtOrganizacion">Total Consumo del mes.:</label>
-                                        <input type="text" class="form-control text-danger" name="txtTotalConsumo"
-                                            value="256.35" disabled>
+                                        <label class="control-label" for="txtTotalConsumomes">Total Consumo del
+                                            mes.:</label>
+                                        <input type="text" class="form-control text-danger" id="txtTotalConsumomes"
+                                            disabled>
                                     </div>
                                 </div>
                             </div>
@@ -158,3 +158,39 @@
     </div>
 
 @endsection
+
+
+<script>
+    function filtrar() {
+        $.ajax({
+            url: '{{ route('servicios.filtrar') }}',
+            method: 'Get',
+            data: {
+                '_token': $("input[name='_token']").val(),
+                'idmes': $("#cbomes").val(),
+                'idanio': $("#cboanio").val(),
+            }
+        }).done(function(data) {
+            var datos = JSON.parse(data)[0];
+
+            if (datos != undefined) {
+                $('#txtTotalConsumo').val(datos.consumokwtotal);
+                $('#txtPrecioxKW').val(datos.precioxkw);
+                $('#txtCargosFijos').val(datos.costoadministrativo);
+                $('#txtCargosFraccionamiento').val(datos.costofraccionamiento);
+                $('#txtIGV').val(datos.igv);
+                $('#txtTotalConsumomes').val(datos.costototalconsumo);
+            } else {
+                $('#txtTotalConsumo').val('00.00');
+                $('#txtPrecioxKW').val('00.00');
+                $('#txtCargosFijos').val('00.00');
+                $('#txtCargosFraccionamiento').val('00.00');
+                $('#txtIGV').val('00.00');
+                $('#txtTotalConsumomes').val('00.00');
+            }
+
+
+            console.log(datos);
+        });
+    };
+</script>

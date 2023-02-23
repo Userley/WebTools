@@ -21,7 +21,7 @@ Route::get('/', HomeController::class);
 
 
 Route::controller(DispositivosController::class)->group(function () {
-    Route::get('dispositivos', 'index');
+    Route::get('dispositivos', 'index')->name('dispositivos');
     // Route::get('dispositivos/detalle', 'detalle');
     Route::get('dispositivos/crear', 'crear');
     Route::get('dispositivos/{id}', 'show');
@@ -39,14 +39,14 @@ Route::controller(ContactosController::class)->group(function () {
 
 Route::controller(ServiciosController::class)->group(function () {
 
-    Route::get('servicios/filtrar/{anio}/{mes}', 'filtrarluz');
+    Route::get('servicios/filtrar', 'filtrarluz')->name('servicios.filtrar');
 
 
-    Route::get('servicios/luz', 'luz');
+    Route::get('servicios/luz', 'luz')->name('servicios.luz');
     Route::get('servicios/luz/crear', 'newluz');
-    Route::get('servicios/agua', 'agua');
+    Route::get('servicios/agua', 'agua')->name('servicios.agua');
     Route::get('servicios/agua/crear', 'newagua');
-    Route::get('servicios/internet', 'internet');
+    Route::get('servicios/internet', 'internet')->name('servicios.internet');
     Route::get('servicios/internet/crear', 'newinternet');
 
     // Route::post('contactos', 'save')->name('contactos.save');
