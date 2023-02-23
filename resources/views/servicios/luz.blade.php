@@ -25,9 +25,6 @@
         <a href="{{ url('/servicios/luz/crear/') }}"> <button class="btn btn-success col-md-12"><i class="fa fa-file-o"
                     aria-hidden="true"></i> Nuevo registro</button></a>
     </div>
-
-
-
     <hr>
     <div class="row">
         <div class="col-md-4">
@@ -123,8 +120,8 @@
                                     <div class="form-group">
                                         <label class="control-label" for="txtTotalConsumomes">Total Consumo del
                                             mes.:</label>
-                                        <input type="text" class="form-control text-danger" id="txtTotalConsumomes"
-                                            disabled>
+                                        <input type="text" class="form-control text-danger fw-bolder"
+                                            id="txtTotalConsumomes" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -133,8 +130,9 @@
                             <div class="form-group text-center">
                                 <h5>Imágen Recibo</h5>
                                 <div id="links">
-                                    <a href="{!! asset('../resources/img/recibo.jpg') !!}" title="recibo">
-                                        <img src="{!! asset('../resources/img/recibo.jpg') !!}" width="85" alt="recibo" />
+                                    <a id="imgreciboTemp" href="{!! asset('../resources/img/Noimage.png') !!}" title="recibo">
+                                        <img id="imgrecibo" src="{!! asset('../resources/img/Noimage.png') !!}" width="85"
+                                            alt="recibo" />
                                     </a>
                                 </div>
                             </div>
@@ -145,6 +143,10 @@
         </div>
     </div>
 
+
+    <div class="row" id="detalleconsumo">
+
+    </div>
     <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-contain" aria-label="image gallery"
         aria-modal="true" role="dialog">
         <div class="slides" aria-live="polite"></div>
@@ -157,13 +159,15 @@
         <ol class="indicator"></ol>
     </div>
 
+
+
 @endsection
 
 
 <script>
     function filtrar() {
         $.ajax({
-            url: '{{ route('servicios.filtrar') }}',
+            url: "{{ route('servicios.filtrar') }}",
             method: 'Get',
             data: {
                 '_token': $("input[name='_token']").val(),
@@ -171,24 +175,66 @@
                 'idanio': $("#cboanio").val(),
             }
         }).done(function(data) {
-            var datos = JSON.parse(data)[0];
-
+            var datos = JSON.parse(data);
+            var noImg = "{{ asset('../resources/img/Noimage.png') }}";
             if (datos != undefined) {
-                $('#txtTotalConsumo').val(datos.consumokwtotal);
-                $('#txtPrecioxKW').val(datos.precioxkw);
-                $('#txtCargosFijos').val(datos.costoadministrativo);
-                $('#txtCargosFraccionamiento').val(datos.costofraccionamiento);
-                $('#txtIGV').val(datos.igv);
-                $('#txtTotalConsumomes').val(datos.costototalconsumo);
-            } else {
-                $('#txtTotalConsumo').val('00.00');
-                $('#txtPrecioxKW').val('00.00');
-                $('#txtCargosFijos').val('00.00');
-                $('#txtCargosFraccionamiento').val('00.00');
-                $('#txtIGV').val('00.00');
-                $('#txtTotalConsumomes').val('00.00');
-            }
 
+                if (datos.Cabecera[0].image == null) {
+                    datos.Cabecera[0].image = noImg;
+                }
+
+                $('#txtTotalConsumo').val(datos.Cabecera[0].consumokwtotal + " Kwh");
+                $('#txtPrecioxKW').val("S/ " + parseFloat(datos.Cabecera[0].precioxkw));
+                $('#txtCargosFijos').val("S/ " + parseFloat(datos.Cabecera[0].costoadministrativo));
+                $('#txtCargosFraccionamiento').val("S/ " + parseFloat(datos.Cabecera[0].costofraccionamiento));
+                $('#txtIGV').val(parseInt(datos.Cabecera[0].igv) + " %");
+                $('#txtTotalConsumomes').val("S/ " + parseFloat(datos.Cabecera[0].costototalconsumo));
+                $('#imgrecibo').prop('src', datos.Cabecera[0].image);
+                $('#imgreciboTemp').prop('href', datos.Cabecera[0].image);
+
+                $('#detalleconsumo').empty();
+
+                datos.Detalle.sort(function(a, b) {
+                    return a.idpiso - b.idpiso;
+                });
+
+                datos.Detalle.forEach(function(x) {
+                    console.log(x.idpiso);
+                    let html =
+                        '<div class="col-md-6 col-sm-12"><div class="ibox float-e-margins animated fadeInRight"> <div class="ibox-title"> <h5><i class="fa fa-lightbulb-o" aria-hidden="true"></i> ' +
+                        x.idpiso +
+                        '</h5> <div class="ibox-tools"> <a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a> </div> </div> <div class="ibox-content"> <div class="row"> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Medida al mes:</label> <input type="email" class="form-control" value="' +
+                        (x.medidakw == null ? "0" : x.medidakw) +
+                        ' Kwh" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Consumo Kw:</label> <input type="text" class="form-control" value="' +
+                        (x.consumokw == null ? "0" : x.consumokw) +
+                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Costo Administ.:</label> <input type="text" class="form-control" value="' +
+                        (x.montocostoadministrativo == null ? "0" : x.montocostoadministrativo) +
+                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Fraccionamiento:</label> <input type="text" class="form-control" value="' +
+                        (x.montopagofraccionado == null ? "0" : x.montopagofraccionado) +
+                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Monto sin IGV:</label> <input type="text" class="form-control" value="' +
+                        (x.montototalsinigv == null ? "0" : x.montototalsinigv) +
+                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Monto IGV:</label> <input type="text" class="form-control" value="' +
+                        (x.montoigv == null ? "0" : x.montoigv) +
+                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Monto con IGV:</label> <input type="text" class="form-control" value="' +
+                        (x.montototalconigv == null ? "0" : x.montototalconigv) +
+                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Monto Total:</label> <input type="text" class="form-control text-danger fw-bolder" value="' +
+                        (x.montototal == null ? "0" : x.montototal) +
+                        '" disabled> </div> </div> </div> </div> </div></div>';
+
+                    $('#detalleconsumo').append(html);
+                });
+
+            } else {
+                $('#txtTotalConsumo').val('00.00 Kwh');
+                $('#txtPrecioxKW').val('S/ 00.00');
+                $('#txtCargosFijos').val('S/ 00.00');
+                $('#txtCargosFraccionamiento').val('S/ 00.00');
+                $('#txtIGV').val('00.00 %');
+                $('#txtTotalConsumomes').val('S/ 00.00');
+                $('#imgrecibo').prop('src', noImg);
+                $('#imgreciboTemp').prop('href', noImg);
+                $('#detalleconsumo').html('');
+            }
 
             console.log(datos);
         });

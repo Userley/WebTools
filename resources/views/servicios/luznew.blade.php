@@ -165,7 +165,6 @@
             </div>
         </div>
         <br>
-        <br>
         <div class="btn-group">
             <input type="submit" value="Registrar" class="btn btn-success" onclick="validarControles();">
             <button type="reset" class="btn btn-danger">Limpiar</button>

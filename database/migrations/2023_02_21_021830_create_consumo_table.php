@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal('costofraccionamiento',8,4)->nullable();
             $table->decimal('costototalconsumo',8,4)->nullable();
             $table->decimal('igv',8,4)->nullable();
+            $table->longText('image')->nullable();
             $table->timestamps();
         });
     }
