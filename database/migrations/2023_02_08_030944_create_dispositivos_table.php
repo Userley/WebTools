@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('dispositivos', function (Blueprint $table) {
             $table->id('iddispositivo')->autoIncrement();
+            $table->string('nombre');
             $table->string('descripcion');
-            $table->text('imagen');
-            $table->integer('estado');
-            $table->integer('disponibilidad');
-            $table->integer('usuariocreacion');
+            $table->text('imagen')->nullable();
+            $table->integer('estado')->nullable();
+            $table->integer('disponibilidad')->nullable();
+            $table->integer('usuariocreacion')->nullable();
             $table->timestamps();
         });
     }

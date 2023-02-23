@@ -25,6 +25,7 @@ Route::controller(DispositivosController::class)->group(function () {
     // Route::get('dispositivos/detalle', 'detalle');
     Route::get('dispositivos/crear', 'crear');
     Route::get('dispositivos/{id}', 'show');
+    Route::post('dispositivos', 'registrar')->name('dispositivo.save');
 });
 
 Route::controller(ContactosController::class)->group(function () {

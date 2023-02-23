@@ -20,7 +20,8 @@
 @endsection
 
 @section('content')
-    <form action="" method="post">
+    <form action="{{ route('dispositivo.save') }}" method="post">
+        @csrf
         <div class="ibox float-e-margins animated fadeInRight">
             <div class="ibox-title">
                 <h5>Nuevo Dispositivo</h5>
@@ -34,15 +35,23 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label class="col-sm-5 control-label">Nombre:</label>
+                            <label for="Nombre" class="col-sm-5 control-label">Nombre:</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" name="Nombre">
+                                @error('Nombre')
+                                    <small class="text-danger">*{{ $message }}</small>
+                                    <br>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="txtDescripcion" class="col-sm-2 control-label">Descripción</label>
+                            <label for="Descripcion" class="col-sm-2 control-label">Descripción</label>
                             <div class="col-md-12">
-                                <textarea class="form-control" id="txtDescripcion" rows="4" required></textarea>
+                                <textarea class="form-control" name="Descripcion" rows="4" required></textarea>
+                                @error('Descripcion')
+                                    <small class="text-danger">*{{ $message }}</small>
+                                    <br>
+                                @enderror
                             </div>
                         </div>
                     </div>
