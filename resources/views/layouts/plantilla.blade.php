@@ -9,18 +9,6 @@
 
     <title>WebTools Site</title>
 
-    {{-- <link href=" ../resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../resources/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <!-- Toastr style -->
-    <link href="../resources/css/plugins/toastr/toastr.min.css" rel="stylesheet">
-
-    <!-- Gritter -->
-    <link href="../resources/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
-
-    <link href="../resources/css/animate.css" rel="stylesheet">
-    <link href="../resources/css/style.css" rel="stylesheet"> --}}
-
     <link href="{!! asset('../resources/css/bootstrap.min.css') !!}" rel="stylesheet">
     <link href="{!! asset('../resources/font-awesome/css/font-awesome.css') !!}" rel="stylesheet">
 
@@ -186,7 +174,7 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
-                                            <img alt="image" class="rounded-circle" src="../resources/img/a7.jpg">
+                                            <img alt="image" class="rounded-circle" src="{!! asset('../resources//img/a7.jpg')!!}">
                                         </a>
                                         <div class="media-body">
                                             <small class="float-right">46h ago</small>
@@ -200,7 +188,7 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
-                                            <img alt="image" class="rounded-circle" src="../resources/img/a4.jpg">
+                                            <img alt="image" class="rounded-circle" src="{!! asset('../resources//img/a4.jpg')!!}">
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right text-navy">5h ago</small>
@@ -215,7 +203,7 @@
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
                                             <img alt="image" class="rounded-circle"
-                                                src="../resources/img/profile.jpg">
+                                                src="{!! asset('../resources//img/profil')!!}e.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right">23h ago</small>

@@ -26,8 +26,9 @@
                     aria-hidden="true"></i> Nuevo registro</button></a>
     </div>
     <hr>
+
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="ibox float-e-margins animated fadeInRight">
                 <div class="ibox-title">
                     <h5><i class="fa fa-filter" aria-hidden="true"></i>
@@ -60,7 +61,7 @@
                             </div>
                         </div>
                         <div class="col-md-12  col-sm-12 align-self-center">
-                            <button class="btn btn-primary btn-lg w-100 mt-3" onclick="filtrar()">
+                            <button class="btn btn-primary btn-lg w-100 mt-3 mb-4" onclick="filtrar()">
                                 <i class="fa fa-terminal" aria-hidden="true"></i> Buscar</button>
                         </div>
                     </div>
@@ -68,7 +69,8 @@
 
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
+
             <div class="ibox float-e-margins animated fadeInRight">
                 <div class="ibox-title">
                     <h5><i class="fa fa-lightbulb-o" aria-hidden="true"></i>
@@ -85,7 +87,7 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="txtTotalConsumo">Total Consumo Kw:</label>
+                                        <label class="control-label" for="txtTotalConsumo">Consumo Kw:</label>
                                         <input type="email" class="form-control" id="txtTotalConsumo" value=""
                                             disabled>
                                     </div>
@@ -105,8 +107,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="txtCargosFraccionamiento">Cargos
-                                            Fraccionamiento:</label>
+                                        <label class="control-label" for="txtCargosFraccionamiento">Fracc Deud.:</label>
                                         <input type="text" class="form-control" id="txtCargosFraccionamiento" disabled>
                                     </div>
                                 </div>
@@ -118,8 +119,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="txtTotalConsumomes">Total Consumo del
-                                            mes.:</label>
+                                        <label class="control-label" for="txtTotalConsumomes">Total mes.:</label>
                                         <input type="text" class="form-control text-danger fw-bolder"
                                             id="txtTotalConsumomes" disabled>
                                     </div>
@@ -140,12 +140,44 @@
                     </div>
                 </div>
             </div>
+
+            {{-- <div class="container-fluid">
+                <div class="row " id="detalleconsumo">
+                </div>
+                
+            </div> --}}
+
         </div>
     </div>
 
+    <div class="ibox float-e-margins animated fadeInRight">
+        <div class="ibox-title">
+            <h5><i class="fa fa-table" aria-hidden="true"></i>
+                Detalle</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <table class="table table-hover">
+                <thead class="small">
+                    <th>Lugar</th>
+                    <th>Medida Mes</th>
+                    <th>Consumo Kwh</th>
+                    <th>Cost. Admin.</th>
+                    <th>Fracción Deu.</th>
+                    <th>Monto S/IGV</th>
+                    <th>Monto IGV</th>
+                    <th>Monto C/IGV</th>
+                    <th>Total Mes</th>
+                </thead>
+                <tbody id="detalleconsumo" class="">
 
-    <div class="row" id="detalleconsumo">
-
+                </tbody>
+            </table>
+        </div>
     </div>
     <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-contain" aria-label="image gallery"
         aria-modal="true" role="dialog">
@@ -176,50 +208,50 @@
             }
         }).done(function(data) {
             var datos = JSON.parse(data);
+            console.log(data);
             var noImg = "{{ asset('../resources/img/Noimage.png') }}";
-            if (datos != undefined) {
+            if (datos.length > 0) {
 
-                if (datos.Cabecera[0].image == null) {
-                    datos.Cabecera[0].image = noImg;
+                if (datos[0].Cabecera[0].image == null) {
+                    datos[0].Cabecera[0].image = noImg;
                 }
 
-                $('#txtTotalConsumo').val(datos.Cabecera[0].consumokwtotal + " Kwh");
-                $('#txtPrecioxKW').val("S/ " + parseFloat(datos.Cabecera[0].precioxkw));
-                $('#txtCargosFijos').val("S/ " + parseFloat(datos.Cabecera[0].costoadministrativo));
-                $('#txtCargosFraccionamiento').val("S/ " + parseFloat(datos.Cabecera[0].costofraccionamiento));
-                $('#txtIGV').val(parseInt(datos.Cabecera[0].igv) + " %");
-                $('#txtTotalConsumomes').val("S/ " + parseFloat(datos.Cabecera[0].costototalconsumo));
-                $('#imgrecibo').prop('src', datos.Cabecera[0].image);
-                $('#imgreciboTemp').prop('href', datos.Cabecera[0].image);
+                $('#txtTotalConsumo').val(datos[0].Cabecera[0].consumokwtotal + " Kwh");
+                $('#txtPrecioxKW').val("S/ " + parseFloat(datos[0].Cabecera[0].precioxkw));
+                $('#txtCargosFijos').val("S/ " + parseFloat(datos[0].Cabecera[0].costoadministrativo));
+                $('#txtCargosFraccionamiento').val("S/ " + parseFloat(datos[0].Cabecera[0]
+                    .costofraccionamiento));
+                $('#txtIGV').val(parseInt(datos[0].Cabecera[0].igv) + " %");
+                $('#txtTotalConsumomes').val("S/ " + parseFloat(datos[0].Cabecera[0].costototalconsumo));
+                $('#imgrecibo').prop('src', datos[0].Cabecera[0].image);
+                $('#imgreciboTemp').prop('href', datos[0].Cabecera[0].image);
 
                 $('#detalleconsumo').empty();
 
-                datos.Detalle.sort(function(a, b) {
+                datos[0].Detalle.sort(function(a, b) {
                     return a.idpiso - b.idpiso;
                 });
 
-                datos.Detalle.forEach(function(x) {
+                datos[0].Detalle.forEach(function(x) {
                     console.log(x.idpiso);
                     let html =
-                        '<div class="col-md-6 col-sm-12"><div class="ibox float-e-margins animated fadeInRight"> <div class="ibox-title"> <h5><i class="fa fa-lightbulb-o" aria-hidden="true"></i> ' +
-                        x.idpiso +
-                        '</h5> <div class="ibox-tools"> <a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a> </div> </div> <div class="ibox-content"> <div class="row"> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Medida al mes:</label> <input type="email" class="form-control" value="' +
-                        (x.medidakw == null ? "0" : x.medidakw) +
-                        ' Kwh" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Consumo Kw:</label> <input type="text" class="form-control" value="' +
-                        (x.consumokw == null ? "0" : x.consumokw) +
-                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Costo Administ.:</label> <input type="text" class="form-control" value="' +
-                        (x.montocostoadministrativo == null ? "0" : x.montocostoadministrativo) +
-                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Fraccionamiento:</label> <input type="text" class="form-control" value="' +
-                        (x.montopagofraccionado == null ? "0" : x.montopagofraccionado) +
-                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Monto sin IGV:</label> <input type="text" class="form-control" value="' +
-                        (x.montototalsinigv == null ? "0" : x.montototalsinigv) +
-                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Monto IGV:</label> <input type="text" class="form-control" value="' +
-                        (x.montoigv == null ? "0" : x.montoigv) +
-                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Monto con IGV:</label> <input type="text" class="form-control" value="' +
-                        (x.montototalconigv == null ? "0" : x.montototalconigv) +
-                        '" disabled> </div> </div> <div class="col-md-3 col-sm-2"> <div class="form-group"> <label class="control-label">Monto Total:</label> <input type="text" class="form-control text-danger fw-bolder" value="' +
-                        (x.montototal == null ? "0" : x.montototal) +
-                        '" disabled> </div> </div> </div> </div> </div></div>';
+                        '<tr class="animated fadeInUp"><td><strong class="text-success">' +
+                        x.descripcion + '</strong></td><td>' +
+                        (x.medidakw == null ? "0" : x.medidakw) + ' Kwh</td><td>' +
+                        "S/ " + parseFloat((x.consumokw == null ? "0" : x.consumokw)) + '</td><td>' +
+                        "S/ " + parseFloat((x.montocostoadministrativo == null ? "0" : x
+                            .montocostoadministrativo)) +
+                        '</td><td>' +
+                        "S/ " + parseFloat((x.montopagofraccionado == null ? "0" : x
+                            .montopagofraccionado)) + '</td><td>' +
+                        "S/ " + parseFloat((x.montototalsinigv == null ? "0" : x.montototalsinigv)) +
+                        '</td><td>' +
+                        "S/ " + parseFloat((x.montoigv == null ? "0" : x.montoigv)) + '</td><td>' +
+                        "S/ " + parseFloat((x.montototalconigv == null ? "0" : x.montototalconigv)) +
+                        '</td><td><strong class="text-danger">' +
+                        "S/ " + parseFloat((x.montototal == null ? "0" : x.montototal)) +
+                        '</strong></td><tr>';
+
 
                     $('#detalleconsumo').append(html);
                 });

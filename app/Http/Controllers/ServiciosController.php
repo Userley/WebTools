@@ -23,12 +23,20 @@ class ServiciosController extends Controller
     {
         $Consumo = Consumo::query()->where('idanio', $request->idanio)->where('idmes', $request->idmes)->get();
 
-            $detalle = Consumo_detalle::query()->where('idconsumo', $Consumo[0]->idconsumo)->get();
-            $resp['Cabecera'] = $Consumo;
-            $resp['Detalle'] = $detalle;
+        if (empty($Consumo[0])) {
+            return response($Consumo, 200)->header('Content-type', 'text/plain');
+        } else {
+            // $detalle = Consumo_detalle::query()->where('idconsumo', $Consumo[0]->idconsumo)->get();
+            $detalle = Consumo_detalle::join('pisos_casa', 'consumo_detalle.idpiso', '=', 'pisos_casa.idpiso')
+                ->select('pisos_casa.descripcion', 'consumo_detalle.medidakw', 'consumo_detalle.costokw', 'consumo_detalle.igv', 'consumo_detalle.consumokw', 'consumo_detalle.montototalsinigv', 'consumo_detalle.montoigv', 'consumo_detalle.montototalconigv', 'consumo_detalle.montocostoadministrativo', 'consumo_detalle.montopagofraccionado', 'consumo_detalle.montototal')->where('consumo_detalle.idconsumo', '=', $Consumo[0]->idconsumo)->get();
 
-        // return  json_encode($resp);
-        return response($resp, 200)->header('Content-type', 'text/plain');
+            $resp[0]['Cabecera'] = $Consumo;
+            $resp[0]['Detalle'] = $detalle;
+
+            return response($resp, 200)->header('Content-type', 'text/plain');
+        }
+
+        // return response($resp, 200)->header('Content-type', 'text/plain');
     }
 
 
