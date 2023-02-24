@@ -39,11 +39,12 @@ Route::controller(ContactosController::class)->group(function () {
 
 Route::controller(ServiciosController::class)->group(function () {
 
-    Route::get('servicios/filtrar', 'filtrarluz')->name('servicios.filtrar');
-
-
     Route::get('servicios/luz', 'luz')->name('servicios.luz');
+    Route::get('servicios/filtrar', 'filtrarluz')->name('servicios.filtrar');
     Route::get('servicios/luz/crear', 'newluz');
+    Route::post('servicios/luz', 'saveluz')->name('servicios.saveluz');
+
+
     Route::get('servicios/agua', 'agua')->name('servicios.agua');
     Route::get('servicios/agua/crear', 'newagua');
     Route::get('servicios/internet', 'internet')->name('servicios.internet');
