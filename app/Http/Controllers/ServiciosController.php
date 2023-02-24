@@ -41,8 +41,16 @@ class ServiciosController extends Controller
 
     public function saveluz(Request $request)
     {
-        
-        return response($request, 200);
+        $Consumo = Consumo::select('idconsumo')->orderBy('idconsumo', 'desc')->first();
+        $datos = array();
+
+        foreach ($request->detalle as $detalle) {
+
+            $det = Consumo_detalle::select('medidakw')->where('idconsumo', '=', $Consumo->idconsumo)->where('idpiso', '=', $detalle['idpiso'])->get();
+            array_push($datos, $det[0]->medidakw);
+        }
+
+        return response($datos, 200)->header('Content-type', 'text/plain');
     }
 
 

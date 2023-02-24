@@ -161,7 +161,7 @@
             </div>
         </div>
         <div class="ibox-content">
-            <table class="table table-hover">
+            <table class="table table-hover table-responsive">
                 <thead class="small">
                     <th>Lugar</th>
                     <th>Medida Mes</th>

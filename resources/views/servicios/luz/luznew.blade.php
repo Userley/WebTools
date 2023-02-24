@@ -80,7 +80,7 @@
     <div class="ibox float-e-margins animated fadeInRight">
         <div class="ibox-title">
             <h5><i class="fa fa-th" aria-hidden="true"></i>
-                Detalle x Usuario</h5>
+                Detalle x Piso</h5>
             <div class="ibox-tools">
                 <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
