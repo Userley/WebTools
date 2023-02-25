@@ -27,8 +27,8 @@ return new class extends Migration
             $table->decimal('montocostoadministrativo',8,4)->nullable();
             $table->decimal('montopagofraccionado',8,4)->nullable();
             $table->decimal('montototal',8,4)->nullable();
-            $table->integer('cantPersonas')->default(0);
             $table->integer('idconsumo');
+            $table->timestamps();
         });
     }
 

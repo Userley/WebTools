@@ -25,10 +25,12 @@
         <a href="{{ url('/servicios/luz/crear/') }}"> <button class="btn btn-success col-md-12"><i class="fa fa-file-o"
                     aria-hidden="true"></i> Nuevo registro</button></a>
     </div>
+
+
     <hr>
 
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="ibox float-e-margins animated fadeInRight">
                 <div class="ibox-title">
                     <h5><i class="fa fa-filter" aria-hidden="true"></i>
@@ -37,7 +39,20 @@
 
                 <div class="ibox-content">
                     <div class="row">
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-12">
+                            <div style="overflow-y: scroll; height:160px">
+                                <ul class="list-group" id="listafechas">
+                                    @foreach ($Fechas as $Fecha)
+                                        <li class="list-group-item" id="{{ $Fecha->idanio }}-{{ $Fecha->idmes }}"
+                                            onclick="filtrar(event)"><strong><i class="fa fa-calendar-check-o"
+                                                    aria-hidden="true"></i> {{ $Fecha->anio }}</strong> -
+                                            {{ $Fecha->mes }}</li>
+                                    @endforeach
+
+                                </ul>
+                            </div>
+                        </div>
+                        {{-- <div class="col-md-6 col-sm-6">
                             <div class="form-group">
                                 <label for="idmes">Mes:</label>
                                 <select class="form-select form-control" id="cbomes" name="idmes">
@@ -63,13 +78,13 @@
                         <div class="col-md-12  col-sm-12 align-self-center">
                             <button class="btn btn-primary btn-lg w-100 mt-3 mb-4" onclick="filtrar()">
                                 <i class="fa fa-terminal" aria-hidden="true"></i> Buscar</button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-8">
 
             <div class="ibox float-e-margins animated fadeInRight">
                 <div class="ibox-title">
@@ -131,8 +146,7 @@
                                 <h5>Imágen Recibo</h5>
                                 <div id="links">
                                     <a id="imgreciboTemp" href="{!! asset('../resources/img/Noimage.png') !!}" title="recibo">
-                                        <img id="imgrecibo" src="{!! asset('../resources/img/Noimage.png') !!}" width="85"
-                                            alt="recibo" />
+                                        <img id="imgrecibo" src="{!! asset('../resources/img/Noimage.png') !!}" width="85" alt="recibo" />
                                     </a>
                                 </div>
                             </div>
@@ -140,13 +154,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- <div class="container-fluid">
-                <div class="row " id="detalleconsumo">
-                </div>
-                
-            </div> --}}
-
         </div>
     </div>
 
@@ -161,7 +168,7 @@
             </div>
         </div>
         <div class="ibox-content">
-            <table class="table table-hover table-responsive">
+            <table class="table table-hover">
                 <thead class="small">
                     <th>Lugar</th>
                     <th>Medida Mes</th>
@@ -172,8 +179,9 @@
                     <th>Monto IGV</th>
                     <th>Monto C/IGV</th>
                     <th>Total Mes</th>
+                    <th>Cálculo por persona</th>
                 </thead>
-                <tbody id="detalleconsumo" class="">
+                <tbody id="detalleconsumo" class="small">
 
                 </tbody>
             </table>
@@ -190,29 +198,44 @@
             aria-pressed="false" role="button"></a>
         <ol class="indicator"></ol>
     </div>
-
-
-
 @endsection
 
-
 <script>
-    function filtrar() {
+    function round(value, decimals) {
+        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    }
+
+    function Calcular(id, monto) {
+        let Cant = $("#cant" + id).val();
+        Cant = Cant == '' ? 1 : Cant;
+        $("#resp" + id).val(round(monto / Cant, 2));
+    }
+
+    function filtrar(e) {
+        var fechaanio = e.target.id.split('-');
+
+        document.getElementById('listafechas').querySelectorAll('li').forEach(x => {
+            $("#" + x.id).removeClass('active')
+        })
+
+        $("#" + e.target.id).addClass('active')
+
+
         $.ajax({
             url: "{{ route('servicios.filtrar') }}",
             method: 'Get',
             data: {
                 '_token': $("input[name='_token']").val(),
-                'idmes': $("#cbomes").val(),
-                'idanio': $("#cboanio").val(),
+                'idmes': fechaanio[1],
+                'idanio': fechaanio[0],
             }
         }).done(function(data) {
             var datos = JSON.parse(data);
-            console.log(data);
+            // console.log(data);
             var noImg = "{{ asset('../resources/img/Noimage.png') }}";
             if (datos.length > 0) {
 
-                if (datos[0].Cabecera[0].image == null) {
+                if (datos[0].Cabecera[0].image == null || datos[0].Cabecera[0].image == '') {
                     datos[0].Cabecera[0].image = noImg;
                 }
 
@@ -233,7 +256,7 @@
                 });
 
                 datos[0].Detalle.forEach(function(x) {
-                    console.log(x.idpiso);
+                    // console.log(x.idpiso);
                     let html =
                         '<tr class="animated fadeInUp"><td><strong class="text-success">' +
                         x.descripcion + '</strong></td><td>' +
@@ -250,7 +273,13 @@
                         "S/ " + parseFloat((x.montototalconigv == null ? "0" : x.montototalconigv)) +
                         '</td><td><strong class="text-danger">' +
                         "S/ " + parseFloat((x.montototal == null ? "0" : x.montototal)) +
-                        '</strong></td><tr>';
+                        '</strong></td><td class="d-inline-flex p-0 m-0"><input type="number" value="1" id="cant' +
+                        x
+                        .idpiso +
+                        '" class="form-control form-control-sm " style="width:70px" /> <button class="btn btn-sm btn-primary" onclick="Calcular(' +
+                        x.idpiso + ',' + parseFloat((x.montototal == null ? "0" : x.montototal)) +
+                        ')">Cal</button>  <input type="number" id="resp' + x.idpiso +
+                        '" class="form-control form-control-sm" style="width:80px" disabled /></td><tr>';
 
 
                     $('#detalleconsumo').append(html);
@@ -268,7 +297,7 @@
                 $('#detalleconsumo').html('');
             }
 
-            console.log(datos);
+            // console.log(datos);
         });
     };
 </script>
