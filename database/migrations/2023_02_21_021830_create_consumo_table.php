@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('costototalconsumo',8,4)->nullable();
             $table->decimal('igv',8,4)->nullable();
             $table->longText('image')->nullable();
+            $table->string('comentarios')->nullable();
             $table->timestamps();
         });
     }

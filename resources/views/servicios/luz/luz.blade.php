@@ -22,7 +22,7 @@
 @section('content')
 
     <div class="d-flex align-content-center">
-        <a href="{{ url('/servicios/luz/crear/') }}"> <button class="btn btn-success col-md-12"><i class="fa fa-file-o"
+        <a href="{{ url('/servicios/luz/crear/') }}"> <button class="btn btn-primary col-md-12"><i class="fa fa-file-o"
                     aria-hidden="true"></i> Nuevo registro</button></a>
     </div>
 
@@ -40,7 +40,7 @@
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <div style="overflow-y: scroll; height:160px">
+                            <div style="overflow-y: scroll; height:290px">
                                 <ul class="list-group" id="listafechas">
                                     @foreach ($Fechas as $Fecha)
                                         <li class="list-group-item" id="{{ $Fecha->idanio }}-{{ $Fecha->idmes }}"
@@ -52,33 +52,6 @@
                                 </ul>
                             </div>
                         </div>
-                        {{-- <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                <label for="idmes">Mes:</label>
-                                <select class="form-select form-control" id="cbomes" name="idmes">
-                                    @foreach ($Meses as $Mes)
-                                        <option value="{{ $Mes->idmes }}">{{ $Mes->descripcion }}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                <label for="idanio">Año:</label>
-                                <select class="form-select form-control" id="cboanio" name="idanio">
-                                    @foreach ($Anios as $Anio)
-                                        <option value="{{ $Anio->idanio }}">{{ $Anio->descripcion }}</option>
-                                    @endforeach
-
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="col-md-12  col-sm-12 align-self-center">
-                            <button class="btn btn-primary btn-lg w-100 mt-3 mb-4" onclick="filtrar()">
-                                <i class="fa fa-terminal" aria-hidden="true"></i> Buscar</button>
-                        </div> --}}
                     </div>
                 </div>
 
@@ -139,6 +112,13 @@
                                             id="txtTotalConsumomes" disabled>
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <hr>
+                                    <div class="form-group">
+                                        <label class="control-label" for="txtComentarios">Comentarios:</label>
+                                        <textarea class="form-control" id="txtComentarios" rows="2" disabled></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 ">
@@ -146,7 +126,8 @@
                                 <h5>Imágen Recibo</h5>
                                 <div id="links">
                                     <a id="imgreciboTemp" href="{!! asset('../resources/img/Noimage.png') !!}" title="recibo">
-                                        <img id="imgrecibo" src="{!! asset('../resources/img/Noimage.png') !!}" width="85" alt="recibo" />
+                                        <img id="imgrecibo" src="{!! asset('../resources/img/Noimage.png') !!}" width="130"
+                                            alt="recibo" />
                                     </a>
                                 </div>
                             </div>
@@ -168,23 +149,24 @@
             </div>
         </div>
         <div class="ibox-content">
-            <table class="table table-hover">
-                <thead class="small">
-                    <th>Lugar</th>
-                    <th>Medida Mes</th>
-                    <th>Consumo Kwh</th>
-                    <th>Cost. Admin.</th>
-                    <th>Fracción Deu.</th>
-                    <th>Monto S/IGV</th>
-                    <th>Monto IGV</th>
-                    <th>Monto C/IGV</th>
-                    <th>Total Mes</th>
-                    <th>Cálculo por persona</th>
-                </thead>
-                <tbody id="detalleconsumo" class="small">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="small">
+                        <th>Lugar</th>
+                        <th>Medida Mes</th>
+                        <th>Consumo Kwh</th>
+                        <th>Cost. Admin.</th>
+                        <th>Fracción Deu.</th>
+                        <th>Monto S/IGV</th>
+                        <th>Monto IGV</th>
+                        <th>Monto C/IGV</th>
+                        <th>Total Mes</th>
+                        <th>Cálculo por persona</th>
+                    <tbody id="detalleconsumo" class="small">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-contain" aria-label="image gallery"
@@ -248,7 +230,7 @@
                 $('#txtTotalConsumomes').val("S/ " + parseFloat(datos[0].Cabecera[0].costototalconsumo));
                 $('#imgrecibo').prop('src', datos[0].Cabecera[0].image);
                 $('#imgreciboTemp').prop('href', datos[0].Cabecera[0].image);
-
+                $('#txtComentarios').val(datos[0].Cabecera[0].comentarios);
                 $('#detalleconsumo').empty();
 
                 datos[0].Detalle.sort(function(a, b) {
@@ -294,6 +276,7 @@
                 $('#txtTotalConsumomes').val('S/ 00.00');
                 $('#imgrecibo').prop('src', noImg);
                 $('#imgreciboTemp').prop('href', noImg);
+                $('#txtComentarios').val();
                 $('#detalleconsumo').html('');
             }
 

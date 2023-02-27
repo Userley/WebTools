@@ -17,7 +17,7 @@ class ServiciosController extends Controller
     {
         $Anios = Anio::select('anio.idanio', 'anio.descripcion')->join('consumo', 'consumo.idanio', '=', 'anio.idanio')->distinct()->get();
         $Meses = Mes::select('mes.idmes', 'mes.descripcion')->join('consumo', 'consumo.idmes', '=', 'mes.idmes')->distinct()->orderby('mes.idmes')->get();
-        $Fechas = consumo::select('anio.idanio', 'anio.descripcion as anio', 'mes.idmes', 'mes.descripcion as mes')->join('anio', 'consumo.idanio', '=', 'anio.idanio')->join('mes', 'consumo.idmes', '=', 'mes.idmes')->distinct()->orderby('anio.idanio','DESC')->orderby('mes.idmes','DESC')->get();
+        $Fechas = consumo::select('anio.idanio', 'anio.descripcion as anio', 'mes.idmes', 'mes.descripcion as mes')->join('anio', 'consumo.idanio', '=', 'anio.idanio')->join('mes', 'consumo.idmes', '=', 'mes.idmes')->distinct()->orderby('anio.idanio', 'DESC')->orderby('mes.idmes', 'DESC')->get();
         return view('servicios.luz.luz', compact('Anios', 'Meses', 'Fechas'));
     }
 
@@ -30,7 +30,7 @@ class ServiciosController extends Controller
             return response($Consumo, 200)->header('Content-type', 'text/plain');
         } else {
             $detalle = Consumo_detalle::join('pisos_casa', 'consumo_detalle.idpiso', '=', 'pisos_casa.idpiso')
-                ->select('pisos_casa.idpiso','pisos_casa.descripcion', 'consumo_detalle.medidakw', 'consumo_detalle.costokw', 'consumo_detalle.igv', 'consumo_detalle.consumokw', 'consumo_detalle.montototalsinigv', 'consumo_detalle.montoigv', 'consumo_detalle.montototalconigv', 'consumo_detalle.montocostoadministrativo', 'consumo_detalle.montopagofraccionado', 'consumo_detalle.montototal')->where('consumo_detalle.idconsumo', '=', $Consumo[0]->idconsumo)->get();
+                ->select('pisos_casa.idpiso', 'pisos_casa.descripcion', 'consumo_detalle.medidakw', 'consumo_detalle.costokw', 'consumo_detalle.igv', 'consumo_detalle.consumokw', 'consumo_detalle.montototalsinigv', 'consumo_detalle.montoigv', 'consumo_detalle.montototalconigv', 'consumo_detalle.montocostoadministrativo', 'consumo_detalle.montopagofraccionado', 'consumo_detalle.montototal')->where('consumo_detalle.idconsumo', '=', $Consumo[0]->idconsumo)->get();
 
             $resp[0]['Cabecera'] = $Consumo;
             $resp[0]['Detalle'] = $detalle;
@@ -57,7 +57,8 @@ class ServiciosController extends Controller
                 $ConsumoSave->costofraccionamiento = round(floatval($request->cabecera['fraccionamiento']), 2);
                 $ConsumoSave->costototalconsumo = round(floatval($request->cabecera['montoMes']), 2);
                 $ConsumoSave->igv = floatval($request->cabecera['igv']);
-                $ConsumoSave->image = '';
+                $ConsumoSave->image = $request->cabecera['image'];
+                $ConsumoSave->comentarios = $request->cabecera['comentarios'];
                 $ConsumoSave->save();
 
                 $ConsumoPrev = Consumo::select('idconsumo')->orderBy('idconsumo', 'desc')->first();
