@@ -293,7 +293,7 @@
 
             if (!valCamposVacios()) {
                 Swal.fire({
-                    icon: 'info',
+                    icon: 'warning',
                     title: 'Alerta',
                     text: 'Debe llenar todos los campos obligatorios',
                 });
@@ -302,7 +302,7 @@
 
             if (medida == '') {
                 Swal.fire({
-                    icon: 'info',
+                    icon: 'warning',
                     title: 'Alerta',
                     text: 'Debe llenar la última medida del piso del mes',
                 });
@@ -314,7 +314,7 @@
                 let idPi = document.getElementById('tbldetalle').rows[index].querySelectorAll('td')[1].innerHTML;
                 if (Idpiso == idPi) {
                     Swal.fire({
-                        icon: 'error',
+                        icon: 'warning',
                         title: 'Oops...',
                         text: '¡No se puede ingresar 2 veces un mismo Piso!',
                     })
@@ -397,7 +397,7 @@
 
             if (!valCamposVacios()) {
                 Swal.fire({
-                    icon: 'info',
+                    icon: 'warning',
                     title: 'Alerta',
                     text: 'Debe llenar todos los campos',
                 });
@@ -406,7 +406,7 @@
 
             if (document.getElementById('tbldetalle').rows.length <= 0) {
                 Swal.fire({
-                    icon: 'info',
+                    icon: 'warning',
                     title: 'Alerta',
                     text: 'Debe tener al menos registrado un piso.',
                 });
@@ -469,7 +469,7 @@
                 console.log(data);
                 if (data == 0) {
                     Swal.fire({
-                        icon: 'info',
+                        icon: 'warning',
                         title: 'Alerta',
                         text: 'No se pudo registrar la información.',
                     });
@@ -481,7 +481,7 @@
                     });
                 } else if (data == 3) {
                     Swal.fire({
-                        icon: 'info',
+                        icon: 'warning',
                         title: 'Alerta',
                         text: 'El registro con el mes y año seleccionado ya existe.',
                     });

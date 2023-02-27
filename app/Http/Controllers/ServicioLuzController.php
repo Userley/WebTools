@@ -11,8 +11,12 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ServiciosController extends Controller
+class ServicioLuzController extends Controller
 {
+
+    // LUZ
+    // --------------------------------------------------------------
+
     public function luz()
     {
         $Anios = Anio::select('anio.idanio', 'anio.descripcion')->join('consumo', 'consumo.idanio', '=', 'anio.idanio')->distinct()->get();
@@ -20,7 +24,6 @@ class ServiciosController extends Controller
         $Fechas = consumo::select('anio.idanio', 'anio.descripcion as anio', 'mes.idmes', 'mes.descripcion as mes')->join('anio', 'consumo.idanio', '=', 'anio.idanio')->join('mes', 'consumo.idmes', '=', 'mes.idmes')->distinct()->orderby('anio.idanio', 'DESC')->orderby('mes.idmes', 'DESC')->get();
         return view('servicios.luz.luz', compact('Anios', 'Meses', 'Fechas'));
     }
-
 
     public function filtrarluz(Request $request)
     {
@@ -39,6 +42,14 @@ class ServiciosController extends Controller
         }
     }
 
+    public function newluz()
+    {
+        $Anios = Anio::all();
+        $Meses = Mes::all();
+        $Pisos = Pisos_casa::all();
+
+        return view('servicios.luz.luznew', compact('Anios', 'Meses', 'Pisos'));
+    }
 
     public function saveluz(Request $request)
     {
@@ -111,38 +122,6 @@ class ServiciosController extends Controller
     }
 
 
-    public function agua()
-    {
-        return view('servicios.agua.agua');
-    }
-
-    public function internet()
-    {
-        return view('servicios.internet.internet');
-    }
-
-    public function otros()
-    {
-        return view('servicios.otros.otros');
-    }
 
 
-    public function newluz()
-    {
-        $Anios = Anio::all();
-        $Meses = Mes::all();
-        $Pisos = Pisos_casa::all();
-
-        return view('servicios.luz.luznew', compact('Anios', 'Meses', 'Pisos'));
-    }
-
-    public function newagua()
-    {
-        return view('servicios.agua.aguanew');
-    }
-
-    public function newinternet()
-    {
-        return view('servicios.internet.internetnew');
-    }
 }

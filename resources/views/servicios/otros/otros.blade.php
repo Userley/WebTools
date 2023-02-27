@@ -13,7 +13,7 @@
                 <a href="index.html">Servicios</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="index.html">Internet</a>
+                <a href="index.html">Otros</a>
             </li>
         </ol>
     </div>

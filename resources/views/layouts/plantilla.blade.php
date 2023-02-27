@@ -132,18 +132,20 @@
 
                         </ul>
                     </li>
-                    <li
-                        class="{{ request()->routeIs('servicios.*') ? 'active' : '' }}">
+                    <li class="{{ request()->routeIs('servicios.*') ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Servicios</span><span
                                 class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
+                            <li class="{{ request()->routeIs('servicios.resumen') ? 'active' : '' }}"><a
+                                    href="{{ route('servicios.resumen') }}">Resumen</a></li>
                             <li class="{{ request()->routeIs('servicios.luz') ? 'active' : '' }}"><a
                                     href="{{ route('servicios.luz') }}">Luz</a></li>
                             <li class="{{ request()->routeIs('servicios.agua') ? 'active' : '' }}"><a
                                     href="{{ route('servicios.agua') }}">Agua</a></li>
                             <li class="{{ request()->routeIs('servicios.internet') ? 'active' : '' }}"><a
                                     href="{{ route('servicios.internet') }}">Internet</a></li>
-                            <li><a href="form_file_upload.html">Otros</a></li>
+                            <li class="{{ request()->routeIs('servicios.otros') ? 'active' : '' }}"><a
+                                    href="{{ route('servicios.otros') }}">Otros</a></li>
                         </ul>
                     </li>
                     <li>
@@ -174,7 +176,8 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
-                                            <img alt="image" class="rounded-circle" src="{!! asset('../resources//img/a7.jpg')!!}">
+                                            <img alt="image" class="rounded-circle"
+                                                src="{!! asset('../resources//img/a7.jpg') !!}">
                                         </a>
                                         <div class="media-body">
                                             <small class="float-right">46h ago</small>
@@ -188,7 +191,8 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
-                                            <img alt="image" class="rounded-circle" src="{!! asset('../resources//img/a4.jpg')!!}">
+                                            <img alt="image" class="rounded-circle"
+                                                src="{!! asset('../resources//img/a4.jpg') !!}">
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right text-navy">5h ago</small>
@@ -203,7 +207,7 @@
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
                                             <img alt="image" class="rounded-circle"
-                                                src="{!! asset('../resources//img/profil')!!}e.jpg">
+                                                src="{!! asset('../resources//img/profil') !!}e.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right">23h ago</small>

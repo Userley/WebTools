@@ -13,7 +13,7 @@
                 <a href="index.html">Servicios</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="index.html">Internet</a>
+                <a href="index.html">Gas</a>
             </li>
         </ol>
     </div>
@@ -21,9 +21,11 @@
 
 @section('content')
 <div class="d-flex align-content-center">
-    <a href="{{ url('/servicios/internet/crear/') }}"> <button class="btn btn-primary col-md-12"><i class="fa fa-file-o"
+    <a href="{{ url('/servicios/gas/crear/') }}"> <button class="btn btn-primary col-md-12"><i class="fa fa-file-o"
                 aria-hidden="true"></i> Nuevo registro</button></a>
 </div>
+
+
 <hr>
 
 
