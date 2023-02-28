@@ -50,6 +50,7 @@ Route::controller(ServicioLuzController::class)->group(function () {
 
 Route::controller(ServicioAguaController::class)->group(function () {
     Route::get('servicios/agua', 'agua')->name('servicios.agua');
+    Route::get('servicios/filtraragua', 'filtraragua')->name('servicios.filtraragua');
     Route::get('servicios/agua/crear', 'newagua');
 });
 

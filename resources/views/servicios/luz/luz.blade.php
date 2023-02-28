@@ -43,7 +43,7 @@
                             <div style="overflow-y: scroll; height:290px">
                                 <ul class="list-group" id="listafechas">
                                     @foreach ($Fechas as $Fecha)
-                                        <li class="list-group-item" id="{{ $Fecha->idanio }}-{{ $Fecha->idmes }}"
+                                        <li class="list-group-item list-group-item-action" id="{{ $Fecha->idanio }}-{{ $Fecha->idmes }}"
                                             onclick="filtrar(event)"><strong><i class="fa fa-calendar-check-o"
                                                     aria-hidden="true"></i> {{ $Fecha->anio }}</strong> -
                                             {{ $Fecha->mes }}</li>

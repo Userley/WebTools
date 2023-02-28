@@ -89,9 +89,6 @@
                                     <img id="imagenPrevisualizacion" width="90" style="border-radius:0%">
                                 </div>
                             </div>
-                            {{-- <button class="btn btn-primary btn-lg w-100 mt-3" onclick="agregarFila()"><i class="fa fa-plus"
-                                    aria-hidden="true"></i>
-                                Agregar</button> --}}
                         </div>
                     </div>
                 </div>
@@ -202,12 +199,8 @@
             });
         };
 
-        // Eventos
         inputFile.addEventListener('input', async (event) => {
-            // Convierto la primera imagen del input en una ruta Base64
-            debugger;
             base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
-            // Anyado la ruta Base64 a la imagen
             image.setAttribute('src', base64URL);
         });
 
@@ -236,11 +229,11 @@
             }
 
             let contval = 0;
+
             document.getElementById('pisoslist').querySelectorAll('li input').forEach((x) => {
+                let piso = x.id.split(',')[0];
 
-                let id = x.id.split(',')[0];
-                if (id == Idpiso) {
-
+                if (piso == Idpiso) {
                     contval++;
                 }
             });
@@ -265,9 +258,7 @@
                 txtCantPersonas.value = '';
                 document.getElementById('txtCantPersonas').focus();
             }
-
         }
-
 
         const calcular = () => {
             let MontoReciboAgua = document.getElementById('txtMontoReciboAgua').value;
@@ -282,7 +273,6 @@
                 return;
             }
 
-
             if (parseInt(MontoReciboAgua) <= 0) {
                 Swal.fire({
                     icon: 'warning',
@@ -292,17 +282,29 @@
                 return;
             }
 
+            let sumaPersonas = 0;
+            document.getElementById('pisoslist').querySelectorAll('li input').forEach((x) => {
+                let persona = x.id.split(',')[1];
+                sumaPersonas = sumaPersonas + parseInt(persona);
+            });
+            console.log({
+                MontoReciboAgua
+            });
+            console.log({
+                sumaPersonas
+            });
+
             $('#tbldetalle').empty();
             document.getElementById('pisoslist').querySelectorAll('li input').forEach(x => {
                 let valores = x.id.split(',');
-                let MontoxPers = (MontoReciboAgua / cantPisPer) / valores[1];
+                let MontoxPers = (MontoReciboAgua / sumaPersonas);
                 document.getElementById('tbldetalle').insertRow(-1).innerHTML =
                     '<td style="display:none">' +
                     valores[0] + '</td><td>' +
                     x.value + '</td><td>' +
                     valores[1] + '</td><td>' +
-                    round(MontoxPers, 2) + '</td><td>' +
-                    round(MontoxPers * valores[1], 2) + '</td>';
+                    (valores[0] == '2' ? 20 : round(MontoxPers, 2)) + '</td><td>' +
+                    round((valores[0] == '2' ? 20 : round(MontoxPers, 2)) * valores[1], 2) + '</td>';
             });
 
 
