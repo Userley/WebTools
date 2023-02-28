@@ -157,7 +157,7 @@
                                                         <th>Piso</th>
                                                         <th>Cant. Personas</th>
                                                         <th>Monto x Pers.</th>
-                                                        <th>Sub Total</th>
+                                                        <th>Monto x Piso</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="text-center" id="tbldetalle">
@@ -178,9 +178,11 @@
         </div>
     </div>
 
+@endsection
 
+<script>
+    @section('functions')
 
-    <script>
         const inputFile = document.querySelector('#formFile');
         const image = document.querySelector('#imagenPrevisualizacion');
         var base64URL = "";
@@ -214,7 +216,8 @@
 
             let txtCantPersonas = document.getElementById('txtCantPersonas').value;
             let Idpiso = document.getElementById('cbopiso').value;
-            let Textpiso = document.getElementById('cbopiso').options[document.getElementById('cbopiso').selectedIndex]
+            let Textpiso = document.getElementById('cbopiso').options[document.getElementById('cbopiso')
+                    .selectedIndex]
                 .text;
             let idPisoPersona = Idpiso + "," + txtCantPersonas;
 
@@ -297,7 +300,7 @@
             $('#tbldetalle').empty();
             document.getElementById('pisoslist').querySelectorAll('li input').forEach(x => {
                 let valores = x.id.split(',');
-                let MontoxPers = (MontoReciboAgua / sumaPersonas);
+                let MontoxPers = ((MontoReciboAgua - 20) / (sumaPersonas - 1));
                 document.getElementById('tbldetalle').insertRow(-1).innerHTML =
                     '<td style="display:none">' +
                     valores[0] + '</td><td>' +
@@ -306,9 +309,6 @@
                     (valores[0] == '2' ? 20 : round(MontoxPers, 2)) + '</td><td>' +
                     round((valores[0] == '2' ? 20 : round(MontoxPers, 2)) * valores[1], 2) + '</td>';
             });
-
-
         }
-    </script>
-
-@endsection
+    @endsection
+</script>

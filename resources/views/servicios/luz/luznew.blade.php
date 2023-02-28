@@ -209,7 +209,9 @@
             </div>
         </div>
     </div>
-    <script>
+@endsection
+<script>
+    @section('functions')
         const inputFile = document.querySelector('#formFile');
         const image = document.querySelector('#imagenPrevisualizacion');
         var base64URL = "";
@@ -283,10 +285,12 @@
             let Textmes = document.getElementById('cbomes').options[document.getElementById('cbomes').selectedIndex]
                 .text;
             let Idanio = document.getElementById('cboanio').value;
-            let Textanio = document.getElementById('cboanio').options[document.getElementById('cboanio').selectedIndex]
+            let Textanio = document.getElementById('cboanio').options[document.getElementById('cboanio')
+                    .selectedIndex]
                 .text;
             let Idpiso = document.getElementById('cbopiso').value;
-            let Textpiso = document.getElementById('cbopiso').options[document.getElementById('cbopiso').selectedIndex]
+            let Textpiso = document.getElementById('cbopiso').options[document.getElementById('cbopiso')
+                    .selectedIndex]
                 .text;
             let medida = document.getElementById('txtUltimaMedida').value;
 
@@ -334,13 +338,15 @@
 
                 case '2':
                     CargoFijoPiso = parseFloat(parseFloat(CargoFijo) * parseFloat(0.4232));
-                    FraccionamientoPiso = parseFloat(parseInt(Fraccionamiento) == 0 ? 0 : parseFloat(Fraccionamiento) /
+                    FraccionamientoPiso = parseFloat(parseInt(Fraccionamiento) == 0 ? 0 : parseFloat(
+                            Fraccionamiento) /
                         2);
                     break;
 
                 case '3':
                     CargoFijoPiso = parseFloat(parseFloat(CargoFijo) * parseFloat((1 - 0.4232) / 2));
-                    FraccionamientoPiso = parseFloat(parseInt(Fraccionamiento) == 0 ? 0 : parseFloat(Fraccionamiento) /
+                    FraccionamientoPiso = parseFloat(parseInt(Fraccionamiento) == 0 ? 0 : parseFloat(
+                            Fraccionamiento) /
                         2);
                     break;
 
@@ -497,5 +503,5 @@
 
 
         }
-    </script>
-@endsection
+    @endsection
+</script>

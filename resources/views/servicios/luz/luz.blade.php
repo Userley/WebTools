@@ -43,10 +43,12 @@
                             <div style="overflow-y: scroll; height:290px">
                                 <ul class="list-group" id="listafechas">
                                     @foreach ($Fechas as $Fecha)
-                                        <li class="list-group-item list-group-item-action" id="{{ $Fecha->idanio }}-{{ $Fecha->idmes }}"
-                                            onclick="filtrar(event)"><strong><i class="fa fa-calendar-check-o"
-                                                    aria-hidden="true"></i> {{ $Fecha->anio }}</strong> -
-                                            {{ $Fecha->mes }}</li>
+                                        <li class="list-group-item list-group-item-action"
+                                            id="{{ $Fecha->idanio }}-{{ $Fecha->idmes }}" onclick="filtrar(event)">
+                                            <strong><i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                                {{ $Fecha->anio }}</strong> -
+                                            {{ $Fecha->mes }}
+                                        </li>
                                     @endforeach
 
                                 </ul>
@@ -183,104 +185,121 @@
 @endsection
 
 <script>
-    function round(value, decimals) {
-        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-    }
-
-    function Calcular(id, monto) {
-        let Cant = $("#cant" + id).val();
-        Cant = Cant == '' ? 1 : Cant;
-        $("#resp" + id).val(round(monto / Cant, 2));
-    }
-
-    function filtrar(e) {
-        var fechaanio = e.target.id.split('-');
-
-        document.getElementById('listafechas').querySelectorAll('li').forEach(x => {
-            $("#" + x.id).removeClass('active')
-        })
-
-        $("#" + e.target.id).addClass('active')
-
-
-        $.ajax({
-            url: "{{ route('servicios.filtrar') }}",
-            method: 'Get',
-            data: {
-                '_token': $("input[name='_token']").val(),
-                'idmes': fechaanio[1],
-                'idanio': fechaanio[0],
+    @section('ready')
+        document.getElementById('links').onclick = function(event) {
+            event = event || window.event
+            var target = event.target || event.srcElement
+            var link = target.src ? target.parentNode : target
+            var options = {
+                index: link,
+                event: event
             }
-        }).done(function(data) {
-            var datos = JSON.parse(data);
-            // console.log(data);
-            var noImg = "{{ asset('../resources/img/Noimage.png') }}";
-            if (datos.length > 0) {
+            var links = this.getElementsByTagName('a')
+            blueimp.Gallery(links, options)
+        }
+    @endsection
 
-                if (datos[0].Cabecera[0].image == null || datos[0].Cabecera[0].image == '') {
-                    datos[0].Cabecera[0].image = noImg;
+    @section('functions')
+        function round(value, decimals) {
+            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+        }
+
+        function Calcular(id, monto) {
+            let Cant = $("#cant" + id).val();
+            Cant = Cant == '' ? 1 : Cant;
+            $("#resp" + id).val(round(monto / Cant, 2));
+        }
+
+        function filtrar(e) {
+            var fechaanio = e.target.id.split('-');
+
+            document.getElementById('listafechas').querySelectorAll('li').forEach(x => {
+                $("#" + x.id).removeClass('active')
+            })
+
+            $("#" + e.target.id).addClass('active')
+
+
+            $.ajax({
+                url: "{{ route('servicios.filtrar') }}",
+                method: 'Get',
+                data: {
+                    '_token': $("input[name='_token']").val(),
+                    'idmes': fechaanio[1],
+                    'idanio': fechaanio[0],
                 }
+            }).done(function(data) {
+                var datos = JSON.parse(data);
+                // console.log(data);
+                var noImg = "{{ asset('../resources/img/Noimage.png') }}";
+                if (datos.length > 0) {
 
-                $('#txtTotalConsumo').val(datos[0].Cabecera[0].consumokwtotal + " Kwh");
-                $('#txtPrecioxKW').val("S/ " + parseFloat(datos[0].Cabecera[0].precioxkw));
-                $('#txtCargosFijos').val("S/ " + parseFloat(datos[0].Cabecera[0].costoadministrativo));
-                $('#txtCargosFraccionamiento').val("S/ " + parseFloat(datos[0].Cabecera[0]
-                    .costofraccionamiento));
-                $('#txtIGV').val(parseInt(datos[0].Cabecera[0].igv) + " %");
-                $('#txtTotalConsumomes').val("S/ " + parseFloat(datos[0].Cabecera[0].costototalconsumo));
-                $('#imgrecibo').prop('src', datos[0].Cabecera[0].image);
-                $('#imgreciboTemp').prop('href', datos[0].Cabecera[0].image);
-                $('#txtComentarios').val(datos[0].Cabecera[0].comentarios);
-                $('#detalleconsumo').empty();
+                    if (datos[0].Cabecera[0].image == null || datos[0].Cabecera[0].image == '') {
+                        datos[0].Cabecera[0].image = noImg;
+                    }
 
-                datos[0].Detalle.sort(function(a, b) {
-                    return a.idpiso - b.idpiso;
-                });
+                    $('#txtTotalConsumo').val(datos[0].Cabecera[0].consumokwtotal + " Kwh");
+                    $('#txtPrecioxKW').val("S/ " + parseFloat(datos[0].Cabecera[0].precioxkw));
+                    $('#txtCargosFijos').val("S/ " + parseFloat(datos[0].Cabecera[0].costoadministrativo));
+                    $('#txtCargosFraccionamiento').val("S/ " + parseFloat(datos[0].Cabecera[0]
+                        .costofraccionamiento));
+                    $('#txtIGV').val(parseInt(datos[0].Cabecera[0].igv) + " %");
+                    $('#txtTotalConsumomes').val("S/ " + parseFloat(datos[0].Cabecera[0].costototalconsumo));
+                    $('#imgrecibo').prop('src', datos[0].Cabecera[0].image);
+                    $('#imgreciboTemp').prop('href', datos[0].Cabecera[0].image);
+                    $('#txtComentarios').val(datos[0].Cabecera[0].comentarios);
+                    $('#detalleconsumo').empty();
 
-                datos[0].Detalle.forEach(function(x) {
-                    // console.log(x.idpiso);
-                    let html =
-                        '<tr class="animated fadeInUp"><td><strong class="text-success">' +
-                        x.descripcion + '</strong></td><td>' +
-                        (x.medidakw == null ? "0" : x.medidakw) + ' Kwh</td><td>' +
-                        "S/ " + parseFloat((x.consumokw == null ? "0" : x.consumokw)) + '</td><td>' +
-                        "S/ " + parseFloat((x.montocostoadministrativo == null ? "0" : x
-                            .montocostoadministrativo)) +
-                        '</td><td>' +
-                        "S/ " + parseFloat((x.montopagofraccionado == null ? "0" : x
-                            .montopagofraccionado)) + '</td><td>' +
-                        "S/ " + parseFloat((x.montototalsinigv == null ? "0" : x.montototalsinigv)) +
-                        '</td><td>' +
-                        "S/ " + parseFloat((x.montoigv == null ? "0" : x.montoigv)) + '</td><td>' +
-                        "S/ " + parseFloat((x.montototalconigv == null ? "0" : x.montototalconigv)) +
-                        '</td><td><strong class="text-danger">' +
-                        "S/ " + parseFloat((x.montototal == null ? "0" : x.montototal)) +
-                        '</strong></td><td class="d-inline-flex p-0 m-0"><input type="number" value="1" id="cant' +
-                        x
-                        .idpiso +
-                        '" class="form-control form-control-sm " style="width:70px" /> <button class="btn btn-sm btn-primary" onclick="Calcular(' +
-                        x.idpiso + ',' + parseFloat((x.montototal == null ? "0" : x.montototal)) +
-                        ')">Cal</button>  <input type="number" id="resp' + x.idpiso +
-                        '" class="form-control form-control-sm" style="width:80px" disabled /></td><tr>';
+                    datos[0].Detalle.sort(function(a, b) {
+                        return a.idpiso - b.idpiso;
+                    });
+
+                    datos[0].Detalle.forEach(function(x) {
+                        // console.log(x.idpiso);
+                        let html =
+                            '<tr class="animated fadeInUp"><td><strong class="text-success">' +
+                            x.descripcion + '</strong></td><td>' +
+                            (x.medidakw == null ? "0" : x.medidakw) + ' Kwh</td><td>' +
+                            "S/ " + parseFloat((x.consumokw == null ? "0" : x.consumokw)) +
+                            '</td><td>' +
+                            "S/ " + parseFloat((x.montocostoadministrativo == null ? "0" : x
+                                .montocostoadministrativo)) +
+                            '</td><td>' +
+                            "S/ " + parseFloat((x.montopagofraccionado == null ? "0" : x
+                                .montopagofraccionado)) + '</td><td>' +
+                            "S/ " + parseFloat((x.montototalsinigv == null ? "0" : x
+                            .montototalsinigv)) +
+                            '</td><td>' +
+                            "S/ " + parseFloat((x.montoigv == null ? "0" : x.montoigv)) + '</td><td>' +
+                            "S/ " + parseFloat((x.montototalconigv == null ? "0" : x
+                            .montototalconigv)) +
+                            '</td><td><strong class="text-danger">' +
+                            "S/ " + parseFloat((x.montototal == null ? "0" : x.montototal)) +
+                            '</strong></td><td class="d-inline-flex p-0 m-0"><input type="number" value="1" id="cant' +
+                            x
+                            .idpiso +
+                            '" class="form-control form-control-sm " style="width:70px" /> <button class="btn btn-sm btn-primary" onclick="Calcular(' +
+                            x.idpiso + ',' + parseFloat((x.montototal == null ? "0" : x.montototal)) +
+                            ')">Cal</button>  <input type="number" id="resp' + x.idpiso +
+                            '" class="form-control form-control-sm" style="width:80px" disabled /></td><tr>';
 
 
-                    $('#detalleconsumo').append(html);
-                });
+                        $('#detalleconsumo').append(html);
+                    });
 
-            } else {
-                $('#txtTotalConsumo').val('00.00 Kwh');
-                $('#txtPrecioxKW').val('S/ 00.00');
-                $('#txtCargosFijos').val('S/ 00.00');
-                $('#txtCargosFraccionamiento').val('S/ 00.00');
-                $('#txtIGV').val('00.00 %');
-                $('#txtTotalConsumomes').val('S/ 00.00');
-                $('#imgrecibo').prop('src', noImg);
-                $('#imgreciboTemp').prop('href', noImg);
-                $('#txtComentarios').val();
-                $('#detalleconsumo').html('');
-            }
-
-            // console.log(datos);
-        });
-    };
+                } else {
+                    $('#txtTotalConsumo').val('00.00 Kwh');
+                    $('#txtPrecioxKW').val('S/ 00.00');
+                    $('#txtCargosFijos').val('S/ 00.00');
+                    $('#txtCargosFraccionamiento').val('S/ 00.00');
+                    $('#txtIGV').val('00.00 %');
+                    $('#txtTotalConsumomes').val('S/ 00.00');
+                    $('#imgrecibo').prop('src', noImg);
+                    $('#imgreciboTemp').prop('href', noImg);
+                    $('#txtComentarios').val();
+                    $('#detalleconsumo').html('');
+                }
+            });
+        };
+    @endsection
 </script>

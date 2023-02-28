@@ -41,7 +41,7 @@
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <div style="overflow-y: scroll; height:180px">
+                            <div style="overflow-y: scroll; height:190px">
                                 <ul class="list-group" id="listafechas">
                                     @foreach ($ConsumosAgua as $Consumo)
                                         <li class="list-group-item list-group-item-action"
@@ -135,8 +135,23 @@
             aria-pressed="false" role="button"></a>
         <ol class="indicator"></ol>
     </div>
+@endsection
+<script>
+    @section('ready')
+        document.getElementById('links').onclick = function(event) {
+            event = event || window.event
+            var target = event.target || event.srcElement
+            var link = target.src ? target.parentNode : target
+            var options = {
+                index: link,
+                event: event
+            }
+            var links = this.getElementsByTagName('a')
+            blueimp.Gallery(links, options)
+        }
+    @endsection
 
-    <script>
+    @section('functions')
         function round(value, decimals) {
             return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
         }
@@ -196,12 +211,8 @@
 
                     $('#txtMontoReciboAgua').val('S/ 00.00');
                     $('#txtComentarios').val();
-                    // $('#tbldetalle').empty();
                 }
-
-                // console.log(datos);
             });
         };
-    </script>
-
-@endsection
+    @endsection
+</script>
