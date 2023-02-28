@@ -260,19 +260,18 @@
                             '<tr class="animated fadeInUp"><td><strong class="text-success">' +
                             x.descripcion + '</strong></td><td>' +
                             (x.medidakw == null ? "0" : x.medidakw) + ' Kwh</td><td>' +
-                            "S/ " + parseFloat((x.consumokw == null ? "0" : x.consumokw)) +
-                            '</td><td>' +
+                            parseFloat((x.consumokw == null ? "0" : x.consumokw)) + 'Kwh</td><td>' +
                             "S/ " + parseFloat((x.montocostoadministrativo == null ? "0" : x
                                 .montocostoadministrativo)) +
                             '</td><td>' +
                             "S/ " + parseFloat((x.montopagofraccionado == null ? "0" : x
                                 .montopagofraccionado)) + '</td><td>' +
                             "S/ " + parseFloat((x.montototalsinigv == null ? "0" : x
-                            .montototalsinigv)) +
+                                .montototalsinigv)) +
                             '</td><td>' +
                             "S/ " + parseFloat((x.montoigv == null ? "0" : x.montoigv)) + '</td><td>' +
                             "S/ " + parseFloat((x.montototalconigv == null ? "0" : x
-                            .montototalconigv)) +
+                                .montototalconigv)) +
                             '</td><td><strong class="text-danger">' +
                             "S/ " + parseFloat((x.montototal == null ? "0" : x.montototal)) +
                             '</strong></td><td class="d-inline-flex p-0 m-0"><input type="number" value="1" id="cant' +

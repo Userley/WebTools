@@ -91,7 +91,7 @@
                                                     <th>Piso</th>
                                                     <th>Personas</th>
                                                     <th>Monto x Pers.</th>
-                                                    <th>Sub Total</th>
+                                                    <th>Monto x Piso</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tbldetalle" class="text-center">

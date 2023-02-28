@@ -33,7 +33,7 @@
         <div class="col-md-4">
             <div class="ibox float-e-margins animated fadeInRight">
                 <div class="ibox-title">
-                    <h5>Periodo</h5>
+                    <h5><i class="fa fa-calendar" aria-hidden="true"></i> Periodo</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -97,7 +97,7 @@
         <div class="col-md-8">
             <div class="ibox float-e-margins animated fadeInRight">
                 <div class="ibox-title">
-                    <h5>Detalle por piso</h5>
+                    <h5><i class="fa fa-globe" aria-hidden="true"></i> Detalle por piso</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>

@@ -56,11 +56,13 @@ Route::controller(ServicioAguaController::class)->group(function () {
 
 Route::controller(ServicioInternetController::class)->group(function () {
     Route::get('servicios/internet', 'internet')->name('servicios.internet');
+    Route::get('servicios/filtrarinternet', 'filtrarinternet')->name('servicios.filtrarinternet');
     Route::get('servicios/internet/crear', 'newinternet');
 });
 
 Route::controller(ServicioGasController::class)->group(function () {
-    Route::get('servicios/gas', 'agua')->name('servicios.gas');
+    Route::get('servicios/gas', 'gas')->name('servicios.gas');
+    Route::get('servicios/filtrargas', 'filtrargas')->name('servicios.filtrargas');
     Route::get('servicios/gas/crear', 'newgas');
 });
 

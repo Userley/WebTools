@@ -13,7 +13,7 @@
                 <a href="index.html">Servicios</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="index.html">Agua</a>
+                <a href="index.html">Gas</a>
             </li>
             <li class="breadcrumb-item">
                 <a href="index.html">Nuevo</a>
@@ -26,14 +26,14 @@
     @csrf
 
     <div class="btn-group">
-        <a href="{{ url('/servicios/agua/') }}"> <button class="btn btn-secondary">Regresar</button></a>
+        <a href="{{ url('/servicios/gas/') }}"> <button class="btn btn-secondary">Regresar</button></a>
     </div>
     <hr>
     <div class="row">
         <div class="col-md-4">
             <div class="ibox float-e-margins animated fadeInRight">
                 <div class="ibox-title">
-                    <h5>Periodo</h5>
+                    <h5><i class="fa fa-calendar" aria-hidden="true"></i> Periodo</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -67,9 +67,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label" for="txtMontoReciboAgua">Monto Recibo:</label>
-                                <input type="number" class="form-control" step="0.05" name="txtMontoReciboAgua"
-                                    id="txtMontoReciboAgua" value="0.00">
+                                <label class="control-label" for="txtMontoReciboGas">Monto Recibo:</label>
+                                <input type="number" class="form-control" step="0.05" name="txtMontoReciboGas"
+                                    id="txtMontoReciboGas" value="0.00">
                             </div>
                         </div>
                         <div class="col-12">
@@ -261,7 +261,7 @@
     }
 
     const calcular = () => {
-        let MontoReciboAgua = document.getElementById('txtMontoReciboAgua').value;
+        let MontoReciboAgua = document.getElementById('txtMontoReciboGas').value;
         let cantPisPer = document.getElementById('pisoslist').querySelectorAll('li').length;
 
         if (cantPisPer <= 0) {

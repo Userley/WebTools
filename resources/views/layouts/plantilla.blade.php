@@ -119,7 +119,7 @@
 
                         </ul>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="metrics.html"><i class="fa fa-clock-o" aria-hidden="true"></i><span
                                 class="nav-label">Histórico</span>
                             <span class="fa arrow"></span>
@@ -131,7 +131,7 @@
                             <li><a href="carousel.html">Imágenes</a></li>
 
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="{{ request()->routeIs('servicios.*') ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Servicios</span><span
                                 class="fa arrow"></span></a>
@@ -144,6 +144,8 @@
                                     href="{{ route('servicios.agua') }}">Agua</a></li>
                             <li class="{{ request()->routeIs('servicios.internet') ? 'active' : '' }}"><a
                                     href="{{ route('servicios.internet') }}">Internet</a></li>
+                            <li class="{{ request()->routeIs('servicios.gas') ? 'active' : '' }}"><a
+                                    href="{{ route('servicios.gas') }}">Gas</a></li>
                             <li class="{{ request()->routeIs('servicios.otros') ? 'active' : '' }}"><a
                                     href="{{ route('servicios.otros') }}">Otros</a></li>
                         </ul>
