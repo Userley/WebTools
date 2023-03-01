@@ -181,132 +181,133 @@
 @endsection
 
 <script>
-    const inputFile = document.querySelector('#formFile');
-    const image = document.querySelector('#imagenPrevisualizacion');
-    var base64URL = "";
+    @section('functions')
+        const inputFile = document.querySelector('#formFile');
+        const image = document.querySelector('#imagenPrevisualizacion');
+        var base64URL = "";
 
-    function round(value, decimals) {
-        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-    }
-
-    async function encodeFileAsBase64URL(file) {
-        return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.addEventListener('loadend', () => {
-                resolve(reader.result);
-            });
-            reader.readAsDataURL(file);
-        });
-    };
-
-    inputFile.addEventListener('input', async (event) => {
-        base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
-        image.setAttribute('src', base64URL);
-    });
-
-    const eliminarFila = (elemento) => {
-        var id = elemento.parentNode.getAttribute("id");
-        node = document.getElementById(id);
-        node.parentNode.removeChild(node);
-    }
-
-    const agregarFila = () => {
-
-        let txtCantPersonas = document.getElementById('txtCantPersonas').value;
-        let Idpiso = document.getElementById('cbopiso').value;
-        let Textpiso = document.getElementById('cbopiso').options[document.getElementById('cbopiso').selectedIndex]
-            .text;
-        let idPisoPersona = Idpiso + "," + txtCantPersonas;
-
-
-        if (txtCantPersonas <= 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Alerta',
-                text: 'No se puede agregar cantidades menores a 1',
-            });
-            return;
+        function round(value, decimals) {
+            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
         }
 
-        let contval = 0;
+        async function encodeFileAsBase64URL(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.addEventListener('loadend', () => {
+                    resolve(reader.result);
+                });
+                reader.readAsDataURL(file);
+            });
+        };
 
-        document.getElementById('pisoslist').querySelectorAll('li input').forEach((x) => {
-            let piso = x.id.split(',')[0];
+        inputFile.addEventListener('input', async (event) => {
+            base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
+            image.setAttribute('src', base64URL);
+        });
 
-            if (piso == Idpiso) {
-                contval++;
+        const eliminarFila = (elemento) => {
+            var id = elemento.parentNode.getAttribute("id");
+            node = document.getElementById(id);
+            node.parentNode.removeChild(node);
+        }
+
+        const agregarFila = () => {
+
+            let txtCantPersonas = document.getElementById('txtCantPersonas').value;
+            let Idpiso = document.getElementById('cbopiso').value;
+            let Textpiso = document.getElementById('cbopiso').options[document.getElementById('cbopiso')
+                    .selectedIndex]
+                .text;
+            let idPisoPersona = Idpiso + "," + txtCantPersonas;
+
+
+            if (txtCantPersonas <= 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alerta',
+                    text: 'No se puede agregar cantidades menores a 1',
+                });
+                return;
             }
-        });
 
-        if (contval > 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Alerta',
-                text: 'No se puede volver a agregar 2 veces el piso',
+            let contval = 0;
+
+            document.getElementById('pisoslist').querySelectorAll('li input').forEach((x) => {
+                let piso = x.id.split(',')[0];
+
+                if (piso == Idpiso) {
+                    contval++;
+                }
             });
-        } else {
-            document.getElementById('pisoslist').innerHTML +=
-                '<li class="list-group-item" id="' + txtCantPersonas +
-                ' "><span class="label label-danger" style="margin-right:5px !important;" onclick="eliminarFila(this)"><i class="fa fa-trash" aria-hidden="true"></i></span><input type="text" id="' +
-                idPisoPersona +
-                '" style="display:none" value="' + Textpiso +
-                '" disabled /><strong ><i class="fa fa-check" aria-hidden="true"></i> Lugar: </strong>' +
-                Textpiso +
-                '  <span style="margin-left:10px !important;">-</span>  <strong style="margin-left:10px !important;"><i class="fa fa-user" aria-hidden="true"></i> Personas: </strong>' +
-                txtCantPersonas + ' </li>';
 
-            txtCantPersonas.value = '';
-            document.getElementById('txtCantPersonas').focus();
-        }
-    }
+            if (contval > 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alerta',
+                    text: 'No se puede volver a agregar 2 veces el piso',
+                });
+            } else {
+                document.getElementById('pisoslist').innerHTML +=
+                    '<li class="list-group-item" id="' + txtCantPersonas +
+                    ' "><span class="label label-danger" style="margin-right:5px !important;" onclick="eliminarFila(this)"><i class="fa fa-trash" aria-hidden="true"></i></span><input type="text" id="' +
+                    idPisoPersona +
+                    '" style="display:none" value="' + Textpiso +
+                    '" disabled /><strong ><i class="fa fa-check" aria-hidden="true"></i> Lugar: </strong>' +
+                    Textpiso +
+                    '  <span style="margin-left:10px !important;">-</span>  <strong style="margin-left:10px !important;"><i class="fa fa-user" aria-hidden="true"></i> Personas: </strong>' +
+                    txtCantPersonas + ' </li>';
 
-    const calcular = () => {
-        let MontoReciboAgua = document.getElementById('txtMontoReciboGas').value;
-        let cantPisPer = document.getElementById('pisoslist').querySelectorAll('li').length;
-
-        if (cantPisPer <= 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Alerta',
-                text: 'Se debe tener una fila del detalle de piso y persona',
-            });
-            return;
+                txtCantPersonas.value = '';
+                document.getElementById('txtCantPersonas').focus();
+            }
         }
 
-        if (parseInt(MontoReciboAgua) <= 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Alerta',
-                text: 'El recibo no puede tener un monto menor o igual a 0.00',
+        const calcular = () => {
+            let MontoReciboGas = document.getElementById('txtMontoReciboGas').value;
+            let cantPisPer = document.getElementById('pisoslist').querySelectorAll('li').length;
+
+            if (cantPisPer <= 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alerta',
+                    text: 'Se debe tener una fila del detalle de piso y persona',
+                });
+                return;
+            }
+
+            if (parseInt(MontoReciboGas) <= 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alerta',
+                    text: 'El recibo no puede tener un monto menor o igual a 0.00',
+                });
+                return;
+            }
+
+            let sumaPersonas = 0;
+            document.getElementById('pisoslist').querySelectorAll('li input').forEach((x) => {
+                let persona = x.id.split(',')[1];
+                sumaPersonas = sumaPersonas + parseInt(persona);
             });
-            return;
+            console.log({
+                MontoReciboGas
+            });
+            console.log({
+                sumaPersonas
+            });
+
+            $('#tbldetalle').empty();
+            document.getElementById('pisoslist').querySelectorAll('li input').forEach(x => {
+                let valores = x.id.split(',');
+                let MontoxPers = ((MontoReciboGas) / (sumaPersonas));
+                document.getElementById('tbldetalle').insertRow(-1).innerHTML =
+                    '<td style="display:none">' +
+                    valores[0] + '</td><td>' +
+                    x.value + '</td><td>' +
+                    valores[1] + '</td><td>' +
+                    round(MontoxPers, 2) + '</td><td>' +
+                    round(round(MontoxPers, 2) * valores[1], 2) + '</td>';
+            });
         }
-
-        let sumaPersonas = 0;
-        document.getElementById('pisoslist').querySelectorAll('li input').forEach((x) => {
-            let persona = x.id.split(',')[1];
-            sumaPersonas = sumaPersonas + parseInt(persona);
-        });
-        console.log({
-            MontoReciboAgua
-        });
-        console.log({
-            sumaPersonas
-        });
-
-        $('#tbldetalle').empty();
-        document.getElementById('pisoslist').querySelectorAll('li input').forEach(x => {
-            let valores = x.id.split(',');
-            let MontoxPers = ((MontoReciboAgua - 20) / (sumaPersonas - 1));
-            document.getElementById('tbldetalle').insertRow(-1).innerHTML =
-                '<td style="display:none">' +
-                valores[0] + '</td><td>' +
-                x.value + '</td><td>' +
-                valores[1] + '</td><td>' +
-                (valores[0] == '2' ? 20 : round(MontoxPers, 2)) + '</td><td>' +
-                round((valores[0] == '2' ? 20 : round(MontoxPers, 2)) * valores[1], 2) + '</td>';
-        });
-
-
-    }
+    @endsection
 </script>
