@@ -76,38 +76,49 @@
                         </ul>
                     </li>
                     <li>
-                        {{-- <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">Videos</span><span
-                                class="fa arrow"></span></a> --}}
-                        <a href="#"><i class="fa fa-forward" aria-hidden="true"></i><span
-                                class="nav-label">Videos</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span
+                                class="nav-label">Memorias</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="typography.html"><i class="fa fa-youtube-play" aria-hidden="true"></i>
-                                    Youtube</a></li>
-                            <li><a href="icons.html"><i class="fa fa-instagram" aria-hidden="true"></i> Instagram</a>
+                            <li>
+                                <a href="#"><i class="fa fa-forward" aria-hidden="true"></i><span
+                                        class="nav-label">Videos</span>
+                                        {{-- <span class="fa arrow"></span> --}}
+                                    </a>
+                                {{-- <ul class="nav nav-second-level collapse">
+                                    <li><a href="typography.html"><i class="fa fa-youtube-play" aria-hidden="true"></i>
+                                            Youtube</a></li>
+                                    <li><a href="icons.html"><i class="fa fa-instagram" aria-hidden="true"></i>
+                                            Instagram</a>
+                                    </li>
+                                    <li><a href="draggable_panels.html"><i class="fa fa-twitter" aria-hidden="true"></i>
+                                            Twitter</a></li>
+                                    <li><a href="resizeable_panels.html"><i class="fa fa-music" aria-hidden="true"></i>
+                                            Tik
+                                            Tok</a></li>
+                                    <li><a href="buttons.html"><i class="fa fa-film" aria-hidden="true"></i> Otros</a>
+                                    </li>
+                                </ul> --}}
                             </li>
-                            <li><a href="draggable_panels.html"><i class="fa fa-twitter" aria-hidden="true"></i>
-                                    Twitter</a></li>
-                            <li><a href="resizeable_panels.html"><i class="fa fa-music" aria-hidden="true"></i> Tik
-                                    Tok</a></li>
-                            <li><a href="buttons.html"><i class="fa fa-film" aria-hidden="true"></i> Otros</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">Imágenes</span><span
-                                class="fa arrow"></span></a>
+                            <li>
+                                <a href="#"><i class="fa fa-picture-o"></i> <span
+                                        class="nav-label">Imágenes</span>
+                                        {{-- <span class="fa arrow"></span> --}}
+                                    </a>
 
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="table_basic.html">Inspiradoras</a></li>
-                            <li><a href="table_data_tables.html">Científicas</a></li>
-                            <li><a href="table_foo_table.html">Desarrollo</a></li>
-                            <li><a href="jq_grid.html">Personales</a></li>
+                                {{-- <ul class="nav nav-second-level collapse">
+                                    <li><a href="table_basic.html">Inspiradoras</a></li>
+                                    <li><a href="table_data_tables.html">Científicas</a></li>
+                                    <li><a href="table_foo_table.html">Desarrollo</a></li>
+                                    <li><a href="jq_grid.html">Personales</a></li>
+                                </ul> --}}
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-font" aria-hidden="true"></i><span
+                                        class="nav-label">Frases</span></a>
+                            </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-font" aria-hidden="true"></i><span
-                                class="nav-label">Textos</span></a>
-                    </li>
-                    <li>
+                    {{-- <li>
                         <a href="metrics.html"><i class="fa fa-pie-chart"></i> <span
                                 class="nav-label">Métricas</span>
                             <span class="fa arrow"></span>
@@ -118,7 +129,7 @@
                             <li><a href="carousel.html">Frecuencia Web</a></li>
 
                         </ul>
-                    </li>
+                    </li> --}}
                     {{-- <li>
                         <a href="metrics.html"><i class="fa fa-clock-o" aria-hidden="true"></i><span
                                 class="nav-label">Histórico</span>

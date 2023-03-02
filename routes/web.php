@@ -2,14 +2,17 @@
 
 use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\DispositivosController;
+use App\Http\Controllers\FrasesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImagenesController;
 use App\Http\Controllers\ServicioAguaController;
 use App\Http\Controllers\ServicioGasController;
 use App\Http\Controllers\ServicioInternetController;
 use App\Http\Controllers\ServicioLuzController;
 use App\Http\Controllers\ServicioOtrosController;
 use App\Http\Controllers\ServicioResumenController;
+use App\Http\Controllers\VideosController;
 use App\Mail\InfoMailMailable;
 use Illuminate\Support\Facades\Mail;
 /*
@@ -76,6 +79,23 @@ Route::controller(ServicioResumenController::class)->group(function () {
     Route::get('servicios/resumen', 'resumen')->name('servicios.resumen');
     Route::get('servicios/filtrarresumen', 'filtrarresumen')->name('servicios.filtrarresumen');
 });
+
+Route::controller(VideosController::class)->group(function () {
+    Route::get('memorias/videos', 'videos')->name('memorias.videos');
+    Route::get('memorias/videos/crear', 'newvideos');
+});
+
+Route::controller(ImagenesController::class)->group(function () {
+    Route::get('memorias/imagenes', 'imagenes')->name('memorias.imagenes');
+    Route::get('memorias/imagenes/crear', 'newimagenes');
+});
+
+Route::controller(FrasesController::class)->group(function () {
+    Route::get('memorias/frases', 'frases')->name('memorias.frases');
+    Route::get('memorias/frases/crear', 'newfrases');
+});
+
+
 
 
 Route::get('email/infomail', function () {

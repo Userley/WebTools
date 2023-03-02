@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lenguaje', function (Blueprint $table) {
-            $table->id('idlenguaje')->autoIncrement();
-            $table->string('nombre')->nullable(false);
-            $table->longText('logo')->nullable(false);
+        Schema::create('frases', function (Blueprint $table) {
+            $table->id('idfrases')->autoIncrement();
+            $table->string('autor')->nullable(true);
+            $table->string('frase')->nullable(false);
+            $table->boolean('estado')->nullable(false);
+            $table->integer('idtipolink')->nullable(false);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lenguaje');
+        Schema::dropIfExists('frases');
     }
 };
