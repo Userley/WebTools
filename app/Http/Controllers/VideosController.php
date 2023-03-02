@@ -8,11 +8,11 @@ class VideosController extends Controller
 {
     public function videos()
     {
-        return view('memorias.videos');
+        return view('memorias.videos.videos');
     }
 
     public function newvideos()
     {
-        return view('memorias.videosnew');
+        return view('memorias.videos.videosnew');
     }
 }

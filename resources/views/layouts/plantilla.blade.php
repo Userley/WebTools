@@ -80,69 +80,26 @@
                                 class="nav-label">Memorias</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li>
-                                <a href="#"><i class="fa fa-forward" aria-hidden="true"></i><span
-                                        class="nav-label">Videos</span>
-                                        {{-- <span class="fa arrow"></span> --}}
-                                    </a>
-                                {{-- <ul class="nav nav-second-level collapse">
-                                    <li><a href="typography.html"><i class="fa fa-youtube-play" aria-hidden="true"></i>
-                                            Youtube</a></li>
-                                    <li><a href="icons.html"><i class="fa fa-instagram" aria-hidden="true"></i>
-                                            Instagram</a>
-                                    </li>
-                                    <li><a href="draggable_panels.html"><i class="fa fa-twitter" aria-hidden="true"></i>
-                                            Twitter</a></li>
-                                    <li><a href="resizeable_panels.html"><i class="fa fa-music" aria-hidden="true"></i>
-                                            Tik
-                                            Tok</a></li>
-                                    <li><a href="buttons.html"><i class="fa fa-film" aria-hidden="true"></i> Otros</a>
-                                    </li>
-                                </ul> --}}
+                                <a href="{{ route('memorias.videos') }}">
+                                    {{-- <i class="fa fa-forward" aria-hidden="true"></i> --}}
+                                        <span class="nav-label">Videos</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-picture-o"></i> <span
+                                <a href="{{ route('memorias.imagenes') }}">
+                                    {{-- <i class="fa fa-picture-o"></i>  --}}
+                                    <span
                                         class="nav-label">Imágenes</span>
-                                        {{-- <span class="fa arrow"></span> --}}
-                                    </a>
-
-                                {{-- <ul class="nav nav-second-level collapse">
-                                    <li><a href="table_basic.html">Inspiradoras</a></li>
-                                    <li><a href="table_data_tables.html">Científicas</a></li>
-                                    <li><a href="table_foo_table.html">Desarrollo</a></li>
-                                    <li><a href="jq_grid.html">Personales</a></li>
-                                </ul> --}}
+                                </a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-font" aria-hidden="true"></i><span
-                                        class="nav-label">Frases</span></a>
+                                <a href="{{ route('memorias.frases') }}">
+                                    {{-- <i class="fa fa-font" aria-hidden="true"></i> --}}
+                                        <span class="nav-label">Frases</span></a>
                             </li>
                         </ul>
                     </li>
-                    {{-- <li>
-                        <a href="metrics.html"><i class="fa fa-pie-chart"></i> <span
-                                class="nav-label">Métricas</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="slick_carousel.html">Frecuencia Dispositivos</a></li>
-                            <li><a href="basic_gallery.html">Consumo servicios</a></li>
-                            <li><a href="carousel.html">Frecuencia Web</a></li>
 
-                        </ul>
-                    </li> --}}
-                    {{-- <li>
-                        <a href="metrics.html"><i class="fa fa-clock-o" aria-hidden="true"></i><span
-                                class="nav-label">Histórico</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="">Dispositivos</a></li>
-                            <li><a href="slick_carousel.html">Servicios</a></li>
-                            <li><a href="carousel.html">Videos</a></li>
-                            <li><a href="carousel.html">Imágenes</a></li>
-
-                        </ul>
-                    </li> --}}
                     <li class="{{ request()->routeIs('servicios.*') ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Servicios</span><span
                                 class="fa arrow"></span></a>

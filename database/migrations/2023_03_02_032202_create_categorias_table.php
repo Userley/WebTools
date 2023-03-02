@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipolink', function (Blueprint $table) {
-            $table->id('idtipolink')->autoIncrement();
+        Schema::create('categorias', function (Blueprint $table) {
+            $table->id('idcategoria')->autoIncrement();
             $table->string('descripcion');
-            $table->longText('icono');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipolink');
+        Schema::dropIfExists('categorias');
     }
 };

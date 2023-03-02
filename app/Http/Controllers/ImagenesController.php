@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorias;
 use Illuminate\Http\Request;
 
 class ImagenesController extends Controller
 {
     public function imagenes()
     {
-        return view('memorias.imagenes');
+        $Categorias =  Categorias::all();
+
+        return view('memorias.imagenes.imagenes', compact('Categorias'));
     }
 
     public function newimagenes()
     {
-        return view('memorias.imagenesnew');
+        return view('memorias.imagenes.imagenesnew');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TipoLinkController extends Controller
+class CategoriasController extends Controller
 {
     //
 }

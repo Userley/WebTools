@@ -8,11 +8,11 @@ class FrasesController extends Controller
 {
     public function frases()
     {
-        return view('memorias.frases');
+        return view('memorias.frases.frases');
     }
 
     public function newfrases()
     {
-        return view('memorias.frasesnew');
+        return view('memorias.frases.frasesnew');
     }
 }
