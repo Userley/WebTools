@@ -85,9 +85,10 @@ Route::controller(VideosController::class)->group(function () {
     Route::get('memorias/videos/crear', 'newvideos');
 });
 
-Route::controller(ImagenesController::class)->group(function () {
+Route::controller(ImagenesController::class)->group(function () { 
     Route::get('memorias/imagenes', 'imagenes')->name('memorias.imagenes');
     Route::get('memorias/imagenes/crear', 'newimagenes');
+    Route::post('memorias/imagenes/saveimagenes','saveimagenes')->name('memorias.saveimagenes');
 });
 
 Route::controller(FrasesController::class)->group(function () {

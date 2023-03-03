@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('autor')->nullable(true);
             $table->string('frase')->nullable(false);
             $table->boolean('estado')->nullable(false);
-            $table->integer('idtipolink')->nullable(false);
+            $table->integer('idcategoria')->nullable(false);
             $table->timestamps();
         });
     }

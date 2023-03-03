@@ -98,7 +98,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="formFile" for="formFile" class="control-label">Avatar:</label>
-                            <input class="form-control" type="file" id="formFile" name="avatar">
+                            <input class="form-control" type="file" id="formFile" name="avatar"  accept="image/*">
                         </div>
                         <div class="form-group">
                             <div class="text-center item">

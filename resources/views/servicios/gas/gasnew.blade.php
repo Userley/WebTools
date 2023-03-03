@@ -82,7 +82,7 @@
                             <hr>
                             <div class="form-group">
                                 <label for="formFile" class="control-label">Imagen:</label>
-                                <input class="form-control" type="file" id="formFile" name="formFile">
+                                <input class="form-control" type="file" id="formFile" name="formFile" accept="image/*">
                             </div>
                             <div class="form-group mx-5">
                                 <div class="text-center item">

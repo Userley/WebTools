@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('idimagenes')->autoIncrement();
             $table->string('titulo')->nullable(false);
             $table->longText('imagen')->nullable(false);
-            $table->integer('idtipolink')->nullable(false);
+            $table->integer('idcategoria')->nullable(false);
             $table->boolean('estado')->nullable(false);
             $table->timestamps();
         });

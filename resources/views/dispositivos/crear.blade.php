@@ -59,7 +59,7 @@
                         <div class="form-group">
                             <label for="formFile" class="col-sm-2 control-label">Imágen</label>
                             <div class="col-md-12">
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" id="formFile" accept="image/*">
                             </div>
                         </div>
                         <div class="col-md-12 text-center item">
