@@ -127,12 +127,12 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 align-self-center">
-                                    <button class="btn btn-primary w-100 btn-lg mt-3" onclick="agregarFila()">
+                                    <button class="btn btn-primary w-100 btn-lg mt-3" onclick="agregarFilaAgua()">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </button>
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="btn btn-secondary w-100 btn-lg p-4" onclick="calcular();">
+                                    <button class="btn btn-secondary w-100 btn-lg p-4" onclick="calcularAgua();">
                                         <i class="fa fa-calculator" aria-hidden="true"></i>
                                         Calcular
                                     </button>
@@ -141,7 +141,7 @@
                         </div>
                         <div class="col-md-6">
                             <div style="overflow-y: scroll; height:161px">
-                                <ul class="list-group" id="pisoslist">
+                                <ul class="list-group" id="pisoslistAgua">
                                 </ul>
                             </div>
                         </div>
@@ -170,8 +170,9 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="form-group">
-                        <button class="btn btn-success btn-lg w-25 " onclick="">Registrar</button>
+                    <div class="btn-group">
+                        <button class="btn btn-success btn-lg w-100" onclick="registrarAgua();">Registrar</button>
+                        <button class="btn btn-danger btn-lg w-100" onclick="limpiarfrmAgua();">Limpiar</button>
                     </div>
                 </div>
             </div>
@@ -185,24 +186,12 @@
 
         const inputFile = document.querySelector('#formFile');
         const image = document.querySelector('#imagenPrevisualizacion');
-        var base64URL = "";
 
-        function round(value, decimals) {
-            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-        }
-
-        async function encodeFileAsBase64URL(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.addEventListener('loadend', () => {
-                    resolve(reader.result);
-                });
-                reader.readAsDataURL(file);
-            });
-        };
 
         inputFile.addEventListener('input', async (event) => {
-            base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
+            let imgblob = await comprimirImagen(inputFile.files[0], 25);
+            let srcimg = URL.createObjectURL(imgblob);
+            base64URL = await encodeFileAsBase64URL(imgblob);
             image.setAttribute('src', base64URL);
         });
 
@@ -212,7 +201,7 @@
             node.parentNode.removeChild(node);
         }
 
-        const agregarFila = () => {
+        const agregarFilaAgua = () => {
 
             let txtCantPersonas = document.getElementById('txtCantPersonas').value;
             let Idpiso = document.getElementById('cbopiso').value;
@@ -223,17 +212,23 @@
 
 
             if (txtCantPersonas <= 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'No se puede agregar cantidades menores a 1',
-                });
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('No se puede agregar cantidades menores a 1',
+                        'Registro de imágenes');
+
+                }, 500);
                 return;
             }
 
             let contval = 0;
 
-            document.getElementById('pisoslist').querySelectorAll('li input').forEach((x) => {
+            document.getElementById('pisoslistAgua').querySelectorAll('li input').forEach((x) => {
                 let piso = x.id.split(',')[0];
 
                 if (piso == Idpiso) {
@@ -242,13 +237,21 @@
             });
 
             if (contval > 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'No se puede volver a agregar 2 veces el piso',
-                });
+
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('No se puede volver a agregar 2 veces el piso',
+                        'Registro de imágenes');
+
+                }, 500);
+
             } else {
-                document.getElementById('pisoslist').innerHTML +=
+                document.getElementById('pisoslistAgua').innerHTML +=
                     '<li class="list-group-item" id="' + txtCantPersonas +
                     ' "><span class="label label-danger" style="margin-right:5px !important;" onclick="eliminarFila(this)"><i class="fa fa-trash" aria-hidden="true"></i></span><input type="text" id="' +
                     idPisoPersona +
@@ -263,52 +266,148 @@
             }
         }
 
-        const calcular = () => {
+        const calcularAgua = () => {
+
             let MontoReciboAgua = document.getElementById('txtMontoReciboAgua').value;
-            let cantPisPer = document.getElementById('pisoslist').querySelectorAll('li').length;
+            let cantPisPer = document.getElementById('pisoslistAgua').querySelectorAll('li');
 
-            if (cantPisPer <= 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'Se debe tener una fila del detalle de piso y persona',
-                });
+            if (cantPisPer.length <= 0) {
+
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('Se debe tener una fila del detalle de piso y persona',
+                        'Registro de imágenes');
+
+                }, 500);
                 return;
+            } else {
+
+                if (parseInt(MontoReciboAgua) <= 0) {
+                    setTimeout(function() {
+                        toastr.options = {
+                            closeButton: true,
+                            // progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 3000
+                        };
+                        toastr.warning('El recibo no puede tener un monto menor o igual a 0.00',
+                            'Registro de imágenes');
+
+                    }, 500);
+                    return;
+                } else {
+                    let sumaPersonas = 0;
+
+                    let rowsTable = document.getElementById('tbldetalle').rows;
+
+                    for (let index = 0; index < cantPisPer.length; index++) {
+                        let cantPer = parseInt(cantPisPer[index].id);
+                        sumaPersonas = sumaPersonas + cantPer;
+                    }
+                    console.log(sumaPersonas);
+
+                    $('#tbldetalle').empty();
+                    document.getElementById('pisoslistAgua').querySelectorAll('li input').forEach(x => {
+                        let valores = x.id.split(',');
+                        let MontoxPers = ((MontoReciboAgua - 20) / (sumaPersonas - 1));
+                        document.getElementById('tbldetalle').insertRow(-1).innerHTML =
+                            '<td style="display:none">' +
+                            valores[0] + '</td><td>' +
+                            x.value + '</td><td>' +
+                            valores[1] + '</td><td>' +
+                            (valores[0] == '2' ? 20 : round(MontoxPers, 2)) + '</td><td>' +
+                            round((valores[0] == '2' ? 20 : round(MontoxPers, 2)) * valores[1], 2) +
+                            '</td>';
+                    });
+                }
+            }
+        }
+
+        const registrarAgua = () => {
+
+            let idmes = document.getElementById('cbomes').value;
+            let idanio = document.getElementById('cboanio').value;
+            let montorecibo = document.getElementById('txtMontoReciboAgua').value;
+            let comentario = document.getElementById('txtComentarios').value;
+            let imagen = document.getElementById('imagenPrevisualizacion').src;
+            let rowsTable = document.getElementById('tbldetalle').rows;
+            let consumodetalle = [];
+
+            let consumo = {
+                idanio: idanio,
+                idmes: idmes,
+                montorecibo: montorecibo,
+                comentario: comentario,
+                imagen: imagen
             }
 
-            if (parseInt(MontoReciboAgua) <= 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'El recibo no puede tener un monto menor o igual a 0.00',
-                });
-                return;
+            for (let index = 0; index < rowsTable.length; index++) {
+                let row = {
+                    idpiso: rowsTable[index].querySelectorAll('td')[0].innerText,
+                    cantpersonas: rowsTable[index].querySelectorAll('td')[2].innerText,
+                    montoxpersona: rowsTable[index].querySelectorAll('td')[3].innerText,
+                    montoxpiso: rowsTable[index].querySelectorAll('td')[4].innerText
+                }
+                consumodetalle.push(row);
             }
 
-            let sumaPersonas = 0;
-            document.getElementById('pisoslist').querySelectorAll('li input').forEach((x) => {
-                let persona = x.id.split(',')[1];
-                sumaPersonas = sumaPersonas + parseInt(persona);
-            });
-            console.log({
-                MontoReciboAgua
-            });
-            console.log({
-                sumaPersonas
-            });
+            console.log(consumo);
+            console.log(consumodetalle);
 
+            $.ajax({
+                url: "{{ route('servicios.saveagua') }}",
+                method: 'Post',
+                data: {
+                    '_token': $("input[name='_token']").val(),
+                    'consumo': consumo,
+                    'consumodetalle': consumodetalle,
+                }
+            }).done(function(data) {
+                if (data > 0) {
+                    // console.log(data);
+                    limpiarfrmAgua();
+                    setTimeout(function() {
+                        toastr.options = {
+                            closeButton: true,
+                            // progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 3000
+                        };
+                        toastr.success('El recibo se registró correctamente',
+                            'Registro de imágenes');
+                    }, 500);
+                }
+            });
+        }
+
+
+        const limpiarfrmAgua = () => {
+            var noImg = "{{ asset('../resources/img/Noimage.png') }}";
+            let cantinput = $('input[type="number"]');
+            let cantselect = $('select');
+            let canttextarea = $('textarea');
+
+            $('#pisoslistAgua').empty();
             $('#tbldetalle').empty();
-            document.getElementById('pisoslist').querySelectorAll('li input').forEach(x => {
-                let valores = x.id.split(',');
-                let MontoxPers = ((MontoReciboAgua - 20) / (sumaPersonas - 1));
-                document.getElementById('tbldetalle').insertRow(-1).innerHTML =
-                    '<td style="display:none">' +
-                    valores[0] + '</td><td>' +
-                    x.value + '</td><td>' +
-                    valores[1] + '</td><td>' +
-                    (valores[0] == '2' ? 20 : round(MontoxPers, 2)) + '</td><td>' +
-                    round((valores[0] == '2' ? 20 : round(MontoxPers, 2)) * valores[1], 2) + '</td>';
-            });
+            $('#formFile').val('');
+            $('#imagenPrevisualizacion').attr('src', noImg);
+
+            for (let index = 0; index < cantinput.length; index++) {
+                $('input[type="number"]')[index].value = '';
+            }
+
+            for (let index = 0; index < cantselect.length; index++) {
+                $('select')[index].selectedIndex = 0;
+            }
+
+            for (let index = 0; index < canttextarea.length; index++) {
+                $('textarea')[index].value = '';
+            }
         }
     @endsection
 </script>

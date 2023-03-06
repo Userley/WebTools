@@ -183,7 +183,8 @@
                     if (datos[0].Cabecera[0].image == null || datos[0].Cabecera[0].image == '') {
                         datos[0].Cabecera[0].image = noImg;
                     }
-
+                    $('#imgreciboTemp').attr('href', datos[0].Cabecera[0].image);
+                    $('#imgrecibo').attr('src', datos[0].Cabecera[0].image);
                     $('#txtMontoReciboAgua').val("S/ " + round(datos[0].Cabecera[0].costototalconsumo, 2));
                     $('#txtComentarios').val(datos[0].Cabecera[0].comentarios);
 

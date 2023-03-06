@@ -155,22 +155,6 @@
     @section('functions')
         const inputFile = document.querySelector('#formFile');
         // const image = document.querySelector('#imagenPrevisualizacion');
-        var base64URL = "";
-
-        function round(value, decimals) {
-            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-        }
-
-        async function encodeFileAsBase64URL(file) {
-            return new Promise((resolve) => {
-                // debugger;
-                const reader = new FileReader();
-                reader.addEventListener('loadend', () => {
-                    resolve(reader.result);
-                });
-                reader.readAsDataURL(file);
-            });
-        };
 
         const Categorias = (id) => {
             return '<select class="form-select form-select-sm form-control form-control-sm" id="cbomes' + id +
@@ -184,57 +168,131 @@
             $('#lstimages').empty();
         }
 
+        const eliminar = (id) => {
+            console.log(id);
+            document.getElementById("'" + id + "'").remove();
+        }
+
         inputFile.addEventListener('input', async (event) => {
             let images = inputFile.files;
             let contenedor = document.getElementById('lstimages');
 
-            for (let index = 0; index < images.length; index++) {
-                // console.log(images[index].name);
-                base64URL = await encodeFileAsBase64URL(inputFile.files[index]);
-                contenedor.innerHTML +=
-                    '<li class="list-group list-group-flush list-group-item-action p-1 m-0"><div class="row"> <div class="col-md-2 d-flex align-items-center"> <img src="' +
-                    base64URL +
-                    '" class="img-fluid rounded m-auto d-block" width="95" style="border-radius:0%"> </div> <div class="col-md-10"> <div class="row"> <div class="col-12"> <small><strong><label>Nombre: </label></strong></small>' +
-                    images[index].name +
-                    ' </div> <div class="col-md-6"> <small><strong><label>Titulo: </label></strong><input type="text" class="form-control form-control-sm" id="input' +
-                    index +
-                    '" /></small> </div> <div class="col-md-6"> <small><strong><label>Categoría: </label></strong>' +
-                    Categorias(index) + '</small> </div> </div> </div></div></li>';
+            if (images.length > 10) {
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.error('No se puede seleccionar mas de 10 imágenes',
+                        'Registro de imágenes');
+
+                }, 500);
+
+                limpiar();
+                return;
+            } else {
+                for (let index = 0; index < images.length; index++) {
+                    let imgblob = await comprimirImagen(inputFile.files[index], 25);
+                    let srcimg = URL.createObjectURL(imgblob);
+                    base64URL = await encodeFileAsBase64URL(imgblob);
+                    let iddelete = "'" + images[index].name + "'";
+
+                    contenedor.innerHTML +=
+                        '<li class="list-group list-group-flush p-1 m-0" id="' +
+                        iddelete +
+                        '" ><div class="row"> <div class="col-md-2 d-flex align-items-center"><div class="row"><div class="col-2  d-flex align-items-center"><span onclick="eliminar(' +
+                        iddelete +
+                        ');"><button class="btn btn-danger" ><i class="fa fa-trash" aria-hidden="true"></i></button></span></div><div class="col-10  d-flex align-items-center"><img src="' +
+                        base64URL +
+                        '" class="img-fluid rounded m-auto d-block" width="95" style="border-radius:0%"></div></div>  </div> <div class="col-md-10"> <div class="row"> <div class="col-12"><small><strong><label>Nombre: </label></strong></small><p>' +
+                        images[index].name +
+                        ' </p></div> <div class="col-md-8"> <small><strong><label>Titulo: </label></strong><input type="text" class="form-control form-control-sm" id="input' +
+                        index +
+                        '" /></small> </div> <div class="col-md-4"> <small><strong><label>Categoría: </label></strong>' +
+                        Categorias(index) + '</small> </div> </div> </div></div></li>';
+                }
             }
-            base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
-            // image.setAttribute('src', base64URL);
+
+
+
+
         });
 
         const registrar = () => {
             let lstImagenes = [];
             let cantRegistros = document.getElementById('lstimages').querySelectorAll('li').length;
 
-            let imgs = document.getElementById('lstimages').querySelectorAll('li img');
-            let nombres = document.getElementById('lstimages').querySelectorAll('li input');
-            let categorias = document.getElementById('lstimages').querySelectorAll('li select');
 
-            for (let index = 0; index < cantRegistros; index++) {
-                var objimg = {
-                    'img': imgs[index].src,
-                    'nombre': nombres[index].value,
-                    'categoria': categorias[index].value
-                };
-                lstImagenes.push(objimg);
-            }
+            if (cantRegistros > 0) {
 
-            // console.log(lstImagenes);
-            $.ajax({
-                url: "{{ route('memorias.saveimagenes') }}",
-                method: 'POST',
-                data: {
-                    '_token': $("input[name='_token']").val(),
-                    'data': lstImagenes,
+
+
+                let imgs = document.getElementById('lstimages').querySelectorAll('li img');
+                let nombres = document.getElementById('lstimages').querySelectorAll('li input');
+                let categorias = document.getElementById('lstimages').querySelectorAll('li select');
+
+                for (let index = 0; index < cantRegistros; index++) {
+                    var objimg = {
+                        'img': imgs[index].src,
+                        'nombre': nombres[index].value.replace('','_'),
+                        'categoria': categorias[index].value
+                    };
+                    lstImagenes.push(objimg);
                 }
-            }).done(function(data) {
 
-                console.log(data);
-                limpiar();
-            });
+                $.ajax({
+                    url: "{{ route('memorias.saveimagenes') }}",
+                    method: 'POST',
+                    data: {
+                        '_token': $("input[name='_token']").val(),
+                        'data': lstImagenes,
+                    }
+                }).done(function(data) {
+
+                    if (data > 0) {
+
+                        limpiar();
+                        setTimeout(function() {
+                            toastr.options = {
+                                closeButton: true,
+                                // progressBar: true,
+                                showMethod: 'slideDown',
+                                timeOut: 3000
+                            };
+                            toastr.success('¡Las imágenes se agregaron correctamente!',
+                                'Registro de imágenes');
+
+                        }, 500);
+                    } else {
+                        setTimeout(function() {
+                            toastr.options = {
+                                closeButton: true,
+                                // progressBar: true,
+                                showMethod: 'slideDown',
+                                timeOut: 3000
+                            };
+                            toastr.error('No se pudo registrar las imágenes',
+                                'Registro de imágenes');
+
+                        }, 500);
+                    }
+
+                });
+            }else{
+                setTimeout(function() {
+                            toastr.options = {
+                                closeButton: true,
+                                // progressBar: true,
+                                showMethod: 'slideDown',
+                                timeOut: 3000
+                            };
+                            toastr.error('No existen imágenes para guardar',
+                                'Registro de imágenes');
+
+                        }, 500);
+            }
         }
     @endsection
 </script>

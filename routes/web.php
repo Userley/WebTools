@@ -55,12 +55,14 @@ Route::controller(ServicioAguaController::class)->group(function () {
     Route::get('servicios/agua', 'agua')->name('servicios.agua');
     Route::get('servicios/filtraragua', 'filtraragua')->name('servicios.filtraragua');
     Route::get('servicios/agua/crear', 'newagua');
+    Route::post('servicios/agua', 'saveagua')->name('servicios.saveagua');
 });
 
 Route::controller(ServicioInternetController::class)->group(function () {
     Route::get('servicios/internet', 'internet')->name('servicios.internet');
     Route::get('servicios/filtrarinternet', 'filtrarinternet')->name('servicios.filtrarinternet');
     Route::get('servicios/internet/crear', 'newinternet');
+    Route::post('servicios/internet', 'saveinternet')->name('servicios.saveinternet');
 });
 
 Route::controller(ServicioGasController::class)->group(function () {
@@ -89,6 +91,8 @@ Route::controller(ImagenesController::class)->group(function () {
     Route::get('memorias/imagenes', 'imagenes')->name('memorias.imagenes');
     Route::get('memorias/imagenes/crear', 'newimagenes');
     Route::post('memorias/imagenes/saveimagenes','saveimagenes')->name('memorias.saveimagenes');
+    Route::get('memorias/imagenes/filtrarimagenes','filtrarimagenes')->name('memorias.filtrarimagenes');
+    Route::post('memorias/imagenes/removeimagen','removeimagen')->name('memorias.removeimagen');
 });
 
 Route::controller(FrasesController::class)->group(function () {

@@ -119,7 +119,8 @@
                         <div class="col-md-12 d-flex flex-row">
                             <div class="form-group">
                                 <label for="formFile" class="control-label">Imagen:</label>
-                                <input class="form-control" type="file" id="formFile" name="formFile" accept="image/*">
+                                <input class="form-control" type="file" id="formFile" name="formFile"
+                                    accept="image/*">
                             </div>
                             <div class="form-group mx-5">
                                 <div class="text-center item">
@@ -202,8 +203,9 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="form-group">
-                        <button class="btn btn-success btn-lg w-25 " onclick="GuardarRegistros();">Registrar</button>
+                    <div class="btn-group">
+                        <button class="btn btn-success btn-lg" onclick="GuardarRegistros();">Registrar</button>
+                        <button class="btn btn-danger btn-lg" onclick="LimpiarLuz();">Limpiar</button>
                     </div>
                 </div>
             </div>
@@ -214,11 +216,6 @@
     @section('functions')
         const inputFile = document.querySelector('#formFile');
         const image = document.querySelector('#imagenPrevisualizacion');
-        var base64URL = "";
-
-        function round(value, decimals) {
-            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-        }
 
         const LimpiarMedidaActual = () => {
             let txtMedidaPiso = document.getElementById('txtUltimaMedida');
@@ -235,23 +232,10 @@
 
         }
 
-
-        async function encodeFileAsBase64URL(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.addEventListener('loadend', () => {
-                    resolve(reader.result);
-                });
-                reader.readAsDataURL(file);
-            });
-        };
-
-        // Eventos
         inputFile.addEventListener('input', async (event) => {
-            // Convierto la primera imagen del input en una ruta Base64
-            debugger;
-            base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
-            // Anyado la ruta Base64 a la imagen
+            let imgblob = await comprimirImagen(inputFile.files[0], 25);
+            let srcimg = URL.createObjectURL(imgblob);
+            base64URL = await encodeFileAsBase64URL(imgblob);
             image.setAttribute('src', base64URL);
         });
 
@@ -296,20 +280,32 @@
 
 
             if (!valCamposVacios()) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'Debe llenar todos los campos obligatorios',
-                });
+
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('Debe llenar todos los campos obligatorios', 'Registro de Luz');
+
+                }, 500);
                 return;
             }
 
             if (medida == '') {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'Debe llenar la última medida del piso del mes',
-                });
+
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('Debe llenar la última medida del piso del mes', 'Registro de Luz');
+
+                }, 500);
                 document.getElementById('txtUltimaMedida').focus();
                 return;
             }
@@ -317,11 +313,17 @@
             for (let index = 0; index < document.getElementById('tbldetalle').rows.length; index++) {
                 let idPi = document.getElementById('tbldetalle').rows[index].querySelectorAll('td')[1].innerHTML;
                 if (Idpiso == idPi) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Oops...',
-                        text: '¡No se puede ingresar 2 veces un mismo Piso!',
-                    })
+
+                    setTimeout(function() {
+                        toastr.options = {
+                            closeButton: true,
+                            // progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 3000
+                        };
+                        toastr.warning('¡No se puede ingresar 2 veces un mismo Piso!', 'Registro de Luz');
+
+                    }, 500);
                     return;
                 }
             }
@@ -392,7 +394,16 @@
             const rowCount = table.rows.length;
 
             if (rowCount < 1) {
-                alert('No se puede eliminar el encabezado')
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('No se puede eliminar el encabezado', 'Registro de Luz');
+
+                }, 500);
             } else {
 
                 table.deleteRow(row.rowIndex - 1);
@@ -402,20 +413,31 @@
         const GuardarRegistros = () => {
 
             if (!valCamposVacios()) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'Debe llenar todos los campos',
-                });
+
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('¡Debe llenar todos los campos!', 'Registro de Luz');
+
+                }, 500);
                 return;
             }
 
             if (document.getElementById('tbldetalle').rows.length <= 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'Debe tener al menos registrado un piso.',
-                });
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('Debe tener al menos registrado un piso.', 'Registro de Luz');
+
+                }, 500);
                 return;
             }
 
@@ -474,33 +496,84 @@
 
                 console.log(data);
                 if (data == 0) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Alerta',
-                        text: 'No se pudo registrar la información.',
-                    });
+                    setTimeout(function() {
+                        toastr.options = {
+                            closeButton: true,
+                            // progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 3000
+                        };
+                        toastr.warning('No se pudo registrar la información.', 'Registro de Luz');
+
+                    }, 500);
+
                 } else if (data == 1) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Éxito',
-                        text: 'La información fue registrada exitosamente.',
-                    });
+                    LimpiarLuz();
+                    setTimeout(function() {
+                        toastr.options = {
+                            closeButton: true,
+                            // progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 3000
+                        };
+                        toastr.success('La información fue registrada exitosamente.',
+                            'Registro de Luz');
+
+                    }, 500);
+
+
                 } else if (data == 3) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Alerta',
-                        text: 'El registro con el mes y año seleccionado ya existe.',
-                    });
+                    setTimeout(function() {
+                        toastr.options = {
+                            closeButton: true,
+                            // progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 3000
+                        };
+                        toastr.warning('El registro con el mes y año seleccionado ya existe.',
+                            'Registro de Luz');
+
+                    }, 500);
+
                 } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Alerta',
-                        text: 'Existió un error en el proceso.',
-                    });
+                    setTimeout(function() {
+                        toastr.options = {
+                            closeButton: true,
+                            // progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 3000
+                        };
+                        toastr.error('Existió un error en el proceso.', 'Registro de Luz');
+                    }, 500);
                 }
-
             });
+        }
 
+        const LimpiarLuz = () => {
+            var noImg = "{{ asset('../resources/img/Noimage.png') }}";
+            let cantinput = $('input[type="number"]');
+            let cantselect = $('select');
+            let canttextarea = $('textarea');
+
+            $('#tbldetalle').empty();
+            $('#formFile').val('');
+            $('#imagenPrevisualizacion').attr('src', noImg);
+
+            for (let index = 0; index < cantinput.length; index++) {
+                $('input[type="number"]')[index].value = '';
+            }
+
+            for (let index = 0; index < cantselect.length; index++) {
+                $('select')[index].selectedIndex = 0;
+            }
+
+            for (let index = 0; index < canttextarea.length; index++) {
+                $('textarea')[index].value = '';
+            }
+
+            $('#txtCargosFijos').val('26.00');
+            $('#txtIGV').val('18');
+            $('#txtFraccionamiento').val('0.00');
 
         }
     @endsection

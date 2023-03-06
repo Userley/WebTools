@@ -249,4 +249,5 @@ INSERT INTO `categorias` (`descripcion`) VALUES
 ('Marketing'),
 ('Reflexion'),
 ('Personales'),
-('Privado');	
+('Fondos'),
+('Privado');

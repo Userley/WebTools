@@ -9,4 +9,5 @@ class Imagenes extends Model
 {
     use HasFactory;
     protected $table = "Imagenes";
+    protected $primaryKey = 'idimagenes';
 }

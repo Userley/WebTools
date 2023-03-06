@@ -16,16 +16,16 @@
     <!-- Toastr style -->
     <link href="{!! asset('../resources/css/plugins/toastr/toastr.min.css') !!}" rel="stylesheet">
 
-    <!-- Gritter -->
-    <link href="{!! asset('../resources/js/plugins/gritter/jquery.gritter.css') !!}" rel="stylesheet">
-
     <link href="{!! asset('../resources/css/animate.css') !!}" rel="stylesheet">
     <link href="{!! asset('../resources/css/style.css') !!}" rel="stylesheet">
 
+    <!-- Gritter -->
+    <link href="{!! asset('../resources/js/plugins/gritter/jquery.gritter.css') !!}" rel="stylesheet">
+
     <link href="{!! asset('../resources/css/plugins/iCheck/custom.css') !!}" rel="stylesheet">
     <link href="{!! asset('../resources/css/plugins/steps/jquery.steps.css') !!}" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="{!! asset('../resources/css/plugins/sweetalert/sweetalert.css') !!}" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.min.css" rel="stylesheet"> --}}
 
 
 </head>
@@ -82,20 +82,19 @@
                             <li>
                                 <a href="{{ route('memorias.videos') }}">
                                     {{-- <i class="fa fa-forward" aria-hidden="true"></i> --}}
-                                        <span class="nav-label">Videos</span>
+                                    <span class="nav-label">Videos</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('memorias.imagenes') }}">
                                     {{-- <i class="fa fa-picture-o"></i>  --}}
-                                    <span
-                                        class="nav-label">Imágenes</span>
+                                    <span class="nav-label">Imágenes</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('memorias.frases') }}">
                                     {{-- <i class="fa fa-font" aria-hidden="true"></i> --}}
-                                        <span class="nav-label">Frases</span></a>
+                                    <span class="nav-label">Frases</span></a>
                             </li>
                         </ul>
                     </li>
@@ -311,14 +310,58 @@
     <!-- Toastr -->
     <script src="{!! asset('../resources/js/plugins/toastr/toastr.min.js') !!}"></script>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.all.min.js"></script>
+    <script src="{!! asset('../resources/js/plugins/sweetalert/sweetalert.min.js') !!}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.all.min.js"></script> --}}
 
     <script>
         $(document).ready(function() {
             @yield('ready')
+            $(".loader").fadeOut("slow");
         });
 
+        var base64URL = "";
+        var base64URLx = "";
+
+        function round(value, decimals) {
+            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+        }
+
+        async function encodeFileAsBase64URL(file) {
+            return new Promise((resolve) => {
+                // debugger;
+                const reader = new FileReader();
+                reader.addEventListener('loadend', () => {
+                    resolve(reader.result);
+                });
+                reader.readAsDataURL(file);
+            });
+        };
+
+        const comprimirImagen = (imagenComoArchivo, porcentajeCalidad) => {
+
+            return new Promise((resolve, reject) => {
+                const $canvas = document.createElement("canvas");
+                const imagen = new Image();
+                imagen.onload = () => {
+                    $canvas.width = imagen.width;
+                    $canvas.height = imagen.height;
+                    $canvas.getContext("2d").drawImage(imagen, 0, 0);
+                    $canvas.toBlob(
+                        (blob) => {
+                            if (blob === null) {
+                                return reject(blob);
+                            } else {
+                                resolve(blob);
+                            }
+                        },
+                        "image/jpeg",
+                        porcentajeCalidad / 100
+                    );
+                };
+                imagen.src = URL.createObjectURL(imagenComoArchivo);
+            });
+        };
+        
         @yield('functions')
     </script>
 </body>

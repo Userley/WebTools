@@ -141,7 +141,7 @@
                         </div>
                         <div class="col-md-6">
                             <div style="overflow-y: scroll; height:161px">
-                                <ul class="list-group" id="pisoslist">
+                                <ul class="list-group" id="pisoslistInternet">
                                 </ul>
                             </div>
                         </div>
@@ -170,8 +170,9 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="form-group">
-                        <button class="btn btn-success btn-lg w-25 " onclick="">Registrar</button>
+                    <div class="btn-group">
+                        <button class="btn btn-success btn-lg" onclick="registrarInternet();">Registrar</button>
+                        <button class="btn btn-danger btn-lg" onclick="limpiarfrInternet();">Limpiar</button>
                     </div>
                 </div>
             </div>
@@ -184,24 +185,11 @@
     @section('functions')
         const inputFile = document.querySelector('#formFile');
         const image = document.querySelector('#imagenPrevisualizacion');
-        var base64URL = "";
-
-        function round(value, decimals) {
-            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-        }
-
-        async function encodeFileAsBase64URL(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.addEventListener('loadend', () => {
-                    resolve(reader.result);
-                });
-                reader.readAsDataURL(file);
-            });
-        };
 
         inputFile.addEventListener('input', async (event) => {
-            base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
+            let imgblob = await comprimirImagen(inputFile.files[0], 25);
+            let srcimg = URL.createObjectURL(imgblob);
+            base64URL = await encodeFileAsBase64URL(imgblob);
             image.setAttribute('src', base64URL);
         });
 
@@ -222,17 +210,24 @@
 
 
             if (txtCantPersonas <= 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'No se puede agregar cantidades menores a 1',
-                });
+
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('No se puede agregar cantidades menores a 1',
+                        'Registro de imágenes');
+                }, 500);
+
                 return;
             }
 
             let contval = 0;
 
-            document.getElementById('pisoslist').querySelectorAll('li input').forEach((x) => {
+            document.getElementById('pisoslistInternet').querySelectorAll('li input').forEach((x) => {
                 let piso = x.id.split(',')[0];
 
                 if (piso == Idpiso) {
@@ -241,13 +236,19 @@
             });
 
             if (contval > 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'No se puede volver a agregar 2 veces el piso',
-                });
+
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('No se puede volver a agregar 2 veces el piso',
+                        'Registro de imágenes');
+                }, 500);
             } else {
-                document.getElementById('pisoslist').innerHTML +=
+                document.getElementById('pisoslistInternet').innerHTML +=
                     '<li class="list-group-item" id="' + txtCantPersonas +
                     ' "><span class="label label-danger" style="margin-right:5px !important;" onclick="eliminarFila(this)"><i class="fa fa-trash" aria-hidden="true"></i></span><input type="text" id="' +
                     idPisoPersona +
@@ -263,53 +264,145 @@
         }
 
         const calcular = () => {
-            let MontoReciboAgua = document.getElementById('txtMontoReciboInternet').value;
-            let cantPisPer = document.getElementById('pisoslist').querySelectorAll('li').length;
+            let MontoReciboInternet = document.getElementById('txtMontoReciboInternet').value;
+            let cantPisPer = document.getElementById('pisoslistInternet').querySelectorAll('li').length;
 
             if (cantPisPer <= 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'Se debe tener una fila del detalle de piso y persona',
-                });
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('Se debe tener una fila del detalle de piso y persona',
+                        'Registro de imágenes');
+                }, 500);
                 return;
             }
 
-            if (parseInt(MontoReciboAgua) <= 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alerta',
-                    text: 'El recibo no puede tener un monto menor o igual a 0.00',
-                });
+            if (parseInt(MontoReciboInternet) <= 0) {
+                setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        // progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 3000
+                    };
+                    toastr.warning('El recibo no puede tener un monto menor o igual a 0.00',
+                        'Registro de imágenes');
+                }, 500);
                 return;
             }
 
             let sumaPersonas = 0;
-            document.getElementById('pisoslist').querySelectorAll('li input').forEach((x) => {
+            document.getElementById('pisoslistInternet').querySelectorAll('li input').forEach((x) => {
                 let persona = x.id.split(',')[1];
                 sumaPersonas = sumaPersonas + parseInt(persona);
             });
             console.log({
-                MontoReciboAgua
+                MontoReciboInternet
             });
             console.log({
                 sumaPersonas
             });
 
             $('#tbldetalle').empty();
-            document.getElementById('pisoslist').querySelectorAll('li input').forEach(x => {
+            document.getElementById('pisoslistInternet').querySelectorAll('li input').forEach(x => {
                 let valores = x.id.split(',');
-                let MontoxPers = (MontoReciboAgua / cantPisPer);
+                let MontoxPers = (MontoReciboInternet / sumaPersonas);
                 document.getElementById('tbldetalle').insertRow(-1).innerHTML =
                     '<td style="display:none">' +
                     valores[0] + '</td><td>' +
                     x.value + '</td><td>' +
                     valores[1] + '</td><td>' +
-                    round(MontoxPers / valores[1], 2) + '</td><td>' +
-                    round((MontoxPers / valores[1]) * valores[1], 2) + '</td>';
+                    round(MontoxPers, 2) + '</td><td>' +
+                    round(MontoxPers * valores[1], 2) + '</td>';
             });
 
 
+        }
+
+        const registrarInternet = () => {
+
+            let idmes = document.getElementById('cbomes').value;
+            let idanio = document.getElementById('cboanio').value;
+            let montorecibo = document.getElementById('txtMontoReciboInternet').value;
+            let comentario = document.getElementById('txtComentarios').value;
+            let imagen = document.getElementById('imagenPrevisualizacion').src;
+            let rowsTable = document.getElementById('tbldetalle').rows;
+            let consumodetalle = [];
+
+            let consumo = {
+                idanio: idanio,
+                idmes: idmes,
+                montorecibo: montorecibo,
+                comentario: comentario,
+                imagen: imagen
+            }
+
+            for (let index = 0; index < rowsTable.length; index++) {
+                let row = {
+                    idpiso: rowsTable[index].querySelectorAll('td')[0].innerText,
+                    cantpersonas: rowsTable[index].querySelectorAll('td')[2].innerText,
+                    montoxpersona: rowsTable[index].querySelectorAll('td')[3].innerText,
+                    montoxpiso: rowsTable[index].querySelectorAll('td')[4].innerText
+                }
+                consumodetalle.push(row);
+            }
+
+            console.log(consumo);
+            console.log(consumodetalle);
+
+            $.ajax({
+                url: "{{ route('servicios.saveinternet') }}",
+                method: 'Post',
+                data: {
+                    '_token': $("input[name='_token']").val(),
+                    'consumo': consumo,
+                    'consumodetalle': consumodetalle,
+                }
+            }).done(function(data) {
+                if (data > 0) {
+                    // console.log(data);
+                    limpiarfrInternet();
+                    setTimeout(function() {
+                        toastr.options = {
+                            closeButton: true,
+                            // progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 3000
+                        };
+                        toastr.success('El recibo se registró correctamente',
+                            'Registro de imágenes');
+                    }, 500);
+                }
+            });
+        }
+
+
+        const limpiarfrInternet = () => {
+            var noImg = "{{ asset('../resources/img/Noimage.png') }}";
+            let cantinput = $('input[type="number"]');
+            let cantselect = $('select');
+            let canttextarea = $('textarea');
+
+            $('#pisoslistInternet').empty();
+            $('#tbldetalle').empty();
+            $('#formFile').val('');
+            $('#imagenPrevisualizacion').attr('src', noImg);
+
+            for (let index = 0; index < cantinput.length; index++) {
+                $('input[type="number"]')[index].value = '';
+            }
+
+            for (let index = 0; index < cantselect.length; index++) {
+                $('select')[index].selectedIndex = 0;
+            }
+
+            for (let index = 0; index < canttextarea.length; index++) {
+                $('textarea')[index].value = '';
+            }
         }
     @endsection
 </script>
