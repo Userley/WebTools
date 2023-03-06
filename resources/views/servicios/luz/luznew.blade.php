@@ -124,7 +124,7 @@
                             </div>
                             <div class="form-group mx-5">
                                 <div class="text-center item">
-                                    <img id="imagenPrevisualizacion" width="90" style="border-radius:0%">
+                                    <img id="imagenPrevisualizacion" width="90" style="border-radius:0%" class="image">
                                 </div>
                             </div>
                         </div>

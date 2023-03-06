@@ -315,8 +315,8 @@
 
     <script>
         $(document).ready(function() {
-            @yield('ready')
             $(".loader").fadeOut("slow");
+            @yield('ready')
         });
 
         var base64URL = "";
@@ -361,7 +361,16 @@
                 imagen.src = URL.createObjectURL(imagenComoArchivo);
             });
         };
-        
+
+        var images = $(".image");
+
+        $(images).on("load", function(event) {
+            $(event.target).css("display", "");
+        });
+
+        $(images).on("error", function(event) {
+            $(event.target).css("display", "none");
+        });
         @yield('functions')
     </script>
 </body>

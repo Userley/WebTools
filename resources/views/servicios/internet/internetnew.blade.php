@@ -7,16 +7,13 @@
         <h2>Servicios</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">Home</a>
+                Servicios
             </li>
             <li class="breadcrumb-item">
-                <a href="index.html">Servicios</a>
+                Internet
             </li>
             <li class="breadcrumb-item">
-                <a href="index.html">Internet</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="index.html">Nuevo</a>
+                Nuevo
             </li>
         </ol>
     </div>
@@ -86,7 +83,7 @@
                             </div>
                             <div class="form-group mx-5">
                                 <div class="text-center item">
-                                    <img id="imagenPrevisualizacion" width="90" style="border-radius:0%">
+                                    <img id="imagenPrevisualizacion" width="90" style="border-radius:0%" class="image" >
                                 </div>
                             </div>
                         </div>
@@ -390,7 +387,7 @@
             $('#pisoslistInternet').empty();
             $('#tbldetalle').empty();
             $('#formFile').val('');
-            $('#imagenPrevisualizacion').attr('src', noImg);
+            $('#imagenPrevisualizacion').attr('src', '');
 
             for (let index = 0; index < cantinput.length; index++) {
                 $('input[type="number"]')[index].value = '';

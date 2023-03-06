@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Imagenes;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -43,8 +44,10 @@ class InfoMailMailable extends Mailable
      */
     public function content()
     {
+        $imagenes = Imagenes::all();
         return new Content(
             view: 'email.infomail',
+            with: compact('imagenes'),
         );
     }
 

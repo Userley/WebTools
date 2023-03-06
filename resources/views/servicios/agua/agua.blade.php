@@ -71,16 +71,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group text-center">
-                                <h5>Imágen Recibo</h5>
-                                <div id="links">
-                                    <a id="imgreciboTemp" href="{!! asset('../resources/img/Noimage.png') !!}" title="recibo">
-                                        <img id="imgrecibo" src="{!! asset('../resources/img/Noimage.png') !!}" width="100" alt="recibo" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="col-md-6">
                             <div class="wrapper wrapper-content animated fadeInRight m-0 p-0">
                                 <div class="ibox float-e-margins">
@@ -115,6 +106,16 @@
                                         <label class="control-label" for="txtComentarios">Comentarios:</label>
                                         <textarea class="form-control" id="txtComentarios" rows="2" disabled></textarea>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group text-center">
+                                <h5>Imágen Recibo</h5>
+                                <div id="links">
+                                    <a id="imgreciboTemp" href="{!! asset('../resources/img/Noimage.png') !!}" title="recibo">
+                                        <img id="imgrecibo" src="{!! asset('../resources/img/Noimage.png') !!}" width="100" alt="recibo" />
+                                    </a>
                                 </div>
                             </div>
                         </div>
