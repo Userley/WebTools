@@ -1,0 +1,12 @@
+vcrmzzjzvpiqbzey
+
+
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME="userleysoft@gmail.com"
+MAIL_PASSWORD="vcrmzzjzvpiqbzey"
+MAIL_ENCRYPTION="SSL"
+MAIL_FROM_ADDRESS="userleysoft@gmail.com"
+MAIL_FROM_NAME= "Consumos Mz. P Prima Lt.27 Covicorti" 

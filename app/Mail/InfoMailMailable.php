@@ -4,6 +4,10 @@ namespace App\Mail;
 
 use App\Models\Consumo;
 use App\Models\Consumo_detalle;
+use App\Models\ConsumoAgua;
+use App\Models\ConsumoAgua_detalle;
+use App\Models\ConsumoInternet;
+use App\Models\ConsumoInternet_detalle;
 use App\Models\Imagenes;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -23,14 +27,13 @@ class InfoMailMailable extends Mailable
      * @return void
      */
 
-    public $luz;
-    public $agua;
-    public $internet;
-    public function __construct($luz,  $agua,  $internet)
+    public $mes;
+    public $anio;
+
+    public function __construct($mes,  $anio)
     {
-        $this->luz = $luz;
-        $this->agua = $agua;
-        $this->internet = $internet;
+        $this->mes = $mes;
+        $this->anio = $anio;
     }
 
     /**
@@ -41,7 +44,7 @@ class InfoMailMailable extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Detalle de consumo',
+            subject: 'Consumos Mz. P Prima Lt.27 Covicorti',
         );
     }
 
@@ -52,22 +55,51 @@ class InfoMailMailable extends Mailable
      */
     public function content()
     {
-        $resp = [];
+        $respluz = [];
+        $respagua = [];
+        $respinternet = [];
+        $mes = $this->mes;
+        $anio = $this->anio;
+
+        //---------------------------------------------------------------
         //LUZ
-        $mesLuz = explode("-", $this->luz)[0];
-        $anioLuz = explode("-", $this->luz)[1];
 
-        $Consumo = Consumo::query()->where('idanio', $anioLuz)->where('idmes', $mesLuz)->get();
+        $ConsumoLuz = Consumo::query()->where('idanio', $anio)->where('idmes', $mes)->get();
 
-        $detalle = Consumo_detalle::join('pisos_casa', 'consumo_detalle.idpiso', '=', 'pisos_casa.idpiso')
-            ->select('pisos_casa.idpiso', 'pisos_casa.descripcion', 'consumo_detalle.medidakw', 'consumo_detalle.costokw', 'consumo_detalle.igv', 'consumo_detalle.consumokw', 'consumo_detalle.montototalsinigv', 'consumo_detalle.montoigv', 'consumo_detalle.montototalconigv', 'consumo_detalle.montocostoadministrativo', 'consumo_detalle.montopagofraccionado', 'consumo_detalle.montototal')->where('consumo_detalle.idconsumo', '=', $Consumo[0]->idconsumo)->get();
+        $detalleLuz = Consumo_detalle::join('pisos_casa', 'consumo_detalle.idpiso', '=', 'pisos_casa.idpiso')
+            ->select('pisos_casa.idpiso', 'pisos_casa.descripcion', 'consumo_detalle.medidakw', 'consumo_detalle.costokw', 'consumo_detalle.igv', 'consumo_detalle.consumokw', 'consumo_detalle.montototalsinigv', 'consumo_detalle.montoigv', 'consumo_detalle.montototalconigv', 'consumo_detalle.montocostoadministrativo', 'consumo_detalle.montopagofraccionado', 'consumo_detalle.montototal')->where('consumo_detalle.idconsumo', '=', $ConsumoLuz[0]->idconsumo)->get();
 
-        array_push($resp, $Consumo[0]);
-        array_push($resp, $detalle);
+        array_push($respluz, $ConsumoLuz[0]);
+        array_push($respluz, $detalleLuz);
+
+
+        //---------------------------------------------------------------
+        //AGUA
+
+        $ConsumoAgua = ConsumoAgua::query()->where('idanio', $anio)->where('idmes', $mes)->get();
+
+        $detalleAgua = ConsumoAgua_detalle::join('pisos_casa', 'consumoagua_detalle.idpiso', '=', 'pisos_casa.idpiso')
+            ->select('pisos_casa.idpiso', 'pisos_casa.descripcion', 'consumoagua_detalle.cantpersonas', 'consumoagua_detalle.montoxpersona', 'consumoagua_detalle.subtotal')->where('consumoagua_detalle.idconsumoagua', '=', $ConsumoAgua[0]->idconsumoagua)->get();
+
+        array_push($respagua, $ConsumoAgua[0]);
+        array_push($respagua, $detalleAgua);
+
+
+        //---------------------------------------------------------------
+        //INTERNET
+
+        $ConsumoInternet = ConsumoInternet::query()->where('idanio', $anio)->where('idmes', $mes)->get();
+
+        $detalleInternet = ConsumoInternet_detalle::join('pisos_casa', 'consumointernet_detalle.idpiso', '=', 'pisos_casa.idpiso')
+            ->select('pisos_casa.idpiso', 'pisos_casa.descripcion', 'consumointernet_detalle.cantpersonas', 'consumointernet_detalle.montoxpersona', 'consumointernet_detalle.subtotal')->where('consumointernet_detalle.idconsumointernet', '=', $ConsumoInternet[0]->idconsumointernet)->get();
+
+        array_push($respinternet, $ConsumoInternet[0]);
+        array_push($respinternet, $detalleInternet);
+
 
         return new Content(
             view: 'email.infomail',
-            with: ['reciboluz' => $resp, 'reciboagua' => $this->agua, 'recibointernet' => $this->internet],
+            with: ['reciboluz' => $respluz, 'reciboagua' => $respagua, 'recibointernet' => $respinternet],
         );
     }
 

@@ -103,8 +103,8 @@ Route::controller(FrasesController::class)->group(function () {
 
 
 
-Route::get('email/infomail/{luz}/{agua}/{internet}', function ($luz, $agua, $internet) {
-    $correo = new InfoMailMailable($luz, $agua, $internet);
+Route::get('email/infomail/{mes}/{anio}', function ($mes, $anio) {
+    $correo = new InfoMailMailable($mes, $anio);
     Mail::to('userleysoft@gmail.com')->send($correo);
     return "Correo enviado";
 });
