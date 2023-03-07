@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use App\Models\Consumo;
+use App\Models\Consumo_detalle;
 use App\Models\Imagenes;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,9 +22,15 @@ class InfoMailMailable extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $luz;
+    public $agua;
+    public $internet;
+    public function __construct($luz,  $agua,  $internet)
     {
-        //
+        $this->luz = $luz;
+        $this->agua = $agua;
+        $this->internet = $internet;
     }
 
     /**
@@ -44,10 +52,22 @@ class InfoMailMailable extends Mailable
      */
     public function content()
     {
-        $imagenes = Imagenes::all();
+        $resp = [];
+        //LUZ
+        $mesLuz = explode("-", $this->luz)[0];
+        $anioLuz = explode("-", $this->luz)[1];
+
+        $Consumo = Consumo::query()->where('idanio', $anioLuz)->where('idmes', $mesLuz)->get();
+
+        $detalle = Consumo_detalle::join('pisos_casa', 'consumo_detalle.idpiso', '=', 'pisos_casa.idpiso')
+            ->select('pisos_casa.idpiso', 'pisos_casa.descripcion', 'consumo_detalle.medidakw', 'consumo_detalle.costokw', 'consumo_detalle.igv', 'consumo_detalle.consumokw', 'consumo_detalle.montototalsinigv', 'consumo_detalle.montoigv', 'consumo_detalle.montototalconigv', 'consumo_detalle.montocostoadministrativo', 'consumo_detalle.montopagofraccionado', 'consumo_detalle.montototal')->where('consumo_detalle.idconsumo', '=', $Consumo[0]->idconsumo)->get();
+
+        array_push($resp, $Consumo[0]);
+        array_push($resp, $detalle);
+
         return new Content(
             view: 'email.infomail',
-            with: compact('imagenes'),
+            with: ['reciboluz' => $resp, 'reciboagua' => $this->agua, 'recibointernet' => $this->internet],
         );
     }
 

@@ -87,12 +87,12 @@ Route::controller(VideosController::class)->group(function () {
     Route::get('memorias/videos/crear', 'newvideos');
 });
 
-Route::controller(ImagenesController::class)->group(function () { 
+Route::controller(ImagenesController::class)->group(function () {
     Route::get('memorias/imagenes', 'imagenes')->name('memorias.imagenes');
     Route::get('memorias/imagenes/crear', 'newimagenes');
-    Route::post('memorias/imagenes/saveimagenes','saveimagenes')->name('memorias.saveimagenes');
-    Route::get('memorias/imagenes/filtrarimagenes','filtrarimagenes')->name('memorias.filtrarimagenes');
-    Route::post('memorias/imagenes/removeimagen','removeimagen')->name('memorias.removeimagen');
+    Route::post('memorias/imagenes/saveimagenes', 'saveimagenes')->name('memorias.saveimagenes');
+    Route::get('memorias/imagenes/filtrarimagenes', 'filtrarimagenes')->name('memorias.filtrarimagenes');
+    Route::post('memorias/imagenes/removeimagen', 'removeimagen')->name('memorias.removeimagen');
 });
 
 Route::controller(FrasesController::class)->group(function () {
@@ -103,8 +103,8 @@ Route::controller(FrasesController::class)->group(function () {
 
 
 
-Route::get('email/infomail', function () {
-    $correo = new InfoMailMailable;
+Route::get('email/infomail/{luz}/{agua}/{internet}', function ($luz, $agua, $internet) {
+    $correo = new InfoMailMailable($luz, $agua, $internet);
     Mail::to('userleysoft@gmail.com')->send($correo);
     return "Correo enviado";
 });
