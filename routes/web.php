@@ -105,6 +105,6 @@ Route::controller(FrasesController::class)->group(function () {
 
 Route::get('email/infomail/{mes}/{anio}', function ($mes, $anio) {
     $correo = new InfoMailMailable($mes, $anio);
-    Mail::to('userleysoft@gmail.com')->send($correo);
+    Mail::to('iris_diaz@hotmail.com')->send($correo);
     return "Correo enviado";
 });

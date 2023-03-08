@@ -44,7 +44,7 @@ class InfoMailMailable extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Consumos Mz. P Prima Lt.27 Covicorti',
+            subject: 'Febrero - Consumos Mz. P Prima Lt.27 Covicorti',
         );
     }
 
