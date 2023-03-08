@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    <link rel="shortcut icon" href="{!! asset('../resources/img/ico/devtools.ico') !!}">
     <title>WebTools Site</title>
 
     <link href="{!! asset('../resources/css/bootstrap.min.css') !!}" rel="stylesheet">
@@ -146,7 +146,7 @@
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
                                             <img alt="image" class="rounded-circle"
-                                                src="{!! asset('../resources//img/a7.jpg') !!}">
+                                                src="{!! asset('../resources/img/a7.jpg') !!}">
                                         </a>
                                         <div class="media-body">
                                             <small class="float-right">46h ago</small>
@@ -161,7 +161,7 @@
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
                                             <img alt="image" class="rounded-circle"
-                                                src="{!! asset('../resources//img/a4.jpg') !!}">
+                                                src="{!! asset('../resources/img/a4.jpg') !!}">
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right text-navy">5h ago</small>
@@ -176,7 +176,7 @@
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
                                             <img alt="image" class="rounded-circle"
-                                                src="{!! asset('../resources//img/profil') !!}e.jpg">
+                                                src="{!! asset('../resources/img/profil') !!}e.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right">23h ago</small>
