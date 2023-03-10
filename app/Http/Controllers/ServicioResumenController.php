@@ -19,6 +19,7 @@ class ServicioResumenController extends Controller
         $mesesText = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"];
         $pisos = Pisos_casa::all();
         $consumosxPiso = [];
+        $Datos = [];
 
         for ($i = 0; $i < count($pisos); $i++) {
             $ConsumoLuzDetalle = Consumo_detalle::query()->select('Mes.idmes', 'Anio.descripcion as anio', 'pisos_casa.idpiso', 'consumo_detalle.montototal')
@@ -45,14 +46,43 @@ class ServicioResumenController extends Controller
             array_push($consumosxPiso, $consumosPiso);
         }
 
+        for ($i = 0; $i < count($consumosxPiso); $i++) {
+            $element = $consumosxPiso[$i];
+            $newArray = [];
 
-        // $Data = [];
+            for ($j = 1; $j <= 12; $j++) {
+                $con = 0;
 
+                for ($k = 0; $k < count($element["meses"]); $k++) {
 
-        // for ($i = 0; $i < count($consumosPiso); $i++) {
-        //     $element = $consumosPiso[$i];
-        // }
+                    if ($j == $element["meses"][$k]) {
 
+                        array_push($newArray, $element["consumopiso"][$k]);
+                        $con++;
+                    }
+                }
+
+                if ($con == 0) {
+                    array_push($newArray, 0);
+                }
+            }
+
+            $rnd1 = rand(1, 255);
+            $rnd2 = rand(1, 255);
+            $rnd3 = rand(1, 255);
+
+            $obj['label'] = $element["piso"];
+            $obj['backgroundColor'] = 'rgba(' . $rnd1 . ',' . $rnd2 . ', ' . $rnd3 . ', 0.7)';
+            $obj['pointBorderColor'] = "#fff";
+            $obj['data'] = $newArray;
+
+            array_push($Datos, $obj);
+        }
+
+        // Codigo en  Javascript
+        // let Meses = JSON.parse(textarea.value)['meses'];
+        // let Consumos = JSON.parse(textarea.value)['consumo'];
+        // let Data = [];
 
         // for (let indexConsumo = 0; indexConsumo < Consumos.length; indexConsumo++) {
         //     const element = Consumos[indexConsumo];
@@ -77,7 +107,7 @@ class ServicioResumenController extends Controller
 
         //     let obj = {
         //         label: element.piso,
-        //         backgroundColor: 'rgba(' + randon1 + ',' + randon2 + ', ' + randon3 + ', 0.7)',
+        //         backgroundColor: 'rgba(' + randon1 + ',' + randon2 + ', ' + randon3 + ', 0.6)',
         //         pointBorderColor: "#fff",
         //         data: newArray // element.consumopiso // [0, 0, 65, 59, 80, 81, 56, 55, 40]
         //     };
@@ -86,52 +116,13 @@ class ServicioResumenController extends Controller
         // }
 
 
+        $datahtml = [];
+
+        $datahtml['meses'] = $mesesText;
+        $datahtml['data'] = $Datos; // $consumosxPiso[1]['consumopiso'][0];
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        $data = [];
-
-        $data['meses'] = $mesesText;
-        $data['consumo'] = $consumosxPiso;
-        $jsondetalle = strval(json_encode($data));
+        $jsondetalle = strval(json_encode($datahtml));
 
         return view('servicios.resumen.resumen', compact('jsondetalle'));
     }

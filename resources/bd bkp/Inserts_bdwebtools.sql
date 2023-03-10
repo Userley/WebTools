@@ -39,8 +39,7 @@ INSERT INTO `usuario` (`nombres`, `apellidos`, `avatar`, `nickname`, `password`,
 INSERT INTO `pisos_casa` (`descripcion`, `direccion`, `encargado`, `telefono`, `idusuario`) VALUES
 ('1er Piso', NULL, 'Yris Alicia Díaz Leyva', '914169129', 4),
 ('Cochera', 'Estimulación Temprana', '-', NULL, 5),
-('2do Piso D', NULL, 'Erick Martin Leyva Díaz', '993762254', 1),
-('2do Piso I', NULL, 'Nelson Anibal Cruz Díaz', '976302519', 3);
+('2do Piso D', NULL, 'Erick Martin Leyva Díaz', '993762254', 1);
 
 
 -- Dumping data for table dbtools.consumoagua: ~19 rows (approximately)

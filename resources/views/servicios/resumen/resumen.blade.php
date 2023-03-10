@@ -143,45 +143,11 @@
     @section('ready')
         var textarea = document.createElement("textarea");
         textarea.innerHTML = '{{ $jsondetalle }}';
-        let dat = JSON.parse(textarea.value);
-        let Meses = JSON.parse(textarea.value)['meses'];
-        let Consumos = JSON.parse(textarea.value)['consumo'];
-        let Data = [];
-
-        for (let indexConsumo = 0; indexConsumo < Consumos.length; indexConsumo++) {
-            const element = Consumos[indexConsumo];
-            let newArray = [];
-            for (let indexmes = 1; indexmes <= 12; indexmes++) {
-                let con = 0;
-                for (let index = 0; index < element.meses.length; index++) {
-                    if (indexmes == element.meses[index]) {
-                        newArray.push(element.consumopiso[index]);
-                        con++;
-                        break;
-                    }
-                }
-                if (con == 0) {
-                    newArray.push(0);
-                }
-            }
-            console.log(newArray);
-            let randon1 = Math.floor(Math.random() * (255 - 1)) + 1;
-            let randon2 = Math.floor(Math.random() * (255 - 1)) + 1;
-            let randon3 = Math.floor(Math.random() * (255 - 1)) + 1;
-
-            let obj = {
-                label: element.piso,
-                backgroundColor: 'rgba(' + randon1 + ',' + randon2 + ', ' + randon3 + ', 0.6)',
-                pointBorderColor: "#fff",
-                data: newArray // element.consumopiso // [0, 0, 65, 59, 80, 81, 56, 55, 40]
-            };
-
-            Data.push(obj);
-        }
+        let Resp = JSON.parse(textarea.value);
 
         var barData = {
-            labels: Meses,
-            datasets: Data.sort()
+            labels: Resp.meses,
+            datasets: Resp.data.sort()
         };
 
         var barOptions = {
@@ -197,22 +163,22 @@
         });
 
 
-        var lineData = {
-            labels: Meses,
-            datasets: Data.sort()
-        };
+        // var lineData = {
+        //     labels: Resp.meses,
+        //     datasets: Resp.data.sort()
+        // };
 
-        var lineOptions = {
-            responsive: true
-        };
+        // var lineOptions = {
+        //     responsive: true
+        // };
 
 
-        var ctx = document.getElementById("lineLuz").getContext("2d");
-        new Chart(ctx, {
-            type: 'line',
-            data: lineData,
-            options: lineOptions
-        });
+        // var ctx = document.getElementById("lineLuz").getContext("2d");
+        // new Chart(ctx, {
+        //     type: 'line',
+        //     data: lineData,
+        //     options: lineOptions
+        // });
     @endsection
 
 
