@@ -79,7 +79,9 @@ Route::controller(ServicioOtrosController::class)->group(function () {
 
 Route::controller(ServicioResumenController::class)->group(function () {
     Route::get('servicios/resumen', 'resumen')->name('servicios.resumen');
-    Route::get('servicios/filtrarresumen', 'filtrarresumen')->name('servicios.filtrarresumen');
+    Route::get('servicios/filtrarresluz', 'filtrarresluz')->name('servicios.filtrarresluz');
+    Route::get('servicios/filtrarresagua', 'filtrarresagua')->name('servicios.filtrarresagua');
+    Route::get('servicios/filtrarresinternet', 'filtrarresinternet')->name('servicios.filtrarresinternet');
 });
 
 Route::controller(VideosController::class)->group(function () {

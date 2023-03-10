@@ -15,6 +15,11 @@ class ServicioResumenController extends Controller
 
     public function resumen()
     {
+
+        $AniosLuz = consumo::select('anio.descripcion as anio')->join('anio', 'consumo.idanio', '=', 'anio.idanio')->distinct()->orderby('anio.idanio', 'DESC')->orderby('anio.idanio', 'DESC')->get();
+
+
+
         $mesesNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
         $mesesText = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"];
         $pisos = Pisos_casa::all();
@@ -124,6 +129,69 @@ class ServicioResumenController extends Controller
 
         $jsondetalle = strval(json_encode($datahtml));
 
-        return view('servicios.resumen.resumen', compact('jsondetalle'));
+        return view('servicios.resumen.resumen', compact('jsondetalle', 'AniosLuz'));
+    }
+
+    public function filtrarresluz(Request $request)
+    {
+        $mesesText = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"];
+        $Consumos = Consumo::query()->join('anio', 'anio.idanio', '=', 'consumo.idanio')->where('anio.descripcion', $request->anio)->get();
+
+        $ConsumosMensual = [];
+        $lstConsumos = [];
+        for ($i = 0; $i < count($Consumos); $i++) {
+            $ConsumosMensual["mes"] = $Consumos[$i]->idmes;
+            $ConsumosMensual["costo"] = $Consumos[$i]->precioxkw;
+            array_push($lstConsumos, $ConsumosMensual);
+        }
+
+
+
+        $arrayvalores = [];
+
+        for ($k = 1; $k <= 12; $k++) {
+            $cont = 0;
+
+            for ($j = 0; $j < count($lstConsumos); $j++) {
+
+                if ($lstConsumos[$j]["mes"] == $k) {
+                    array_push($arrayvalores, $lstConsumos[$j]["costo"]);
+                    $cont++;
+                    break;
+                }
+            }
+            if ($cont == 0) {
+                array_push($arrayvalores, 0);
+            }
+
+            
+        }
+
+        $Datos=[];
+        $rnd1 = rand(1, 255);
+        $rnd2 = rand(1, 255);
+        $rnd3 = rand(1, 255);
+        
+        $obj['label'] = 'Costo por Kwh';
+        $obj['backgroundColor'] = 'rgba(' . $rnd1 . ',' . $rnd2 . ', ' . $rnd3 . ', 0.7)';
+        $obj['pointBorderColor'] = "#fff";
+        $obj['data'] = $arrayvalores;
+
+        array_push($Datos, $obj);
+
+        $datahtml['meses'] = $mesesText;
+        $datahtml['data'] = $Datos; // $consumosxPis
+
+        return response($datahtml, 200)->header('Content-type', 'application/json');
+    }
+
+    public function filtrarresagua(Request $request)
+    {
+        # code...
+    }
+
+    public function filtrarresinternet(Request $request)
+    {
+        # code...
     }
 }
