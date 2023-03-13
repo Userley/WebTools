@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Consumo;
 use App\Models\Consumo_detalle;
+use App\Models\ConsumoAgua_detalle;
 use App\Models\Pisos_casa;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\AssignOp\Concat;
@@ -15,11 +16,22 @@ class ServicioResumenController extends Controller
 
     public function resumen()
     {
-
         $AniosLuz = consumo::select('anio.descripcion as anio')->join('anio', 'consumo.idanio', '=', 'anio.idanio')->distinct()->orderby('anio.idanio', 'DESC')->orderby('anio.idanio', 'DESC')->get();
+        return view('servicios.resumen.resumen', compact('AniosLuz'));
+    }
 
+    public function filtrarresluz(Request $request)
+    {
+        $GraficoLuz1 = $this->GraficoLuz1($request->anio);
+        $GraficoLuz2 = $this->GraficoLuz2($request->anio);
 
+        $resp['Graf1'] = $GraficoLuz1;
+        $resp['Graf2'] = $GraficoLuz2;
+        return response($resp, 200)->header('Content-type', 'application/json');
+    }
 
+    public function GraficoLuz1($Anio)
+    {
         $mesesNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
         $mesesText = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"];
         $pisos = Pisos_casa::all();
@@ -32,7 +44,7 @@ class ServicioResumenController extends Controller
                 ->join('Anio', 'Anio.idanio', '=', 'consumo_detalle.idanio')
                 ->join('pisos_casa', 'pisos_casa.idpiso', '=', 'consumo_detalle.idpiso')
                 ->whereIn('mes.idmes', $mesesNumber)
-                ->where('anio.descripcion', 2022)
+                ->where('anio.descripcion', $Anio)
                 ->where('Pisos_casa.idpiso', $pisos[$i]->idpiso)
                 ->orderby('Mes.idmes', 'asc')
                 ->get();
@@ -75,7 +87,6 @@ class ServicioResumenController extends Controller
             $rnd1 = rand(1, 255);
             $rnd2 = rand(1, 255);
             $rnd3 = rand(1, 255);
-
             $obj['label'] = $element["piso"];
             $obj['backgroundColor'] = 'rgba(' . $rnd1 . ',' . $rnd2 . ', ' . $rnd3 . ', 0.7)';
             $obj['pointBorderColor'] = "#fff";
@@ -84,58 +95,18 @@ class ServicioResumenController extends Controller
             array_push($Datos, $obj);
         }
 
-        // Codigo en  Javascript
-        // let Meses = JSON.parse(textarea.value)['meses'];
-        // let Consumos = JSON.parse(textarea.value)['consumo'];
-        // let Data = [];
-
-        // for (let indexConsumo = 0; indexConsumo < Consumos.length; indexConsumo++) {
-        //     const element = Consumos[indexConsumo];
-        //     let newArray = [];
-        //     for (let indexmes = 1; indexmes <= 12; indexmes++) {
-        //         let con = 0;
-        //         for (let index = 0; index < element.meses.length; index++) {
-        //             if (indexmes == element.meses[index]) {
-        //                 newArray.push(element.consumopiso[index]);
-        //                 con++;
-        //                 break;
-        //             }
-        //         }
-        //         if (con == 0) {
-        //             newArray.push(0);
-        //         }
-        //     }
-        //     console.log(newArray);
-        //     let randon1 = Math.floor(Math.random() * (255 - 1)) + 1;
-        //     let randon2 = Math.floor(Math.random() * (255 - 1)) + 1;
-        //     let randon3 = Math.floor(Math.random() * (255 - 1)) + 1;
-
-        //     let obj = {
-        //         label: element.piso,
-        //         backgroundColor: 'rgba(' + randon1 + ',' + randon2 + ', ' + randon3 + ', 0.6)',
-        //         pointBorderColor: "#fff",
-        //         data: newArray // element.consumopiso // [0, 0, 65, 59, 80, 81, 56, 55, 40]
-        //     };
-
-        //     Data.push(obj);
-        // }
-
-
         $datahtml = [];
-
         $datahtml['meses'] = $mesesText;
         $datahtml['data'] = $Datos; // $consumosxPiso[1]['consumopiso'][0];
+        $jsondetalle = json_encode($datahtml);
 
-
-        $jsondetalle = strval(json_encode($datahtml));
-
-        return view('servicios.resumen.resumen', compact('jsondetalle', 'AniosLuz'));
+        return $jsondetalle;
     }
 
-    public function filtrarresluz(Request $request)
+    public function GraficoLuz2($Anio)
     {
         $mesesText = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"];
-        $Consumos = Consumo::query()->join('anio', 'anio.idanio', '=', 'consumo.idanio')->where('anio.descripcion', $request->anio)->get();
+        $Consumos = Consumo::query()->join('anio', 'anio.idanio', '=', 'consumo.idanio')->where('anio.descripcion', $Anio)->get();
 
         $ConsumosMensual = [];
         $lstConsumos = [];
@@ -144,8 +115,6 @@ class ServicioResumenController extends Controller
             $ConsumosMensual["costo"] = $Consumos[$i]->precioxkw;
             array_push($lstConsumos, $ConsumosMensual);
         }
-
-
 
         $arrayvalores = [];
 
@@ -163,15 +132,13 @@ class ServicioResumenController extends Controller
             if ($cont == 0) {
                 array_push($arrayvalores, 0);
             }
-
-            
         }
 
-        $Datos=[];
+        $Datos = [];
         $rnd1 = rand(1, 255);
         $rnd2 = rand(1, 255);
         $rnd3 = rand(1, 255);
-        
+
         $obj['label'] = 'Costo por Kwh';
         $obj['backgroundColor'] = 'rgba(' . $rnd1 . ',' . $rnd2 . ', ' . $rnd3 . ', 0.7)';
         $obj['pointBorderColor'] = "#fff";
@@ -181,17 +148,19 @@ class ServicioResumenController extends Controller
 
         $datahtml['meses'] = $mesesText;
         $datahtml['data'] = $Datos; // $consumosxPis
-
-        return response($datahtml, 200)->header('Content-type', 'application/json');
+        return json_encode($datahtml);
     }
 
-    public function filtrarresagua(Request $request)
+    public function filtrarresagua($Anio)
     {
-        # code...
+
+// $consumoAgua = ConsumoAgua_detalle::query()->select('mes.idmes','consumoagua_detalle.subtotal','',)->
+
+
     }
 
-    public function filtrarresinternet(Request $request)
+    public function filtrarresinternet($Anio)
     {
-        # code...
+
     }
 }
