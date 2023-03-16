@@ -133,6 +133,9 @@
                                     </a>
                                 </div>
                             </div>
+                            <div class="button-group text-center">
+                                <button class="btn btn-danger" id="btndelLuz" disabled>Eliminar Consumo</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -230,14 +233,16 @@
                 }
             }).done(function(data) {
                 var datos = JSON.parse(data);
-                // console.log(data);
+                console.log(datos);
                 var noImg = "{{ asset('../resources/img/Noimage.png') }}";
                 if (datos.length > 0) {
 
                     if (datos[0].Cabecera[0].image == null || datos[0].Cabecera[0].image == '') {
                         datos[0].Cabecera[0].image = noImg;
                     }
-
+                    $('#btndelLuz').attr('disabled', false);
+                    $('#btndelLuz').attr("onclick", "eliminarRegistroLuz('" + datos[0].Cabecera[0].idconsumo +
+                        "');");
                     $('#txtTotalConsumo').val(datos[0].Cabecera[0].consumokwtotal + " Kwh");
                     $('#txtPrecioxKW').val("S/ " + parseFloat(datos[0].Cabecera[0].precioxkw));
                     $('#txtCargosFijos').val("S/ " + parseFloat(datos[0].Cabecera[0].costoadministrativo));
@@ -300,5 +305,42 @@
                 }
             });
         };
+
+
+        function eliminarRegistroLuz(idregistroluz) {
+
+
+            swal({
+                    title: "¿Seguro que deseas continuar?",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "OK",
+                    closeOnConfirm: false
+                },
+                function() {
+                    swal("¡Hecho!",
+                        "Se eliminó el registro " + idregistroluz,
+                        "success");
+                });
+
+
+
+
+
+            // $.ajax({
+            //     url: "{{ route('servicios.filtrar') }}",
+            //     method: 'Get',
+            //     data: {
+            //         '_token': $("input[name='_token']").val(),
+            //         'idmes': fechaanio[1],
+            //         'idanio': fechaanio[0],
+            //     }
+            // }).done(function(data) {
+
+
+            // });
+        }
     @endsection
 </script>
