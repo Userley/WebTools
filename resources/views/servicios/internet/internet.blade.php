@@ -38,7 +38,7 @@
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <div style="overflow-y: scroll; height:190px">
+                            <div style="overflow-y: scroll; height:160px" class="border">
                                 <ul class="list-group" id="listafechas">
                                     @foreach ($ConsumosInternet as $Consumo)
                                         <li class="list-group-item list-group-item-action"
@@ -50,6 +50,11 @@
                                     @endforeach
 
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-2">
+                            <div class="button-group text-center">
+                                <button class="btn btn-danger" id="btndelLuz" disabled>Eliminar Consumo</button>
                             </div>
                         </div>
                     </div>
@@ -101,7 +106,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="txtComentarios">Comentarios:</label>
-                                        <textarea class="form-control" id="txtComentarios" rows="2" disabled></textarea>
+                                        <textarea class="form-control" id="txtComentarios" rows="2" disabled ></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -115,6 +120,7 @@
                                     </a>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -150,6 +156,7 @@
     @endsection
 
     @section('functions')
+
         function round(value, decimals) {
             return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
         }

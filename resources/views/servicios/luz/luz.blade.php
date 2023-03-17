@@ -21,6 +21,8 @@
 
 @section('content')
 
+    @csrf
+
     <div class="d-flex align-content-center">
         <a href="{{ url('/servicios/luz/crear/') }}"> <button class="btn btn-primary col-md-12"><i class="fa fa-file-o"
                     aria-hidden="true"></i> Nuevo registro</button></a>
@@ -40,7 +42,7 @@
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <div style="overflow-y: scroll; height:290px">
+                            <div style="overflow-y: scroll; height:245px" class="border">
                                 <ul class="list-group" id="listafechas">
                                     @foreach ($Fechas as $Fecha)
                                         <li class="list-group-item list-group-item-action"
@@ -52,6 +54,11 @@
                                     @endforeach
 
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-3">
+                            <div class="button-group text-center">
+                                <button class="btn btn-danger" id="btndelLuz" disabled>Eliminar Consumo</button>
                             </div>
                         </div>
                     </div>
@@ -133,9 +140,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="button-group text-center">
-                                <button class="btn btn-danger" id="btndelLuz" disabled>Eliminar Consumo</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -309,7 +314,6 @@
 
         function eliminarRegistroLuz(idregistroluz) {
 
-
             swal({
                     title: "¿Seguro que deseas continuar?",
                     type: "warning",
@@ -317,30 +321,23 @@
                     cancelButtonText: "Cancelar",
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "OK",
-                    closeOnConfirm: false
+                    closeOnConfirm: true
                 },
                 function() {
-                    swal("¡Hecho!",
-                        "Se eliminó el registro " + idregistroluz,
-                        "success");
+
+                    $.ajax({
+                        url: "{{ route('servicios.eliminarluz') }}",
+                        method: 'POST',
+                        data: {
+                            '_token': $("input[name='_token']").val(),
+                            'id': idregistroluz,
+                        }
+                    }).done(function(data) {
+                        if (data > 0) {
+                            location.reload();
+                        }
+                    });
                 });
-
-
-
-
-
-            // $.ajax({
-            //     url: "{{ route('servicios.filtrar') }}",
-            //     method: 'Get',
-            //     data: {
-            //         '_token': $("input[name='_token']").val(),
-            //         'idmes': fechaanio[1],
-            //         'idanio': fechaanio[0],
-            //     }
-            // }).done(function(data) {
-
-
-            // });
         }
     @endsection
 </script>

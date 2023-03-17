@@ -122,6 +122,17 @@ class ServicioLuzController extends Controller
     }
 
 
+    public function eliminarLuz(Request $request)
+    {
+        $detalleConsumoLuz = Consumo_detalle::query()->where('idconsumo', $request->id)->delete();
+        if ($detalleConsumoLuz > 0) {
+            $ConsumoLuz = Consumo::query()->where('idconsumo', $request->id)->delete();
 
-
+            if ($ConsumoLuz > 0) {
+                return response(1, 200)->header('Content-type', 'text/plain');
+            }
+        } else {
+            return response(0, 200)->header('Content-type', 'text/plain');
+        }
+    }
 }

@@ -49,6 +49,7 @@ Route::controller(ServicioLuzController::class)->group(function () {
     Route::get('servicios/filtrar', 'filtrarluz')->name('servicios.filtrar');
     Route::get('servicios/luz/crear', 'newluz');
     Route::post('servicios/luz', 'saveluz')->name('servicios.saveluz');
+    Route::post('servicios/luz/eliminar', 'eliminarLuz')->name('servicios.eliminarluz');
 });
 
 Route::controller(ServicioAguaController::class)->group(function () {
@@ -56,6 +57,7 @@ Route::controller(ServicioAguaController::class)->group(function () {
     Route::get('servicios/filtraragua', 'filtraragua')->name('servicios.filtraragua');
     Route::get('servicios/agua/crear', 'newagua');
     Route::post('servicios/agua', 'saveagua')->name('servicios.saveagua');
+    Route::post('servicios/agua/eliminar', 'eliminaragua')->name('servicios.eliminaragua');
 });
 
 Route::controller(ServicioInternetController::class)->group(function () {
@@ -63,6 +65,7 @@ Route::controller(ServicioInternetController::class)->group(function () {
     Route::get('servicios/filtrarinternet', 'filtrarinternet')->name('servicios.filtrarinternet');
     Route::get('servicios/internet/crear', 'newinternet');
     Route::post('servicios/internet', 'saveinternet')->name('servicios.saveinternet');
+    Route::post('servicios/internet/eliminar', 'eliminarinternet')->name('servicios.eliminarinternet');
 });
 
 Route::controller(ServicioGasController::class)->group(function () {

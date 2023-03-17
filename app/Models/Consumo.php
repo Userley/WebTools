@@ -9,4 +9,5 @@ class Consumo extends Model
 {
     use HasFactory;
     protected $table = "Consumo";
+    protected $primaryKey = 'idconsumo';
 }

@@ -118,6 +118,9 @@
                                     </a>
                                 </div>
                             </div>
+                            <div class="button-group text-center">
+                                <button class="btn btn-danger" id="btndelLuz" disabled>Eliminar Consumo</button>
+                            </div>
                         </div>
                     </div>
                 </div>
