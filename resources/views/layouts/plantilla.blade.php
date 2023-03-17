@@ -12,6 +12,7 @@
     <link href="{!! asset('../resources/css/bootstrap.min.css') !!}" rel="stylesheet">
     <link href="{!! asset('../resources/font-awesome/css/font-awesome.css') !!}" rel="stylesheet">
 
+    <link href="{!! asset('../resources/css/plugins/footable/footable.core.css" ') !!}" rel="stylesheet">
     <link href="{!! asset('../resources/css/plugins/blueimp/css/blueimp-gallery.min.css') !!}" rel="stylesheet">
     <!-- Toastr style -->
     <link href="{!! asset('../resources/css/plugins/toastr/toastr.min.css') !!}" rel="stylesheet">
@@ -117,8 +118,8 @@
                                     href="{{ route('servicios.otros') }}">Otros</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-money" aria-hidden="true"></i><span
+                    <li class="{{ request()->routeIs('gastos') ? 'active' : '' }}">
+                        <a href="{{ route('gastos') }}"><i class="fa fa-money" aria-hidden="true"></i><span
                                 class="nav-label">Gastos</span></a>
                     </li>
                 </ul>
@@ -176,7 +177,7 @@
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
                                             <img alt="image" class="rounded-circle"
-                                                src="{!! asset('../resources/img/profil') !!}e.jpg">
+                                                src="{!! asset('../resources/img/profile.jpg') !!}">
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right">23h ago</small>
@@ -268,6 +269,7 @@
     <script src="{!! asset('../resources/js/plugins/metisMenu/jquery.metisMenu.js') !!}"></script>
     <script src="{!! asset('../resources/js/plugins/slimscroll/jquery.slimscroll.min.js') !!}"></script>
 
+
     <!-- blueimp gallery -->
     <script src="{!! asset('../resources/js/plugins/blueimp/jquery.blueimp-gallery.min.js') !!}"></script>
 
@@ -311,11 +313,18 @@
     <script src="{!! asset('../resources/js/plugins/toastr/toastr.min.js') !!}"></script>
 
     <script src="{!! asset('../resources/js/plugins/sweetalert/sweetalert.min.js') !!}"></script>
+
+    <!-- FooTable -->
+    <script src="{!! asset('../resources/js/plugins/footable/footable.all.min.js') !!}"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.all.min.js"></script> --}}
 
     <script>
         $(document).ready(function() {
             $(".loader").fadeOut("slow");
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
             @yield('ready')
         });
 

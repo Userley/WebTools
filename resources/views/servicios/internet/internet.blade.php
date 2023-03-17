@@ -38,7 +38,7 @@
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <div style="overflow-y: scroll; height:160px" class="border">
+                            <div style="overflow-y: scroll; height:165px" class="border">
                                 <ul class="list-group" id="listafechas">
                                     @foreach ($ConsumosInternet as $Consumo)
                                         <li class="list-group-item list-group-item-action"

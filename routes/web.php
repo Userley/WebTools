@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\DispositivosController;
 use App\Http\Controllers\FrasesController;
+use App\Http\Controllers\GastosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImagenesController;
@@ -103,6 +104,11 @@ Route::controller(ImagenesController::class)->group(function () {
 Route::controller(FrasesController::class)->group(function () {
     Route::get('memorias/frases', 'frases')->name('memorias.frases');
     Route::get('memorias/frases/crear', 'newfrases');
+});
+
+Route::controller(GastosController::class)->group(function () {
+    Route::get('gastos', 'gastos')->name('gastos');
+    // Route::get('memorias/frases/crear', 'newfrases');
 });
 
 

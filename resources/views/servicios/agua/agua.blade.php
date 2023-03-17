@@ -41,7 +41,7 @@
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <div style="overflow-y: scroll; height:190px">
+                            <div style="overflow-y: scroll; height:170px">
                                 <ul class="list-group" id="listafechas">
                                     @foreach ($ConsumosAgua as $Consumo)
                                         <li class="list-group-item list-group-item-action"
@@ -53,6 +53,11 @@
                                     @endforeach
 
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-2">
+                            <div class="button-group text-center">
+                                <button class="btn btn-danger" id="btndelLuz" disabled>Eliminar Consumo</button>
                             </div>
                         </div>
                     </div>
@@ -117,9 +122,6 @@
                                         <img id="imgrecibo" src="{!! asset('../resources/img/Noimage.png') !!}" width="100" alt="recibo" />
                                     </a>
                                 </div>
-                            </div>
-                            <div class="button-group text-center">
-                                <button class="btn btn-danger" id="btndelLuz" disabled>Eliminar Consumo</button>
                             </div>
                         </div>
                     </div>
