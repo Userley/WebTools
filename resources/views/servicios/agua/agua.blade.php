@@ -20,6 +20,7 @@
 @endsection
 
 @section('content')
+    @csrf
     <div class="d-flex align-content-center">
         <a href="{{ url('/servicios/agua/crear/') }}"> <button class="btn btn-primary col-md-12"><i class="fa fa-file-o"
                     aria-hidden="true"></i> Nuevo registro</button></a>
@@ -57,7 +58,7 @@
                         </div>
                         <div class="col-12 pt-2">
                             <div class="button-group text-center">
-                                <button class="btn btn-danger" id="btndelLuz" disabled>Eliminar Consumo</button>
+                                <button class="btn btn-danger" id="btndelAgua" disabled>Eliminar Consumo</button>
                             </div>
                         </div>
                     </div>
@@ -189,6 +190,9 @@
                     if (datos[0].Cabecera[0].image == null || datos[0].Cabecera[0].image == '') {
                         datos[0].Cabecera[0].image = noImg;
                     }
+                    $('#btndelAgua').attr('disabled', false);
+                    $('#btndelAgua').attr("onclick", "eliminarRegistroAgua('" + datos[0].Cabecera[0]
+                        .idconsumoagua + "');");
                     $('#imgreciboTemp').attr('href', datos[0].Cabecera[0].image);
                     $('#imgrecibo').attr('src', datos[0].Cabecera[0].image);
                     $('#txtMontoReciboAgua').val("S/ " + round(datos[0].Cabecera[0].costototalconsumo, 2));
@@ -220,6 +224,34 @@
                     $('#txtComentarios').val();
                 }
             });
-        };
+        }
+
+        function eliminarRegistroAgua(idregistroagua) {
+            console.log(idregistroagua);
+            swal({
+                    title: "¿Seguro que deseas continuar?",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "OK",
+                    closeOnConfirm: true
+                },
+                function() {
+
+                    $.ajax({
+                        url: "{{ route('servicios.eliminaragua') }}",
+                        method: 'POST',
+                        data: {
+                            '_token': $("input[name='_token']").val(),
+                            'id': idregistroagua,
+                        }
+                    }).done(function(data) {
+                        if (data > 0) {
+                            location.reload();
+                        }
+                    });
+                });
+        }
     @endsection
 </script>

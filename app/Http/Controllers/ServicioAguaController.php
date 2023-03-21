@@ -87,4 +87,18 @@ class ServicioAguaController extends Controller
         }
         return response($request, 200)->header('Content-type', 'text/plain');
     }
+
+    public function eliminaragua(Request $request)
+    {
+        $detalleAgua = ConsumoAgua_detalle::query()->where('idconsumoagua', $request->id)->delete();
+
+        if ($detalleAgua > 0) {
+            $agua = ConsumoAgua::query()->where('idconsumoagua', $request->id)->delete();
+
+            if ($agua > 0) {
+                return response(1, 200)->header('Content-type', 'text/plain');
+            }
+        }
+        return response(0, 200)->header('Content-type', 'text/plain');
+    }
 }

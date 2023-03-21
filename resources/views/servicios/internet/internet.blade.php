@@ -17,6 +17,7 @@
 @endsection
 
 @section('content')
+    @csrf
     <div class="d-flex align-content-center">
         <a href="{{ url('/servicios/internet/crear/') }}"> <button class="btn btn-primary col-md-12"><i class="fa fa-file-o"
                     aria-hidden="true"></i> Nuevo registro</button></a>
@@ -54,7 +55,7 @@
                         </div>
                         <div class="col-12 pt-2">
                             <div class="button-group text-center">
-                                <button class="btn btn-danger" id="btndelLuz" disabled>Eliminar Consumo</button>
+                                <button class="btn btn-danger" id="btndelinternet" disabled>Eliminar Consumo</button>
                             </div>
                         </div>
                     </div>
@@ -106,7 +107,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="txtComentarios">Comentarios:</label>
-                                        <textarea class="form-control" id="txtComentarios" rows="2" disabled ></textarea>
+                                        <textarea class="form-control" id="txtComentarios" rows="2" disabled></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -188,6 +189,10 @@
                     if (datos[0].Cabecera[0].image == null || datos[0].Cabecera[0].image == '') {
                         datos[0].Cabecera[0].image = noImg;
                     }
+
+                    $('#btndelinternet').attr('disabled', false);
+                    $('#btndelinternet').attr("onclick", "eliminarRegistroInternet('" + datos[0].Cabecera[0]
+                        .idconsumointernet + "');");
                     $('#imgreciboTemp').attr('href', datos[0].Cabecera[0].image);
                     $('#imgrecibo').attr('src', datos[0].Cabecera[0].image);
                     $('#txtMontoInternet').val("S/ " + round(datos[0].Cabecera[0].costototalconsumo, 2));
@@ -219,6 +224,34 @@
                     $('#txtComentarios').val();
                 }
             });
-        };
+        }
+
+        function eliminarRegistroInternet(idregistrointernet) {
+            console.log(idregistrointernet);
+            swal({
+                    title: "¿Seguro que deseas continuar?",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "OK",
+                    closeOnConfirm: true
+                },
+                function() {
+
+                    $.ajax({
+                        url: "{{ route('servicios.eliminarinternet') }}",
+                        method: 'POST',
+                        data: {
+                            '_token': $("input[name='_token']").val(),
+                            'id': idregistrointernet,
+                        }
+                    }).done(function(data) {
+                        if (data > 0) {
+                            location.reload();
+                        }
+                    });
+                });
+        }
     @endsection
 </script>

@@ -90,4 +90,18 @@ class ServicioInternetController extends Controller
         }
         return response($request, 200)->header('Content-type', 'text/plain');
     }
+
+    public function eliminarinternet(Request $request)
+    {
+        $detalleInternet = ConsumoInternet_detalle::query()->where('idconsumointernet', $request->id)->delete();
+
+        if ($detalleInternet > 0) {
+            $Internet = ConsumoInternet::query()->where('idconsumointernet', $request->id)->delete();
+
+            if ($Internet > 0) {
+                return response(1, 200)->header('Content-type', 'text/plain');
+            }
+        }
+        return response(0, 200)->header('Content-type', 'text/plain');
+    }
 }

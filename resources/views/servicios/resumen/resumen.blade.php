@@ -70,29 +70,9 @@
         <div class="ibox-content">
             <div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="ibox float-e-margins animated fadeInRight">
-                            <div class="ibox-title">
-                                <h5>Monto Mensual x Piso</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div>
-                                    <canvas id="lineAgua" height="140"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="ibox float-e-margins animated fadeInRight">
-                            <div class="ibox-title">
-                                <h5>Costo Kmh x Mes</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div>
-                                    <canvas id="barAgua" height="140"></canvas>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-12">
+                        <label for="barAgua"><strong>Consumo x Piso</strong></label>
+                        <canvas id="barAgua" height="130" class="animated fadeInRight"></canvas>
                     </div>
                 </div>
             </div>
@@ -112,34 +92,8 @@
             <div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <select name="cboanio" id="cboanio"></select>
-                            <button class="btn btn-success">Filtrar</button>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="ibox float-e-margins animated fadeInRight">
-                            <div class="ibox-title">
-                                <h5>Monto Mensual x Piso</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div>
-                                    <canvas id="lineInternet" height="140"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="ibox float-e-margins animated fadeInRight">
-                            <div class="ibox-title">
-                                <h5>Costo Kmh x Mes</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div>
-                                    <canvas id="barInternet" height="140"></canvas>
-                                </div>
-                            </div>
-                        </div>
+                        <label for="barInternet"><strong>Consumo x Piso</strong></label>
+                        <canvas id="barInternet" height="130" class="animated fadeInRight"></canvas>
                     </div>
                 </div>
             </div>
@@ -169,10 +123,16 @@
                     anio: $('#cboanio').val()
                 }
             }).done(function(data) {
+
+                console.log(data);
                 let JsonGraf1 = JSON.parse(data.Graf1);
                 let JsonGraf2 = JSON.parse(data.Graf2);
+                let JsonGraf3 = JSON.parse(data.Graf3);
+                let JsonGraf4 = JSON.parse(data.Graf4);
                 CargarGraficoLuz1(JsonGraf1.data, JsonGraf1.meses);
                 CargarGraficoLuz2(JsonGraf2.data, JsonGraf2.meses);
+                CargarGraficoAgua(JsonGraf3.data, JsonGraf3.meses);
+                CargarGraficoInternet(JsonGraf4.data, JsonGraf4.meses);
             });
         }
 
@@ -223,6 +183,69 @@
                 type: 'line',
                 data: lineDatax,
                 options: lineOptions
+            });
+        }
+
+        const CargarGraficoAgua = (bardata, labels) => {
+
+            if (window.graficabar2) {
+                window.graficabar2.clear();
+                window.graficabar2.destroy();
+            }
+
+            var barDatax = {
+                labels: labels,
+                datasets: bardata
+            };
+
+            var barOptions = {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            };
+
+            var ctx = document.getElementById("barAgua").getContext("2d");
+            window.graficabar2 = new Chart(ctx, {
+                type: 'bar',
+                data: barDatax,
+                options: barOptions
+            });
+        }
+
+
+        const CargarGraficoInternet = (bardata, labels) => {
+
+            if (window.graficabar3) {
+                window.graficabar3.clear();
+                window.graficabar3.destroy();
+            }
+
+            var barDatax = {
+                labels: labels,
+                datasets: bardata
+            };
+
+            var barOptions = {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            };
+
+            var ctx = document.getElementById("barInternet").getContext("2d");
+            window.graficabar2 = new Chart(ctx, {
+                type: 'bar',
+                data: barDatax,
+                options: barOptions
             });
         }
     @endsection

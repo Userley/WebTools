@@ -112,10 +112,10 @@
                                     href="{{ route('servicios.agua') }}">Agua</a></li>
                             <li class="{{ request()->routeIs('servicios.internet') ? 'active' : '' }}"><a
                                     href="{{ route('servicios.internet') }}">Internet</a></li>
-                            <li class="{{ request()->routeIs('servicios.gas') ? 'active' : '' }}"><a
+                            {{-- <li class="{{ request()->routeIs('servicios.gas') ? 'active' : '' }}"><a
                                     href="{{ route('servicios.gas') }}">Gas</a></li>
                             <li class="{{ request()->routeIs('servicios.otros') ? 'active' : '' }}"><a
-                                    href="{{ route('servicios.otros') }}">Otros</a></li>
+                                    href="{{ route('servicios.otros') }}">Otros</a></li> --}}
                         </ul>
                     </li>
                     <li class="{{ request()->routeIs('gastos') ? 'active' : '' }}">
