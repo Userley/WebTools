@@ -23,7 +23,7 @@
     @csrf
     <div class="ibox float-e-margins animated fadeInRight">
         <div class="ibox-title">
-            <h5>Historico Consumo Luz</h5>
+            <h5>Histórico Consumo Luz</h5>
             <div class="ibox-tools">
                 <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
@@ -60,7 +60,7 @@
 
     <div class="ibox float-e-margins animated fadeInRight">
         <div class="ibox-title">
-            <h5>Historico Consumo Agua</h5>
+            <h5>Histórico Consumo Agua</h5>
             <div class="ibox-tools">
                 <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
@@ -81,7 +81,7 @@
 
     <div class="ibox float-e-margins animated fadeInRight">
         <div class="ibox-title">
-            <h5>Historico Consumo Internet</h5>
+            <h5>Histórico Consumo Internet</h5>
             <div class="ibox-tools">
                 <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
@@ -242,7 +242,7 @@
             };
 
             var ctx = document.getElementById("barInternet").getContext("2d");
-            window.graficabar2 = new Chart(ctx, {
+            window.graficabar3 = new Chart(ctx, {
                 type: 'bar',
                 data: barDatax,
                 options: barOptions

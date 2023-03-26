@@ -51,7 +51,20 @@
         <div class="col-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <table class="footable table table-stripped toggle-arrow-tiny" style="font-size: 13px;">
+                    <h2>Detalle de Gastos</h2>
+                    <small>Tienes <span id="totaldetalle"></span> registros.</small>
+                    <ul class="list-group clear-list m-t">
+                        <li class="list-group-item fist-item">
+                            <span class="pull-right">
+                                <input type="number" class="form-control form-control-sm float-right w-50" name=""
+                                    id="" value="15" />
+                            </span>
+                            <span><button class="btn btn-sm btn-danger mt-1 mx-2"><i class="fa fa-trash-o"
+                                        aria-hidden="true"></i></button></span> Please contact me
+                        </li>
+                    </ul>
+
+                    {{-- <table class="footable table table-stripped toggle-arrow-tiny" style="font-size: 13px;">
                         <thead>
                             <tr>
                                 <th data-toggle="true" style="width:60%">Concepto</th>
@@ -61,8 +74,7 @@
                         </thead>
                         <tbody id="lstgastos">
                         </tbody>
-                    </table>
-
+                    </table> --}}
 
                     {{-- 
                     <div style="overflow-y: scroll; height:330px">
@@ -91,9 +103,6 @@
             $('#fecha').val(ano + "-" + mes + "-" + dia);
         }
     @endsection
-
-
-
 
     @section('functions')
 
