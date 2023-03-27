@@ -16,44 +16,56 @@
 @section('content')
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-md-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
 
-                    <div class="form-group">
-                        <label for="fecha">Seleccione Fecha:</label>
-                        <input type="date" class="form-control w-50" name="fecha" id="fecha" class="date">
-                    </div>
-                    <div class="form-group">
-                        <label for="concepto">Concepto:</label>
-                        <input type="text" class="form-control" name="concepto" id="concepto" class="date"
-                            onkeyup="saltarControl(event);">
-                    </div>
-                    <div class="form-group">
-                        <label for="monto">Monto:</label>
-                        <input type="number" class="form-control w-50" name="monto" id="monto" class="date"
-                            onkeyup="saltarControl(event);">
-                    </div>
-                    <div class="form-group">
-                        <label for="detalle">Detalle:</label>
-                        <input type="text" class="form-control" name="detalle" id="detalle" class="date"
-                            onkeyup="saltarControl(event);">
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-success" id="add" onkeyup="saltarControl(event);"
-                            onclick="add();">Agregar</button>
-                        <button class="btn btn-danger">Limpiar</button>
-                    </div>
 
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="fecha">Seleccione Fecha:</label>
+                                <input type="date" class="form-control" name="fecha" id="fecha" class="date">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="concepto">Concepto:</label>
+                                <input type="text" class="form-control" name="concepto" id="concepto"
+                                    onkeyup="saltarControl(event);">
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="monto">Monto:</label>
+                                <input type="number" class="form-control" name="monto" id="monto"
+                                    onkeyup="saltarControl(event);">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="detalle">Detalle:</label>
+                                <input type="text" class="form-control" name="detalle" id="detalle"
+                                    onkeyup="saltarControl(event);" />
+                            </div>
+                        </div>
+                        <div class="col-md-2 align-self-center mt-3">
+                            <div class="btn-group">
+                                <button class="btn btn-success" id="add" onkeyup="saltarControl(event);"
+                                    onclick="add();">Agregar</button>
+                                <button class="btn btn-danger">Limpiar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-12">
             <div class="ibox float-e-margins">
-                <div class="ibox-content">
+                <div class="ibox-content h-100">
                     <h2>Detalle de Gastos</h2>
                     <small>Tienes <span id="totaldetalle"></span> registros.</small>
-                    <ul class="list-group clear-list m-t">
+                    {{-- <ul class="list-group clear-list m-t" id="lstgastos">
                         <li class="list-group-item fist-item">
                             <span class="pull-right">
                                 <input type="number" class="form-control form-control-sm float-right w-50" name=""
@@ -62,19 +74,21 @@
                             <span><button class="btn btn-sm btn-danger mt-1 mx-2"><i class="fa fa-trash-o"
                                         aria-hidden="true"></i></button></span> Please contact me
                         </li>
-                    </ul>
+                    </ul> --}}
 
-                    {{-- <table class="footable table table-stripped toggle-arrow-tiny" style="font-size: 13px;">
+
+                    <table class="footable table table-stripped toggle-arrow-tiny" style="font-size: 13px;">
                         <thead>
                             <tr>
-                                <th data-toggle="true" style="width:60%">Concepto</th>
-                                <th style="width:20%">Monto</th>
-                                <th style="width:20%">Action</th>
+                                <th class="text-center">Action</th>
+                                <th data-toggle="true" class="text-center">Concepto</th>
+                                <th data-toggle="true" class="text-center">Detalle</th>
+                                <th class="text-center">Monto</th>
                             </tr>
                         </thead>
                         <tbody id="lstgastos">
                         </tbody>
-                    </table> --}}
+                    </table>
 
                     {{-- 
                     <div style="overflow-y: scroll; height:330px">
@@ -127,10 +141,15 @@
             let concepto = $('#concepto').val();
             let monto = $('#monto').val();
             let detalle = $('#detalle').val();
-            $('#lstgastos').append('<tr><td>' + concepto +
-                '</td><td><input type="number" class="form-control" name="" id="" value="' + monto +
-                '" /></td><td><button class="btn btn-danger mt-1 mx-2"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td></tr>'
-            );
+            $('#lstgastos').append(
+                '<tr><td class="text-center"><span><button class="btn btn-sm btn-danger mt-1 mx-2"><i class="fa fa-trash-o" aria-hidden="true"></i></button></span></td><td class="align-middle text-center">' +
+                concepto +
+                '</td><td class="text-center">' +
+                detalle +
+                '</td><td class="text-center"><input style="width:100px;" type="number" class="form-control form-control-sm" name="" id="" value="' +
+                monto +
+                '" /></td></tr>');
+
 
             // '<li class="list-group-item list-group-item-action m-0 p-0" id="" onclick=""> <div class="row"><div class="col-1"><button class="btn btn-danger mt-1 mx-2"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div><div class="col-7 d-flex align-items-center">' +
             // concepto +

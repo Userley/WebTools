@@ -26,8 +26,6 @@
     <link href="{!! asset('../resources/css/plugins/iCheck/custom.css') !!}" rel="stylesheet">
     <link href="{!! asset('../resources/css/plugins/steps/jquery.steps.css') !!}" rel="stylesheet">
     <link href="{!! asset('../resources/css/plugins/sweetalert/sweetalert.css') !!}" rel="stylesheet">
-    {{-- <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.min.css" rel="stylesheet"> --}}
-
 
 </head>
 
@@ -316,7 +314,6 @@
 
     <!-- FooTable -->
     <script src="{!! asset('../resources/js/plugins/footable/footable.all.min.js') !!}"></script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.all.min.js"></script> --}}
 
     <script>
         $(document).ready(function() {
